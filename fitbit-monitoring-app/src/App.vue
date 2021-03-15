@@ -4,7 +4,7 @@
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
           <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
+            <ion-list-header>FITBIT MONITORING APP</ion-list-header>
             <ion-note>hi@ionicframework.com</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
@@ -15,14 +15,14 @@
             </ion-menu-toggle>
           </ion-list>
   
-          <ion-list id="labels-list">
+          <!-- <ion-list id="labels-list">
             <ion-list-header>Labels</ion-list-header>
   
             <ion-item v-for="(label, index) in labels" lines="none" :key="index">
               <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
               <ion-label>{{ label }}</ion-label>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -34,7 +34,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { pulseOutline, pulseSharp, bookmarkOutline, bookmarkSharp, ribbonOutline, ribbonSharp, homeOutline, homeSharp, paperPlaneSharp, personCircleOutline, personCircleSharp, logOutOutline, logOutSharp } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'App',
@@ -56,69 +56,63 @@ export default defineComponent({
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Inbox',
+        title: 'Home',
         url: '/folder/Inbox',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
+        iosIcon: homeOutline,
+        mdIcon: homeSharp
       },
       {
-        title: 'Outbox',
-        url: '/folder/Outbox',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
-      },
-      {
-        title: 'Favorites',
+        title: 'Obiettivi',
         url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
+        iosIcon: ribbonOutline,
+        mdIcon: ribbonSharp
       },
       {
-        title: 'Archived',
+        title: 'Statistiche',
         url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
+        iosIcon: pulseOutline,
+        mdIcon: pulseSharp
       },
       {
-        title: 'Trash',
+        title: 'Profilo',
         url: '/folder/Trash',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
+        iosIcon: personCircleOutline,
+        mdIcon: personCircleSharp
       },
       {
-        title: 'Spam',
+        title: 'Logout',
         url: '/folder/Spam',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
+        iosIcon: logOutOutline,
+        mdIcon: logOutSharp
       }
     ];
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-    
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     
+    // const labels = ['Other'];
+
     const route = useRoute();
     
     return { 
+      // labels,
       selectedIndex,
       appPages, 
-      labels,
-      archiveOutline, 
-      archiveSharp, 
+      pulseOutline, 
+      pulseSharp, 
       bookmarkOutline, 
       bookmarkSharp, 
-      heartOutline, 
-      heartSharp, 
-      mailOutline, 
-      mailSharp, 
-      paperPlaneOutline, 
+      ribbonOutline, 
+      ribbonSharp, 
+      homeOutline, 
+      homeSharp, 
+     
       paperPlaneSharp, 
-      trashOutline, 
-      trashSharp, 
-      warningOutline, 
-      warningSharp,
+      personCircleOutline, 
+      personCircleSharp, 
+      logOutOutline, 
+      logOutSharp,
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
