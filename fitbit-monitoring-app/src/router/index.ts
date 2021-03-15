@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '',
-    redirect: '/folder/Inbox'
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/folder/:id',
