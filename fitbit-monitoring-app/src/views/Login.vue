@@ -1,28 +1,23 @@
 <template>
     <ion-page>
         <ion-header>
-            <ion-toolbar>
-                <ion-title>Sign In/Up</ion-title>
-            </ion-toolbar>
+            <ion-img
+                class="login-header"
+                src="/assets/img/logo_app_white.png"
+            ></ion-img>
         </ion-header>
         <ion-content :fullscreen="true">
             <ion-card>
                 <ion-card-header>
-                    <ion-card-title>
-                        Benvenuti in Fitbit Monitoring App
-                    </ion-card-title>
-                    <ion-card-subtitle> Sign In/Up </ion-card-subtitle>
+                    <ion-card-title> Benvenuto! </ion-card-title>
+                    <ion-card-subtitle>Accedi o registrati</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                     <form
                         @submit.prevent="
                             mode === AuthMode.SignIn
-                                ? signInWithEmailAndPassword(email, password)
-                                : signUpWithEmailAndPassword(
-                                      name,
-                                      email,
-                                      password
-                                  )
+                                ? signIn(email, password)
+                                : signUp(name, email, password)
                         "
                     >
                         <ion-item v-if="mode === AuthMode.SignUp">
@@ -79,8 +74,6 @@
 import {
     IonPage,
     IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonCard,
     IonCardHeader,
@@ -93,11 +86,9 @@ import {
     IonItem,
 } from "@ionic/vue";
 
-// import { auth, db } from "../main";
 import { reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-
 import md5 from "js-md5";
 
 enum AuthMode {
@@ -110,8 +101,6 @@ export default {
     components: {
         IonPage,
         IonHeader,
-        IonToolbar,
-        IonTitle,
         IonContent,
         IonCard,
         IonCardSubtitle,
@@ -124,32 +113,60 @@ export default {
         IonCardHeader,
     },
     setup() {
-        const saltRounds = 10;
         const router = useRouter();
         const state = reactive({
-            name: "",
+            nome: "",
+            cognome: "",
+            cf: "",
             email: "",
             password: "",
             mode: AuthMode.SignIn,
             errorMsg: "",
         });
 
-        const getUser = async (email: string, password: string) => {
+        const checkUser = async (email: string, password: string) => {
             // Check user credentials
             axios
                 .get("http://localhost/tirocinio/crud-api/api/users/" + email)
                 .then(function (response) {
                     if (response.data.password === md5(password)) {
-                        state.errorMsg = "LOGIN";
+                        state.nome = response.data.nome;
+                        state.cognome = response.data.cognome;
+                        state.cf = response.data.codice_fiscale;
+                        state.email = response.data.email;
+                        state.password = md5(response.data.password);
+                        state.errorMsg = "";
+
+                        router.push("/folder");
+                        console.log("redirect");
                         return;
                     } else {
-                        state.errorMsg = "WRONG PWD";
+                        state.errorMsg = "WRONG PASSWORD!";
+                    }
+                })
+                .catch(function (error) {
+                    state.errorMsg = "USER NOT FOUND!";
+                })
+                .then(function () {
+                    return;
+                });
+        };
+
+        const createUser = async (email: string, password: string) => {
+            // Check user credentials
+            axios
+                .post("http://localhost/tirocinio/crud-api/api/users/" + email)
+                .then(function (response) {
+                    if (response.data.password === md5(password)) {
+                        state.errorMsg = "LOGGED IN";
+                        return true;
+                    } else {
+                        state.errorMsg = "WRONG PASSWORD!";
                         return;
                     }
                 })
                 .catch(function (error) {
-                    // handle error
-                    state.errorMsg = "USER NOT FOUND";
+                    state.errorMsg = "USER NOT FOUND!";
                     return;
                 })
                 .then(function () {
@@ -157,24 +174,19 @@ export default {
                 });
         };
 
-        const signInWithEmailAndPassword = async (
-            email: string,
-            password: string
-        ) => {
+        const signIn = async (email: string, password: string) => {
             try {
                 if (!email || !password) {
                     state.errorMsg = "Inserisci email e password!";
-                    return;
+                } else {
+                    await checkUser(email, password);
                 }
-
-                await getUser(email, password);
-                router.push("/Folder");
             } catch (error) {
                 state.errorMsg = error.message;
             }
         };
 
-        const signUpWithEmailAndPassword = async (
+        const signUp = async (
             name: string,
             email: string,
             password: string
@@ -186,7 +198,7 @@ export default {
             //       return;
             //     }
 
-            //     const authRes = await auth.createUserWithEmailAndPassword(
+            //     const authRes = await auth.createUser(
             //       email,
             //       password
             //     );
@@ -204,8 +216,8 @@ export default {
 
         return {
             ...toRefs(state),
-            signInWithEmailAndPassword,
-            signUpWithEmailAndPassword,
+            signIn,
+            signUp,
             AuthMode,
         };
     },
@@ -225,5 +237,9 @@ export default {
     background-color: #f8d7da;
     border-color: #f5c2c7;
     text-align: center;
+}
+.login-header {
+    padding-top: 15%;
+    padding-bottom: 15%;
 }
 </style>
