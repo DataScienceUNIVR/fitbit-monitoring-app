@@ -5,17 +5,14 @@ require("../config/db_conf.php");
 $db = Database::getInstance();
 $mysqli = $db->getConnection(); 
 
+/** Return username and password to check login */
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    if (isset($_GET['id'])){
-        $id = $mysqli->real_escape_string($_GET['id']);
-        $sql = $mysqli->query("SELECT * FROM users WHERE id = '$id'");
+    if (isset($_GET['email'])){
+        $email = $mysqli->real_escape_string($_GET['email']);
+        $sql = $mysqli->query("SELECT * FROM users WHERE email = '$email'");
         $data = $sql->fetch_assoc();
     } else {
-        $data = array();
-        $sql = $mysqli->query("SELECT * FROM users");
-        while ($row = $sql->fetch_assoc()) {
-            $data[] = $row;
-        }
+        exit(json_encode(array("status" => "error")));
     }
     exit(json_encode($data));
 }
