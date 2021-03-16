@@ -10,3 +10,5 @@ crud-api -> Backend part (API)
 
 - npm install rxjs
 - npm install @ionic-native/http
+- npm install --save axios vue-axios
+- npm install md5
