@@ -1,3 +1,4 @@
+Header set Access-Control-Allow-Origin "*"
+
 RewriteEngine on
-RewriteRule ^api/users/?$ api/app.php
-RewriteRule ^api/users/([\w-\.]+@([\w-]+\.)+[\w-]{2,4})$ api/app.php?email=$1
+RewriteRule ^api/users/?$ api/authentication.php
