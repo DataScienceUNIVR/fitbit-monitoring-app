@@ -3,7 +3,7 @@
         <ion-header>
             <ion-img
                 class="login-header"
-                src="/assets/img/logo_app_white.png"
+                src="./assets/img/logo_app_white.png"
             ></ion-img>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -17,12 +17,20 @@
                         @submit.prevent="
                             mode === AuthMode.SignIn
                                 ? signIn(email, password)
-                                : signUp(name, email, password)
+                                : signUp(nome, cognome, cf, email, password)
                         "
                     >
                         <ion-item v-if="mode === AuthMode.SignUp">
-                            <ion-label position="floating">Name</ion-label>
-                            <ion-input v-model="name"></ion-input>
+                            <ion-label position="floating">Nome</ion-label>
+                            <ion-input v-model="nome"></ion-input>
+                        </ion-item>
+                        <ion-item v-if="mode === AuthMode.SignUp">
+                            <ion-label position="floating">Cognome</ion-label>
+                            <ion-input v-model="cognome"></ion-input>
+                        </ion-item>
+                        <ion-item v-if="mode === AuthMode.SignUp">
+                            <ion-label position="floating">Codice Fiscale</ion-label>
+                            <ion-input v-model="cf"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label position="floating">Email</ion-label>
@@ -84,6 +92,7 @@ import {
     IonButton,
     IonLabel,
     IonItem,
+    IonImg
 } from "@ionic/vue";
 
 import { reactive, toRefs } from "vue";
@@ -111,6 +120,7 @@ export default {
         IonLabel,
         IonItem,
         IonCardHeader,
+        IonImg
     },
     setup() {
         const router = useRouter();
@@ -124,57 +134,86 @@ export default {
             errorMsg: "",
         });
 
+        // const axiosConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=UTF-8',
+        //         "Access-Control-Allow-Origin": "*",
+        //     }
+        // };
+
         const checkUser = async (email: string, password: string) => {
             // Check user credentials
-            axios
-                .get("http://localhost/tirocinio/crud-api/api/users/" + email)
-                .then(function (response) {
-                    if (response.data.password === md5(password)) {
-                        state.nome = response.data.nome;
-                        state.cognome = response.data.cognome;
-                        state.cf = response.data.codice_fiscale;
-                        state.email = response.data.email;
-                        state.password = md5(response.data.password);
-                        state.errorMsg = "";
-
-                        router.push("/folder");
-                        console.log("redirect");
-                        return;
-                    } else {
-                        state.errorMsg = "WRONG PASSWORD!";
-                    }
-                })
-                .catch(function (error) {
-                    state.errorMsg = "USER NOT FOUND!";
-                })
-                .then(function () {
+            axios({
+                method: 'post',
+                url: 'http://localhost/tirocinio/crud-api/api/users',
+                data: {
+                    email: email,
+                    password: md5(password),
+                }
+            })
+            .then(function (response) {
+                if (response.data != null) {
+                    state.nome = response.data.nome;
+                    state.cognome = response.data.cognome;
+                    state.cf = response.data.codice_fiscale;
+                    state.email = response.data.email;
+                    state.password = md5(response.data.password);
+                    state.errorMsg = "";
+                    router.push("/folder");
+                    console.log("LOGGED IN");
                     return;
-                });
+                } else {
+                    state.errorMsg = "WRONG CREDENTIAL!";
+                }
+            })
+            .catch(function (error) {
+                state.errorMsg = "USER NOT FOUND!";
+            })
+            .then(function () {
+                return;
+            });
         };
 
-        const createUser = async (email: string, password: string) => {
-            // Check user credentials
-            axios
-                .post("http://localhost/tirocinio/crud-api/api/users/" + email)
-                .then(function (response) {
-                    if (response.data.password === md5(password)) {
-                        state.errorMsg = "LOGGED IN";
-                        return true;
-                    } else {
-                        state.errorMsg = "WRONG PASSWORD!";
-                        return;
-                    }
-                })
-                .catch(function (error) {
-                    state.errorMsg = "USER NOT FOUND!";
+        const createUser = async (nome: string, cognome: string, cf: string, email: string, password: string) => {
+            // Create new user 
+            axios({
+                method: 'post',
+                url: 'http://localhost/tirocinio/crud-api/api/users/',
+                data: {
+                    nome: nome,
+                    cognome: cognome,
+                    cf: cf,
+                    email: email,
+                    password: md5(password),
+                }
+            })
+            .then(function (response) {
+                if (response.data === true) {
+                    router.push("/");
+                    console.log("CREATED");
                     return;
-                })
-                .then(function () {
-                    // always executed
-                });
-        };
+                } else if (response.data === false) {
+                    console.log("errore inserimento");
+                    state.errorMsg = "ERRORE NELL'INSERIMENTO!";
+                } else if (response.data.status === 0) {
+                    console.log("errore già presente");
 
-        const signIn = async (email: string, password: string) => {
+                    state.errorMsg = "UTENTE GIA PRESENTE!";
+                }
+            })
+            .catch(function (error) {
+                 console.log(error);
+                state.errorMsg = "USER NOT FOUND!";
+            })
+            .then(function () {
+                return;
+            });
+        }
+
+        const signIn = async (
+            email: string, 
+            password: string
+        ) => {
             try {
                 if (!email || !password) {
                     state.errorMsg = "Inserisci email e password!";
@@ -187,31 +226,29 @@ export default {
         };
 
         const signUp = async (
-            name: string,
+            nome: string,
+            cognome: string,
+            cf: string,
             email: string,
             password: string
         ) => {
-            console.log(name, email, password);
-            //   try {
-            //     if (!name || !email || !password) {
-            //       state.errorMsg = "Name, email, and password required!";
-            //       return;
-            //     }
-
-            //     const authRes = await auth.createUser(
-            //       email,
-            //       password
-            //     );
-
-            //     db.collection("users").doc(authRes.user?.uid).set({
-            //       name,
-            //       email,
-            //     });
-
-            //     router.push("/tabs/tab1");
-            //   } catch (error) {
-            //     state.errorMsg = error.message;
-            //   }
+                try {
+                    // if (!nome || !cognome || !cf || !email || !password ) {
+                    //     state.errorMsg = "Tutti i campi sono obbligatori!";
+                    //     return;
+                    // } else {
+                        await createUser(
+                            nome,
+                            cognome,
+                            cf,
+                            email,
+                            password
+                        );
+                    // }
+                    router.push("/");
+                } catch (error) {
+                    state.errorMsg = error.message;
+                }
         };
 
         return {
@@ -223,23 +260,3 @@ export default {
     },
 };
 </script>
-
-<style>
-.center {
-    display: flex;
-    height: 90vh;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-}
-.error-message {
-    color: #842029;
-    background-color: #f8d7da;
-    border-color: #f5c2c7;
-    text-align: center;
-}
-.login-header {
-    padding-top: 15%;
-    padding-bottom: 15%;
-}
-</style>
