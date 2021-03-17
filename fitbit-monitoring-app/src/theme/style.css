@@ -22,3 +22,7 @@
 #container a {
     text-decoration: none;
 }
+
+.login{
+    --background: url(../../public/assets/img/login_bg.png) 0 0/100% 100% no-repeat;
+}
