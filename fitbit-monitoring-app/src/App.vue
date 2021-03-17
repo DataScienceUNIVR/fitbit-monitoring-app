@@ -5,7 +5,7 @@
         <ion-content>
           <ion-list id="inbox-list">
             <ion-list-header>FITBIT MONITORING APP</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
+            <ion-note>Nome Cognome</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
               <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
@@ -57,36 +57,36 @@ export default defineComponent({
     const appPages = [
       {
         title: 'Home',
-        url: '/folder/Inbox',
+        url: '/main/Home',
         iosIcon: homeOutline,
         mdIcon: homeSharp
       },
       {
         title: 'Obiettivi',
-        url: '/folder/Favorites',
+        url: '/main/Obiettivi',
         iosIcon: ribbonOutline,
         mdIcon: ribbonSharp
       },
       {
         title: 'Statistiche',
-        url: '/folder/Archived',
+        url: '/main/Statistiche',
         iosIcon: pulseOutline,
         mdIcon: pulseSharp
       },
       {
         title: 'Profilo',
-        url: '/folder/Trash',
+        url: '/main/Profilo',
         iosIcon: personCircleOutline,
         mdIcon: personCircleSharp
       },
       {
         title: 'Logout',
-        url: '/folder/Spam',
+        url: '/main/Logout',
         iosIcon: logOutOutline,
         mdIcon: logOutSharp
       }
     ];
-    const path = window.location.pathname.split('folder/')[1];
+    const path = window.location.pathname.split('main/')[1];
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }

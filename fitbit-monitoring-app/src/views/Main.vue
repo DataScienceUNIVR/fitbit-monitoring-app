@@ -18,7 +18,7 @@
     
       <div id="container">
         <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <p>TODO: Dashboard</p>
       </div>
     </ion-content>
   </ion-page>
@@ -28,7 +28,7 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 
 export default {
-  name: 'Folder',
+  name: 'Main',
   components: {
     IonButtons,
     IonContent,

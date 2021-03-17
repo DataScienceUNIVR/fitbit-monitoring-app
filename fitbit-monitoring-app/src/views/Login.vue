@@ -152,7 +152,7 @@ export default {
                     state.email = response.data.email;
                     state.password = md5(response.data.password);
                     state.errorMsg = "";
-                    router.push("/folder");
+                    router.push("/main/Home");
                     console.log("LOGGED IN");
                     return;
                 } else {
