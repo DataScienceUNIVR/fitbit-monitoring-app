@@ -1,20 +1,12 @@
-import { mount } from '@vue/test-utils'
-import Folder from '@/views/Folder.vue'
+import { shallowMount } from '@vue/test-utils'
+import HelloWorld from '@/components/HelloWorld.vue'
 
-describe('Folder.vue', () => {
-  it('renders folder view', () => {
-    const mockRoute = {
-      params: {
-        id: 'Outbox'
-      }
-    }
-    const wrapper = mount(Folder, {
-      global: {
-        mocks: {
-          $route: mockRoute
-        }
-      }
+describe('HelloWorld.vue', () => {
+  it('renders props.msg when passed', () => {
+    const msg = 'new message'
+    const wrapper = shallowMount(HelloWorld, {
+      props: { msg }
     })
-    expect(wrapper.text()).toMatch('Explore UI Components')
+    expect(wrapper.text()).toMatch(msg)
   })
 })

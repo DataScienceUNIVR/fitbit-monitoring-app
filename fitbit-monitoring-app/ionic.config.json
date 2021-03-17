@@ -1,7 +1,5 @@
 {
-  "name": "fitbit-monitoring-app",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "myApp",
+  "integrations": {},
   "type": "vue"
 }
