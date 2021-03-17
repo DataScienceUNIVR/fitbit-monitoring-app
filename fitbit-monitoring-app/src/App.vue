@@ -7,7 +7,11 @@
             <ion-note>Nome Cognome</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
+              <ion-item v-if="p.title === 'Logout'" @click="doLogout" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
+              <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+              <ion-item v-if="p.title != 'Logout'" @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
                 <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
@@ -45,6 +49,8 @@ import {
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { pulseOutline, pulseSharp, bookmarkOutline, bookmarkSharp, ribbonOutline, ribbonSharp, homeOutline, homeSharp, paperPlaneSharp, personCircleOutline, personCircleSharp, logOutOutline, logOutSharp } from 'ionicons/icons';
+import { useRouter } from "vue-router";
+import useFirebaseAuth from "./hooks/firebase-auth";
 
 export default defineComponent({
   name: 'App',
@@ -63,6 +69,14 @@ export default defineComponent({
   },
   setup() {
     const selectedIndex = ref(0);
+    const { logout, user } = useFirebaseAuth();
+    const router = useRouter();
+
+    const doLogout = async () => {
+      await logout();
+      router.replace({ path: "/login" });
+    };
+
     const appPages = [
       {
         title: 'Home',
@@ -90,16 +104,19 @@ export default defineComponent({
       },
       {
         title: 'Logout',
-        url: '/main/Logout',
+        // url: '/login',
+        doLogout,
         iosIcon: logOutOutline,
         mdIcon: logOutSharp
       }
     ];
+    
     const path = window.location.pathname.split('main/')[1];
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     
+   
     // const labels = ['Other'];
 
     const route = useRoute();
@@ -122,6 +139,8 @@ export default defineComponent({
       personCircleSharp, 
       logOutOutline, 
       logOutSharp,
+      doLogout,
+      user,
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
