@@ -1,16 +1,13 @@
 <template>
     <ion-page>
         <ion-header :translucent="true">
-            <ion-toolbar>
-                <ion-title>LOGIN PAGE</ion-title>
-            </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="login" >
             <ion-img
                 class="login-header"
                 src="./assets/img/logo_app_white.png"
             ></ion-img>
-        </ion-header>
-
-        <ion-content class="ion-padding">
             <ion-card>
                 <ion-card-header>
                     <ion-card-title> Benvenuto! </ion-card-title>
@@ -102,8 +99,6 @@ import {
     IonContent,
     IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar,
     IonInput,
     IonItem,
     IonLabel,
@@ -132,8 +127,6 @@ export default defineComponent({
         IonContent,
         IonHeader,
         IonPage,
-        IonTitle,
-        IonToolbar,
         IonInput,
         IonItem,
         IonLabel,
