@@ -80,12 +80,11 @@ export default function () {
     };
 
     // Return user id of authentication
-    const getLoggedUser = () => {
+    const getLoggedUserInfo = () => {
         return firebase
             .auth()
             .currentUser
-            ?.uid
-    };
+    }; 
 
     return {
         ...toRefs(state),
@@ -95,6 +94,6 @@ export default function () {
         register,
         logout,
         authCheck,
-        getLoggedUser
+        getLoggedUserInfo
     };
 }

@@ -3,7 +3,7 @@ import "firebase/firestore";
 import FIREBASE_CONFIG from "./.env.firebase";
 import useFirebaseAuth from "./firebase-auth";
 import "./firebase-crud.ts";
-const { getLoggedUser } = useFirebaseAuth();
+const { getLoggedUserInfo } = useFirebaseAuth();
 
 // initialize firebase
 if (firebase.apps.length === 0) {
@@ -22,14 +22,14 @@ const usersCollection = db.collection("users");
 
 export const sendData = (nome: string, email: string) => {
     usersCollection
-        .add({nome : "test", email: "test@exit.it" })
+        .add({ nome: "test", email: "test@exit.it" })
         .then(() => {
-        console.log("Document successfully written!");
+            console.log("Document successfully written!");
         })
         .catch((error) => {
-        console.error("Error writing document: ", error);
+            console.error("Error writing document: ", error);
         });
-    return getLoggedUser();
+    return getLoggedUserInfo();
     // console.log(firebase);
     // return usersCollection.add(user);
 }

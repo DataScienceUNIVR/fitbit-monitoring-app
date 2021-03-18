@@ -13,22 +13,21 @@
         <ion-content :fullscreen="true">
             <ion-header collapse="condense">
                 <ion-toolbar>
-                    
                     <ion-title size="large">{{ $route.params.id }}</ion-title>
                 </ion-toolbar>
             </ion-header>
             <div id="container">
                 <strong class="capitalize">{{ $route.params.id }}</strong>
                 <p>TODO: Dashboard</p>
-                 <ion-button
-                        expand="block"
-                        color="primary"
-                        class="ion-margin-top"
-                        type="submit"
-                        @click="send"
-                    >
-                        Send
-                    </ion-button>
+                <ion-button
+                    expand="block"
+                    color="primary"
+                    class="ion-margin-top"
+                    type="submit"
+                    @click="send"
+                >
+                    Send
+                </ion-button>
             </div>
         </ion-content>
     </ion-page>
@@ -44,11 +43,11 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
-    toastController 
+    toastController,
 } from "@ionic/vue";
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 // import { createUser } from "/hooks/firebase-crud";
-import {sendData} from "../hooks/firebase-crud";
+import { sendData } from "../hooks/firebase-crud";
 
 export default defineComponent({
     name: "Main",
@@ -63,21 +62,20 @@ export default defineComponent({
         IonToolbar,
     },
     methods: {
-    async openToast() {
-      const toast = await toastController
-        .create({
-          message: 'Your settings have been saved.',
-          duration: 2000
-        })
-      return toast.present();
+        async openToast() {
+            const toast = await toastController.create({
+                message: "Your settings have been saved.",
+                duration: 2000,
+            });
+            return toast.present();
+        },
     },
-  },   
-  setup() {
-      const send = async() => {
-          console.log(sendData("test", "test"));
-      }
+    setup() {
+        const send = async () => {
+            console.log(sendData("test", "test"));
+        };
 
-      return {send}
-  }  
+        return { send };
+    },
 });
 </script>
