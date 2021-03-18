@@ -79,6 +79,14 @@ export default function () {
         });
     };
 
+    // Return user id of authentication
+    const getLoggedUser = () => {
+        return firebase
+            .auth()
+            .currentUser
+            ?.uid
+    };
+
     return {
         ...toRefs(state),
         
@@ -87,5 +95,6 @@ export default function () {
         register,
         logout,
         authCheck,
+        getLoggedUser
     };
 }
