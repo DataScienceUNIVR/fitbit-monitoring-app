@@ -13,7 +13,7 @@
                         <ion-avatar>
                             <img src="/assets/img/avatar.jpg" />
                         </ion-avatar>
-                        <ion-label> {{ loggedUser.email }}</ion-label>
+                        <ion-label v-if="loggedUser != null"> {{ loggedUser.email }}</ion-label>
                     </ion-chip>
 
                     <!-- <ion-note></ion-note> -->
