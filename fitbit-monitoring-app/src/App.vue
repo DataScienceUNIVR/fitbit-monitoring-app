@@ -45,6 +45,7 @@ import {
     IonMenu, 
     IonMenuToggle, 
     IonNote, 
+    toastController
      } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -67,6 +68,16 @@ export default defineComponent({
     IonMenuToggle, 
     IonNote, 
   },
+  methods: {
+    async openToast() {
+      const toast = await toastController
+        .create({
+          message: 'Your settings have been saved.',
+          duration: 2000
+        })
+      return toast.present();
+    },
+  },
   setup() {
     const selectedIndex = ref(0);
     const { logout, user } = useFirebaseAuth();
@@ -80,13 +91,13 @@ export default defineComponent({
     const appPages = [
       {
         title: 'Home',
-        url: '/main/Home',
+        url: '/HomePage',
         iosIcon: homeOutline,
         mdIcon: homeSharp
       },
       {
-        title: 'Obiettivi',
-        url: '/main/Obiettivi',
+        title: 'Load Data',
+        url: '/LoadDataPage',
         iosIcon: ribbonOutline,
         mdIcon: ribbonSharp
       },
@@ -111,7 +122,7 @@ export default defineComponent({
       }
     ];
     
-    const path = window.location.pathname.split('main/')[1];
+    const path = window.location.pathname.split('/')[1];
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
