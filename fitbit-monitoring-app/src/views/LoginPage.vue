@@ -8,6 +8,7 @@
                 class="login-header"
                 src="./assets/img/logo_app_white.png"
             ></ion-img>
+            
             <ion-card>
                 <ion-card-header>
                     <ion-card-title> Benvenuto! </ion-card-title>
@@ -17,16 +18,6 @@
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Nome</ion-label>
                         <ion-input v-model="nome"></ion-input>
-                    </ion-item>
-                    <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating">Cognome</ion-label>
-                        <ion-input v-model="cognome"></ion-input>
-                    </ion-item>
-                    <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating"
-                            >Codice Fiscale</ion-label
-                        >
-                        <ion-input v-model="cf"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
@@ -56,7 +47,7 @@
                         class="ion-margin-top"
                         type="submit"
                         v-if="mode === AuthMode.SignIn"
-                        @click="doLogin"
+                        @click="doSignIn"
                     >
                         Sign In
                     </ion-button>
@@ -67,7 +58,7 @@
                         class="ion-margin-top"
                         type="submit"
                         v-if="mode === AuthMode.SignUp"
-                        @click="doRegister"
+                        @click="doSignUp"
                     >
                         Sign Up
                     </ion-button>
@@ -85,11 +76,13 @@
                     >
                         {{ mode === AuthMode.SignIn ? "Sign Up" : "Cancel" }}
                     </ion-button>
-                </ion-card-content>
-                <!-- <ion-card-content v-if="errorMsg" class="error-message">
-                    {{ errorMsg }}
-                </ion-card-content> -->
+                </ion-card-content>  
             </ion-card>
+            <div id="container">
+                <!-- <ion-content class="ion-padding">
+                    <ion-button @click="openToast">Open Toast</ion-button>
+                </ion-content> -->
+            </div>
         </ion-content>
     </ion-page>
 </template>
@@ -109,11 +102,11 @@ import {
     IonCardContent,
     IonButton,
     IonImg,
+    // toastController
 } from "@ionic/vue";
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "../hooks/firebase-auth";
-
 enum AuthMode {
     SignIn,
     SignUp,
@@ -138,6 +131,15 @@ export default defineComponent({
         IonButton,
         IonImg,
     },
+    // methods: {
+    // async openToast() {
+    //   const toast = await toastController
+    //     .create({
+    //       message: 'Your settings have been saved.',
+    //       duration: 2000
+    //     })
+    //   return toast.present();
+    // },
     setup() {
         const credentials = ref<{
             nome: string;
@@ -150,13 +152,14 @@ export default defineComponent({
         });
         const { login, register } = useFirebaseAuth();
         const router = useRouter();
-
-        const doLogin = async () => {
+        
+      
+        const doSignIn = async () => {
             await login(credentials.value.username, credentials.value.password);
             router.replace({ path: "/home" });
         };
 
-        const doRegister = async () => {
+        const doSignUp = async () => {
             await register(
                 credentials.value.nome,
                 credentials.value.username,
@@ -168,8 +171,8 @@ export default defineComponent({
         return {
             ...toRefs(state),
             credentials,
-            doLogin,
-            doRegister,
+            doSignIn,
+            doSignUp,
             AuthMode,
         };
     },
