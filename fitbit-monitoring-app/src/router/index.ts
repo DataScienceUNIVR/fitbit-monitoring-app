@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "home",
 		component: () => import("@/views/HomePage.vue"),
 	},
+	{
+		path: "/LoadDataPage",
+		name: "LoadDataPage",
+		component: () => import("@/views/LoadDataPage.vue"),
+	},
 ];
 
 const router = createRouter({
