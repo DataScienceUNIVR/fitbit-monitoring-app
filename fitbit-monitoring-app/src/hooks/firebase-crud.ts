@@ -20,9 +20,9 @@ if (firebase.apps.length === 0) {
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
 
-export const sendData = (nome: string, email: string) => {
+export const sendData2Firebase = (nome: string, email: string) => {
     usersCollection
-        .add({ nome: "test", email: "test@exit.it" })
+        .add({ nome: "dd", email: "d@exit.it" })
         .then(() => {
             console.log("Document successfully written!");
         })
