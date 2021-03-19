@@ -27,11 +27,23 @@
     --background: url(../../public/assets/img/login_bg.png) 0 0/100% 100% no-repeat;
 }
 
+ion-content.main{
+    --background: url(../../public/assets/img/main_bg7.png) 0 0/100% 100% no-repeat;
+}
+/* .main {
+    --background: url(../../public/assets/img/login_bg.png) 0 0/100% 100% no-repeat;
+} */
 /* .background-content {
     filter: blur(8px) !important;
 } */
 
 .login-header {
-    margin-top: 15%;
-    margin-bottom: 16%;
+    margin-top:     15%;
+    margin-bottom:  16%;
+}
+
+/* Send/update button */
+.button {
+    margin-left:    10%;
+    margin-right:   10%;
 }
