@@ -84,6 +84,8 @@ import {
     IonMenu,
     IonMenuToggle,
     IonImg,
+    IonAvatar,
+    IonChip,
     toastController,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
@@ -121,6 +123,8 @@ export default defineComponent({
         IonMenu,
         IonMenuToggle,
         IonImg,
+        IonAvatar,
+        IonChip,
     },
     methods: {
         async openToast() {
