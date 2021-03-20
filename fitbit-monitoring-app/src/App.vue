@@ -156,13 +156,13 @@ export default defineComponent({
             },
             {
                 title: "Load Data",
-                url: "/LoadDataPage",
+                url: "/loadData",
                 iosIcon: ribbonOutline,
                 mdIcon: ribbonSharp,
             },
             {
                 title: "Statistiche",
-                url: "/main/Statistiche",
+                url: "/statistics",
                 iosIcon: pulseOutline,
                 mdIcon: pulseSharp,
             },

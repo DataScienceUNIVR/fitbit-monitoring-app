@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-header :translucent="true">
+        <ion-header>
             <ion-title>CARICAMENTO DATI</ion-title>
             <ion-toolbar>
                 <ion-buttons slot="start">
@@ -17,15 +17,6 @@
             <div id="container">
                 <strong class="capitalize">{{ $route.params.id }}</strong>
                 <p>TODO: Dashboard</p>
-                <ion-button
-                    expand="block"
-                    color="primary"
-                    class="ion-margin-top"
-                    type="submit"
-                    @click="send"
-                >
-                    Invia Dati
-                </ion-button>
 
                 <!-- Load JSON file section -->
                 <input
