@@ -14,28 +14,49 @@
                     <ion-title size="large">{{ $route.params.id }}</ion-title>
                 </ion-toolbar> -->
             </ion-header>
-            <div id="container">
-                <strong class="capitalize">{{ $route.params.id }}</strong>
-                <p>TODO: Dashboard</p>
-
-                <!-- Load JSON file section -->
-                <input
-                    type="file"
-                    ref="file"
-                    id="uploadFile"
-                    hidden
-                    @change="selectedFile"
-                />
-                <ion-button
-                    expand="block"
-                    id="prpvola"
-                    color="primary"
-                    class="send-button"
-                    @click="$refs.file.click()"
-                >
-                    Carica ed elabora file JSON
-                </ion-button>
-            </div>
+            <ion-row>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle>UPLOAD DATI</ion-card-subtitle>
+                        <ion-card-title>DATI FITBIT</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        Caricare i dati in formato JSON del dispositivo fitbit.
+                        <br />Attenzione: il caricamento sovrascriverà tutti gli
+                        attuali dati!
+                    </ion-card-content>
+                    <input
+                        type="file"
+                        ref="file"
+                        id="uploadFile"
+                        hidden
+                        @change="selectedFile"
+                    />
+                </ion-card>
+                <ion-fab horizontal="end">
+                    <ion-fab-button @click="$refs.file.click()">
+                        <ion-icon :icon="cloudUploadSharp"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-row>
+            <ion-row>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle>UPLOAD DATI</ion-card-subtitle>
+                        <ion-card-title>DATI FITBIT</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        Caricare i dati in formato JSON del dispositivo fitbit.
+                        <br />Attenzione: il caricamento sovrascriverà tutti gli
+                        attuali dati!
+                    </ion-card-content>
+                </ion-card>
+                <ion-fab horizontal="end">
+                    <ion-fab-button @click="$refs.file.click()">
+                        <ion-icon :icon="cloudUploadSharp"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-row>
         </ion-content>
     </ion-page>
 </template>
@@ -43,29 +64,46 @@
 <script lang="ts">
 import {
     IonButtons,
-    IonButton,
     IonContent,
     IonHeader,
     IonMenuButton,
     IonPage,
     IonTitle,
     IonToolbar,
+    IonCard,
+    IonCardTitle,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonIcon,
+    IonFab,
+    IonFabButton,
+    IonRow,
     toastController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { sendData2Firebase } from "../hooks/firebase-crud";
+import { cloudUploadSharp } from "ionicons/icons";
 
 export default defineComponent({
     name: "Main",
     components: {
         IonButtons,
-        IonButton,
         IonContent,
         IonHeader,
         IonMenuButton,
         IonPage,
         IonTitle,
         IonToolbar,
+        IonCard,
+        IonCardTitle,
+        IonCardContent,
+        IonCardHeader,
+        IonCardSubtitle,
+        IonIcon,
+        IonFab,
+        IonFabButton,
+        IonRow,
     },
     methods: {
         // Open toast component
@@ -100,10 +138,10 @@ export default defineComponent({
                         // const value = JSON.stringify(tmp[key]);
 
                         const value = tmp[key]; // for primitive nested properties
-                        console.log(value["value"]);                        
+                        console.log(value["value"]);
                     });
                     // regex control input data
-                    sendData2Firebase("Roberto", "test")
+                    sendData2Firebase("Roberto", "test");
                 } catch (e) {
                     alert(
                         "Sorry, your file doesn't appear to be valid JSON data."
@@ -117,10 +155,7 @@ export default defineComponent({
     },
 
     setup() {
-        // const send = async () => {
-        //     console.log(sendData2Firebase("Roberto", "test"));
-        // };
-        // return { send };
+        return { cloudUploadSharp };
     },
 });
 </script>
