@@ -20,7 +20,7 @@ if (firebase.apps.length === 0) {
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
 
-export const sendData2Firebase = (nome: string, email: string) => {
+export const sendStepsToFirebase = (nome: string, email: string) => {
     usersCollection
         .add({ nome: "dd", email: "d@exit.it" })
         .then(() => {
@@ -30,6 +30,31 @@ export const sendData2Firebase = (nome: string, email: string) => {
             console.error("Error writing document: ", error);
         });
     return getLoggedUserInfo();
+}
+
+export const getStepsToFirebase = async () => {
+    // const doc =  usersCollection.get();
+    // const snapshot = await usersCollection.get();
+    //     snapshot.forEach(doc => {
+    //         return doc;
+
+    //         // console.log(doc.id, '=>', doc.data());
+    //     });
+
+    // if (!doc) {
+    // console.log('No such document!');
+    // } else {
+    // console.log('Document data:', doc);
+    // }
+
+    // usersCollection
+    //     .add({ nome: "dd", email: "d@exit.it" })
+    //     .then(() => {
+    //         console.log("Document successfully written!");
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error writing document: ", error);
+    //     });
     // console.log(firebase);
     // return usersCollection.add(user);
 }

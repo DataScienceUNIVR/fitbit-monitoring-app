@@ -14,7 +14,7 @@
                     <ion-title size="large">{{ $route.params.id }}</ion-title>
                 </ion-toolbar> -->
             </ion-header>
-            <ion-row>
+            <ion-row class="dati-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI</ion-card-subtitle>
@@ -30,7 +30,7 @@
                         ref="file"
                         id="uploadFile"
                         hidden
-                        @change="selectedFile"
+                        @change="uploadData"
                     />
                 </ion-card>
                 <ion-fab horizontal="end">
@@ -39,21 +39,21 @@
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row>
+            <ion-row class="dati-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>UPLOAD DATI</ion-card-subtitle>
+                        <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
                         <ion-card-title>DATI FITBIT</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Caricare i dati in formato JSON del dispositivo fitbit.
-                        <br />Attenzione: il caricamento sovrascriverà tutti gli
-                        attuali dati!
+                        Scaricare i dati in formato JSON del dispositivo fitbit.
+                        <br />I dati contengono tutta la storia dei passi
+                        giornalieri registrati.
                     </ion-card-content>
                 </ion-card>
                 <ion-fab horizontal="end">
-                    <ion-fab-button @click="$refs.file.click()">
-                        <ion-icon :icon="cloudUploadSharp"></ion-icon>
+                    <ion-fab-button @click="downloadData">
+                        <ion-icon :icon="cloudDownloadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
@@ -82,8 +82,11 @@ import {
     toastController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { sendData2Firebase } from "../hooks/firebase-crud";
-import { cloudUploadSharp } from "ionicons/icons";
+import {
+    sendStepsToFirebase,
+    getStepsToFirebase,
+} from "../hooks/firebase-crud";
+import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
 
 export default defineComponent({
     name: "Main",
@@ -116,7 +119,7 @@ export default defineComponent({
         },
 
         // Upload file function
-        selectedFile() {
+        uploadData() {
             const src = this.$el.querySelector("#uploadFile");
             const file = src.files[0];
 
@@ -141,7 +144,7 @@ export default defineComponent({
                         console.log(value["value"]);
                     });
                     // regex control input data
-                    sendData2Firebase("Roberto", "test");
+                    sendStepsToFirebase("Roberto", "test");
                 } catch (e) {
                     alert(
                         "Sorry, your file doesn't appear to be valid JSON data."
@@ -152,10 +155,33 @@ export default defineComponent({
                 console.error(evt);
             };
         },
+
+        // Upload file function
+        downloadData() {
+            // const doc = JSON.stringify(getStepsToFirebase());
+            // // console.log(doc);
+            // const blob = new Blob([JSON.stringify(getStepsToFirebase())], {
+            //     type: "application/json",
+            // });
+            // if (navigator.msSaveBlob) {
+            //     navigator.msSaveBlob(blob, "steps.json");
+            // } else {
+            //     const link = document.createElement("a");
+            //     if (link.download !== undefined) {
+            //         const url = URL.createObjectURL(blob);
+            //         link.setAttribute("href", url);
+            //         link.setAttribute("download", "steps.json");
+            //         link.style.visibility = "hidden";
+            //         document.body.appendChild(link);
+            //         link.click();
+            //         document.body.removeChild(link);
+            //     }
+            // }
+        },
     },
 
     setup() {
-        return { cloudUploadSharp };
+        return { cloudUploadSharp, cloudDownloadSharp };
     },
 });
 </script>

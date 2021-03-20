@@ -9,7 +9,7 @@
                         ></ion-img>
                     </ion-list-header>
 
-                    <ion-chip>
+                    <ion-chip class="user-details">
                         <ion-avatar>
                             <img src="/assets/img/avatar.jpg" />
                         </ion-avatar>
@@ -27,13 +27,12 @@
                             @click="doLogout"
                             lines="none"
                             detail="false"
-                            class="hydrated"
+                            class="hydrated menu-item"
                             :class="{ selected: selectedIndex === i }"
                         >
                             <ion-icon
                                 slot="start"
-                                :ios="p.iosIcon"
-                                :md="p.mdIcon"
+                                :icon="p.iosIcon"
                             ></ion-icon>
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
@@ -44,13 +43,12 @@
                             :router-link="p.url"
                             lines="none"
                             detail="false"
-                            class="hydrated"
+                            class="hydrated menu-item"
                             :class="{ selected: selectedIndex === i }"
                         >
                             <ion-icon
                                 slot="start"
-                                :ios="p.iosIcon"
-                                ion-icon:md="p.mdIcon"
+                                :icon="p.iosIcon"
                             ></ion-icon>
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
@@ -104,10 +102,13 @@ import {
     personCircleSharp,
     logOutOutline,
     logOutSharp,
+    cloudUploadSharp,
+    cloudDownloadSharp
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./hooks/firebase-auth";
 import getLoggedUserData from "./hooks/firebase-auth";
+
 
 export default defineComponent({
     name: "App",
@@ -149,31 +150,31 @@ export default defineComponent({
 
         const appPages = [
             {
-                title: "Home",
+                title: "HOME",
                 url: "/home",
-                iosIcon: homeOutline,
-                mdIcon: homeSharp,
+                iosIcon: cloudUploadSharp,
+                mdIcon: cloudUploadSharp,
             },
             {
-                title: "Load Data",
+                title: "GESTIONE DATI",
                 url: "/loadData",
                 iosIcon: ribbonOutline,
                 mdIcon: ribbonSharp,
             },
             {
-                title: "Statistiche",
+                title: "STATISTICHE",
                 url: "/statistics",
                 iosIcon: pulseOutline,
                 mdIcon: pulseSharp,
             },
             {
-                title: "Profilo",
+                title: "PROFILO",
                 url: "/main/Profilo",
                 iosIcon: personCircleOutline,
                 mdIcon: personCircleSharp,
             },
             {
-                title: "Logout",
+                title: "LOGOUT",
                 // url: '/login',
                 doLogout,
                 iosIcon: logOutOutline,
@@ -204,7 +205,7 @@ export default defineComponent({
             ribbonSharp,
             homeOutline,
             homeSharp,
-
+            cloudUploadSharp,
             paperPlaneSharp,
             personCircleOutline,
             personCircleSharp,
