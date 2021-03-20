@@ -150,7 +150,7 @@ export default defineComponent({
         const appPages = [
             {
                 title: "Home",
-                url: "/HomePage",
+                url: "/home",
                 iosIcon: homeOutline,
                 mdIcon: homeSharp,
             },
