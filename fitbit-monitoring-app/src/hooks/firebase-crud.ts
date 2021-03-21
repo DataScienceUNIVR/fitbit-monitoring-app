@@ -17,12 +17,6 @@ let message = "";
 
 export const sendStepsToFirebase = async (args: any[]) => {
     const uid = getLoggedUserInfo()?.uid;
-    // const deleteQuery = stepsCollection.where("uid", "==", uid);
-    // deleteQuery.get().then(function (querySnapshot) {
-    //     querySnapshot.forEach(function (doc) {
-    //         doc.ref.delete();
-    //     });
-    // });
     stepsCollection.where('uid', '==', uid).get()
         .then(function (querySnapshot) {
             // Once we get the results, begin a batch
