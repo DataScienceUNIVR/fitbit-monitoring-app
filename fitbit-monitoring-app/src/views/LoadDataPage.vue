@@ -110,9 +110,9 @@ export default defineComponent({
     },
     methods: {
         // Open toast component
-        async openToast() {
+        async openToast(msg: string) {
             const toast = await toastController.create({
-                message: "Your settings have been saved.",
+                message: msg,
                 duration: 2000,
             });
             return toast.present();
@@ -124,31 +124,25 @@ export default defineComponent({
             const file = src.files[0];
 
             // If it's not JSON file return
-            if (!file || file.type !== "application/json") return;
+            if (!file || file.type !== "application/json"){
+                this.openToast("Il file deve essere di tipo JSON!");
+                return;
+            }
             const reader = new FileReader();
             reader.readAsText(file, "UTF-8");
-            reader.onload = (evt) => {
+            reader.onload = async (evt) => {
                 let text = "";
                 if (evt.target != null) {
                     text = evt.target.result + "";
                 }
                 try {
-                    // Parse JSON file
-                    // TODO: Check JSON file regularity
                     const tmp = JSON.parse(text);
-                    Object.keys(tmp).forEach((key) => {
-                        // in-case properties are nested objects
-                        // const value = JSON.stringify(tmp[key]);
 
-                        const value = tmp[key]; // for primitive nested properties
-                        console.log(value["value"]);
-                    });
-                    // regex control input data
-                    sendStepsToFirebase("Roberto", "test");
+                    // TODO: fix returned msg
+                    const returnMsg = await sendStepsToFirebase(tmp);
+                    this.openToast(returnMsg);
                 } catch (e) {
-                    alert(
-                        "Sorry, your file doesn't appear to be valid JSON data."
-                    );
+                    this.openToast(e);
                 }
             };
             reader.onerror = (evt) => {

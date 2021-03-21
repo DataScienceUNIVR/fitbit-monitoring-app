@@ -28,11 +28,9 @@
 }
 
 ion-content.main{
-    --background: url(../../public/assets/img/main_bg7.png) 0 0/100% 100% no-repeat;
+    --background: url(../../public/assets/img/main_bg3.jpg) 0 0/100% 100% no-repeat;
 }
-/* .main {
-    --background: url(../../public/assets/img/login_bg.png) 0 0/100% 100% no-repeat;
-} */
+
 /* .background-content {
     filter: blur(8px) !important;
 } */
