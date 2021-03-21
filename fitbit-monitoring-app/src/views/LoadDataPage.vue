@@ -18,7 +18,7 @@
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI</ion-card-subtitle>
-                        <ion-card-title>DATI FITBIT</ion-card-title>
+                        <ion-card-title>CARICA DATI FITBIT</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati in formato JSON del dispositivo fitbit.
@@ -43,7 +43,7 @@
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title>DATI FITBIT</ion-card-title>
+                        <ion-card-title>SCARICA DATI FITBIT</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Scaricare i dati in formato JSON del dispositivo fitbit.
