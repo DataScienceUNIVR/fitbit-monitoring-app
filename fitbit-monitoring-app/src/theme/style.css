@@ -51,6 +51,15 @@ ion-content.main{
     margin-top:     30px;
 }
 
+.statistiche-row {
+    margin-bottom:  -7%;
+}
+
+.statistiche-ion-card-title {
+    font-size:      60px;
+    text-align:     center;
+}
+
 .user-details {
     margin-top:     15%;
     margin-left:    8%;
