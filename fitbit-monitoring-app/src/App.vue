@@ -23,7 +23,7 @@
                         :key="i"
                     >
                         <ion-item
-                            v-if="p.title === 'Logout'"
+                            v-if="p.title === 'LOGOUT'"
                             @click="doLogout"
                             lines="none"
                             detail="false"
@@ -37,7 +37,7 @@
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
                         <ion-item
-                            v-if="p.title != 'Logout'"
+                            v-if="p.title != 'LOGOUT'"
                             @click="selectedIndex = i"
                             router-direction="root"
                             :router-link="p.url"
