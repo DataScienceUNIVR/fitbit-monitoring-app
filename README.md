@@ -3,3 +3,9 @@ Mobile application that monitors and shows the physical activities performed dur
 
 - fitbit-monitoring-app -> ionic & Vue.JS application
 - Firebase (Auth)
+
+
+- npm install rxjs
+- npm install @ionic-native/http
+- npm install --save axios vue-axios
+- npm install md5
