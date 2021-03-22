@@ -1,0 +1,77 @@
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
+}
+
+.login {
+    --background: url(../../public/assets/img/login_bg.png) 0 0/100% 100% no-repeat;
+}
+
+ion-content.main{
+    --background: url(../../public/assets/img/main_bg3.jpg) 0 0/100% 100% no-repeat;
+}
+
+/* .background-content {
+    filter: blur(8px) !important;
+} */
+
+.login-header {
+    margin-top:     15%;
+    margin-bottom:  16%;
+}
+
+/* Send/update button */
+.button {
+    margin-left:    10%;
+    margin-right:   10%;
+}
+
+/* loadData page cards */
+.dati-row {
+    margin-top:     30px;
+}
+
+.statistiche-row {
+    margin-bottom:  -7%;
+}
+
+.statistiche-ion-card-title {
+    font-size:      60px;
+    text-align:     center;
+}
+
+.user-details {
+    margin-top:     15%;
+    margin-left:    8%;
+    font-size:      20px;
+    margin-bottom:  10%;
+}
+
+.menu-item {
+    /* margin-top:     5%;
+    font-size:      20px; */
+}
+
+.logo-menu {
+    margin-top:     10%;
+}
