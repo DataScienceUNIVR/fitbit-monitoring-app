@@ -26,15 +26,13 @@
             <ion-row class="statistiche-row">
                 <ion-card style="background-color: #4a0f81;">
                     <ion-card-header>
-                        <ion-card-subtitle>TITOLO 1</ion-card-subtitle>
+                        <ion-card-subtitle>MINUTI DI ATTIVITA SEDENTARIA</ion-card-subtitle>
                         <ion-card-title class="statistiche-ion-card-title">
-                            5241 <ion-icon src="assets/img/lightly_active.svg"></ion-icon>
+                            5241
                         </ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                            <ion-icon :icon="cloudUploadSharp"></ion-icon>
-
-                        Caricare i dati in formato JSON del dispositivo fitbit.
+                        Minuti di attività sedentaria
                     </ion-card-content>
                 </ion-card>
             </ion-row>
@@ -86,10 +84,17 @@ import {
     IonRow,
     IonSelect,
     IonSelectOption,
-    IonIcon,
+    IonCard,
+    IonLabel,
+    IonCardTitle,
+    IonCardHeader,
+    IonCardContent,
+    IonCardSubtitle,
+    IonItem,
+    // IonIcon,
     IonToolbar,
 } from "@ionic/vue";
-import { cloudUploadSharp} from "ionicons/icons";
+// import { cloudUploadSharp} from "ionicons/icons";
 
 
 export default {
@@ -104,11 +109,20 @@ export default {
         IonRow,
         IonSelect,
         IonSelectOption,
-        IonIcon,
+        IonCard,
+        IonLabel,
+        IonCardTitle,
+        IonCardHeader,
+        IonCardContent,
+        IonCardSubtitle,
+        IonItem,
+        // IonIcon,
         IonToolbar,
     },
-    setup() {
-        return { cloudUploadSharp };
-    },
+    // setup() {
+    //     return { cloudUploadSharp };
+    // },
+
+    
 };
 </script>
