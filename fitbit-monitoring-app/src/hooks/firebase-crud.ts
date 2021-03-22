@@ -15,7 +15,7 @@ const db = firebase.firestore();
 const stepsCollection = db.collection("steps");
 let message = "";
 
-export const sendStepsToFirebase = async (args: any[]) => {
+export const sendStepsFirebase = async (args: any[]) => {
     const uid = getLoggedUserInfo()?.uid;
     stepsCollection.where('uid', '==', uid).get()
         .then(function (querySnapshot) {
@@ -58,7 +58,7 @@ export const sendStepsToFirebase = async (args: any[]) => {
     return message;
 };
 
-export const getStepsToFirebase = async () => {
+export const getStepsFirebase = async () => {
     // const doc =  usersCollection.get();
     // const snapshot = await usersCollection.get();
     //     snapshot.forEach(doc => {
@@ -80,4 +80,10 @@ export const getStepsToFirebase = async () => {
     //     });
     // console.log(firebase);
     // return usersCollection.add(user);
+};
+
+export const getStatistics = async (period: any) => {
+    const uid = getLoggedUserInfo()?.uid;
+    
+    return "testo" + period;
 };

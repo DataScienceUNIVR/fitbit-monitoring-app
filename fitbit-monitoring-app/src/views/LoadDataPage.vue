@@ -83,8 +83,8 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import {
-    sendStepsToFirebase,
-    getStepsToFirebase,
+    sendStepsFirebase,
+    getStepsFirebase,
 } from "../hooks/firebase-crud";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
 
@@ -139,7 +139,7 @@ export default defineComponent({
                     const tmp = JSON.parse(text);
 
                     // TODO: fix returned msg
-                    const returnMsg = await sendStepsToFirebase(tmp);
+                    const returnMsg = await sendStepsFirebase(tmp);
                     this.openToast(returnMsg);
                 } catch (e) {
                     this.openToast(e);
@@ -152,9 +152,9 @@ export default defineComponent({
 
         // Upload file function
         downloadData() {
-            // const doc = JSON.stringify(getStepsToFirebase());
+            // const doc = JSON.stringify(getStepsFirebase());
             // // console.log(doc);
-            // const blob = new Blob([JSON.stringify(getStepsToFirebase())], {
+            // const blob = new Blob([JSON.stringify(getStepsFirebase())], {
             //     type: "application/json",
             // });
             // if (navigator.msSaveBlob) {
