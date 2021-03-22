@@ -24,49 +24,71 @@
     </ion-item>
             </ion-header>
             <ion-row class="statistiche-row">
-                <ion-card style="background-color: #4a0f81;">
+                <ion-card class="statistiche-ion-card" style="background-color: #4a0f81;">
                     <ion-card-header>
-                        <ion-card-subtitle>MINUTI DI ATTIVITA SEDENTARIA</ion-card-subtitle>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">MINUTI DI ATTIVITA SEDENTARIA</ion-card-subtitle>
                         <ion-card-title class="statistiche-ion-card-title">
                             5241
                         </ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
-                        Minuti di attività sedentaria
-                    </ion-card-content>
                 </ion-card>
             </ion-row>
             <ion-row class="statistiche-row">
-                <ion-card style="background-color: #2d65c5;">
+                <ion-card class="statistiche-ion-card" style="background-color: #8751b8;">
                     <ion-card-header>
-                        <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="statistiche-ion-card-title">8526 - 52,2%</ion-card-title>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">PASSI DI ATTIVITA SEDENTARIA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">
+                            1620
+                        </ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
-                        Scaricare i dati in formato JSON del dispositivo fitbit.
-                    </ion-card-content>
                 </ion-card>
             </ion-row>
             <ion-row class="statistiche-row">
-                <ion-card style="background-color: #626032;">
+                <ion-card class="statistiche-ion-card" style="background-color: #2d65c5;">
                     <ion-card-header>
-                        <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="statistiche-ion-card-title">100</ion-card-title>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">MINUTI DI ATTIVITA LEGGERA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">200</ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
-                        Scaricare i dati in formato JSON del dispositivo fitbit.
-                    </ion-card-content>
                 </ion-card>
             </ion-row>
             <ion-row class="statistiche-row">
-                <ion-card style="background-color: #246c4d;">
+                <ion-card class="statistiche-ion-card" style="background-color: #5b83c7;">
                     <ion-card-header>
-                        <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="statistiche-ion-card-title">15741</ion-card-title>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">PASSI DI ATTIVITA LEGGERA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">2000</ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
-                        Scaricare i dati in formato JSON del dispositivo fitbit.
-                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+            <ion-row class="statistiche-row">
+                <ion-card class="statistiche-ion-card" style="background-color: #626032;">
+                    <ion-card-header>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">MINUTI DI ATTIVITA MODERATA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">1570</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-row>
+            <ion-row class="statistiche-row">
+                <ion-card class="statistiche-ion-card" style="background-color: #858344;">
+                    <ion-card-header>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">PASSI DI ATTIVITA MODERATA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">2100</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-row>
+            <ion-row class="statistiche-row">
+                <ion-card class="statistiche-ion-card" style="background-color: #246c4d;">
+                    <ion-card-header>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">MINUTI DI ATTIVITA INTENSA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">25</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-row>
+            <ion-row class="statistiche-row">
+                <ion-card class="statistiche-ion-card" style="background-color: #37a676;">
+                    <ion-card-header>
+                        <ion-card-subtitle class="statistiche-ion-card-subtitle">PASSI DI ATTIVITA INTENSA</ion-card-subtitle>
+                        <ion-card-title class="statistiche-ion-card-title">3000</ion-card-title>
+                    </ion-card-header>
                 </ion-card>
             </ion-row>
         </ion-content>
@@ -88,7 +110,6 @@ import {
     IonLabel,
     IonCardTitle,
     IonCardHeader,
-    IonCardContent,
     IonCardSubtitle,
     IonItem,
     // IonIcon,
@@ -113,7 +134,6 @@ export default {
         IonLabel,
         IonCardTitle,
         IonCardHeader,
-        IonCardContent,
         IonCardSubtitle,
         IonItem,
         // IonIcon,

@@ -53,11 +53,24 @@ ion-content.main{
 
 .statistiche-row {
     margin-bottom:  -7%;
+    justify-content: center;
+}
+
+.statistiche-ion-card {
+    width: 80% !important;
 }
 
 .statistiche-ion-card-title {
     font-size:      60px;
     text-align:     center;
+}
+
+.statistiche-ion-card-subtitle {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    color: #c6c7ca;
 }
 
 .user-details {
@@ -74,4 +87,10 @@ ion-content.main{
 
 .logo-menu {
     margin-top:     10%;
+}
+
+/* Android CSS */
+.md .statistiche-ion-card {
+    width: 80% !important;
+    margin-bottom: 40%;
 }
