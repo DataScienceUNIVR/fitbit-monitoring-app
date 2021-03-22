@@ -51,13 +51,14 @@ ion-content.main{
     margin-top:     30px;
 }
 
+/* Statistiche page */
 .statistiche-row {
-    margin-bottom:  -7%;
+    margin-bottom:  45%;
     justify-content: center;
 }
 
 .statistiche-ion-card {
-    width: 80% !important;
+    width: 330px !important;
 }
 
 .statistiche-ion-card-title {
@@ -66,11 +67,11 @@ ion-content.main{
 }
 
 .statistiche-ion-card-subtitle {
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    font-style: italic;
-    color: #c6c7ca;
+    font-size:      15px;
+    font-weight:    bold;
+    text-align:     center;
+    font-style:     italic;
+    color:        #c6c7ca;
 }
 
 .user-details {
@@ -80,17 +81,27 @@ ion-content.main{
     margin-bottom:  10%;
 }
 
-.menu-item {
-    /* margin-top:     5%;
-    font-size:      20px; */
+.back {
+    width: 90%;
+    margin-left: 32px;
 }
+
+.front {
+    width: 90%;
+}
+/* .menu-item {
+    margin-top:     5%;
+    font-size:      20px;
+} */
+
 
 .logo-menu {
     margin-top:     10%;
 }
 
+
 /* Android CSS */
 .md .statistiche-ion-card {
-    width: 80% !important;
-    margin-bottom: 40%;
+    width: 80%      !important;
+    margin-bottom:  45%;
 }
