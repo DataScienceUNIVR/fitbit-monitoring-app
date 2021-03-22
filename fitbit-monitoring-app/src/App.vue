@@ -6,6 +6,7 @@
                     <ion-list-header>
                         <ion-img
                             src="./assets/img/logo_app_white.png"
+                            class="logo-menu"
                         ></ion-img>
                     </ion-list-header>
 
