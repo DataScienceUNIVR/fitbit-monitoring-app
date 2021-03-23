@@ -178,8 +178,7 @@ export default defineComponent({
             if (
                 !credentials.value.nome ||
                 !credentials.value.cognome ||
-                !credentials.value.email ||
-                !credentials.value.password
+                !credentials.value.email
             ) {
                 const toast = await toastController.create({
                     message: "Sembra che le informazioni non siano complete",
@@ -187,7 +186,7 @@ export default defineComponent({
                 });
                 return toast.present();
             }
-            // CF regex check
+            // Regular CF sintax check
             if (!credentials.value.cf.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i)) {
                 const toast = await toastController.create({
                     message: "Il codice fiscale immesso non è corretto",
@@ -195,6 +194,16 @@ export default defineComponent({
                 });
                 return toast.present();
             } 
+            // Regular password length check
+            if (!credentials.value.password.match(/^.{6,}$/i)) {
+                const toast = await toastController.create({
+                    message: "La password deve contenere almeno 6 caratteri",
+                    duration: 2000,
+                });
+                return toast.present();
+            } 
+            // TODO: regex mail
+
             await register(
                 credentials.value.nome,
                 credentials.value.cognome,
