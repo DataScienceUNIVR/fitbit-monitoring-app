@@ -1,14 +1,13 @@
 <template>
     <ion-page>
-        <ion-header :translucent="true">
-        </ion-header>
+        <ion-header :translucent="true"> </ion-header>
 
-        <ion-content class="login" >
+        <ion-content class="login">
             <ion-img
                 class="login-header"
                 src="./assets/img/logo_app_white.png"
             ></ion-img>
-            
+
             <ion-card>
                 <ion-card-header>
                     <ion-card-title> Benvenuto! </ion-card-title>
@@ -17,18 +16,39 @@
                 <ion-card-content>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Nome</ion-label>
-                        <ion-input v-model="nome"></ion-input>
+                        <ion-input v-model="nome"
+                        @ionChange="
+                                ($event) =>
+                                    (credentials.nome = $event.detail.value)
+                            "></ion-input>
+                    </ion-item>
+                    <ion-item v-if="mode === AuthMode.SignUp">
+                        <ion-label position="floating">Cognome</ion-label>
+                        <ion-input v-model="cognome"
+                        @ionChange="
+                                ($event) =>
+                                    (credentials.cognome = $event.detail.value)
+                            "></ion-input>
+                    </ion-item>
+                    <ion-item v-if="mode === AuthMode.SignUp">
+                        <ion-label position="floating"
+                            >Codice Fiscale</ion-label
+                        >
+                        <ion-input v-model="cf"
+                        @ionChange="
+                                ($event) =>
+                                    (credentials.cf = $event.detail.value)
+                            "></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
                         <ion-input
-                            v-model="username"
+                            v-model="email"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.username = $event.detail.value)
+                                    (credentials.email = $event.detail.value)
                             "
-                            ></ion-input
-                        >
+                        ></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Password</ion-label>
@@ -76,7 +96,7 @@
                     >
                         {{ mode === AuthMode.SignIn ? "Sign Up" : "Cancel" }}
                     </ion-button>
-                </ion-card-content>  
+                </ion-card-content>
             </ion-card>
             <div id="container">
                 <!-- <ion-content class="ion-padding">
@@ -102,7 +122,7 @@ import {
     IonCardContent,
     IonButton,
     IonImg,
-    // toastController
+    toastController
 } from "@ionic/vue";
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
@@ -131,40 +151,55 @@ export default defineComponent({
         IonButton,
         IonImg,
     },
-    // methods: {
-    // async openToast() {
-    //   const toast = await toastController
-    //     .create({
-    //       message: 'Your settings have been saved.',
-    //       duration: 2000
-    //     })
-    //   return toast.present();
-    // },
+    
     setup() {
         const credentials = ref<{
             nome: string;
-            username: string;
+            cognome: string;
+            cf: string;
+            email: string;
             password: string;
         }>({
             nome: "",
-            username: "",
+            cognome: "",
+            cf: "",
+            email: "",
             password: "",
         });
         const { login, register } = useFirebaseAuth();
         const router = useRouter();
-        
-      
+
         const doSignIn = async () => {
-            await login(credentials.value.username, credentials.value.password);
+            await login(credentials.value.email, credentials.value.password);
             router.replace({ path: "/home" });
         };
 
         const doSignUp = async () => {
+            if (
+                !credentials.value.nome ||
+                !credentials.value.cognome ||
+                !credentials.value.email ||
+                !credentials.value.password
+            ) {
+                const toast = await toastController.create({
+                    message: "Sembra che le informazioni non siano complete",
+                    duration: 2000,
+                });
+                return toast.present();
+            }
+            // CF regex check
+            if (!credentials.value.cf.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i)) {
+                const toast = await toastController.create({
+                    message: "Il codice fiscale immesso non è corretto",
+                    duration: 2000,
+                });
+                return toast.present();
+            } 
             await register(
                 credentials.value.nome,
-                "cognome",
-                "cf",
-                credentials.value.username,
+                credentials.value.cognome,
+                credentials.value.cf,
+                credentials.value.email,
                 credentials.value.password
             );
             router.replace({ path: "/home" });

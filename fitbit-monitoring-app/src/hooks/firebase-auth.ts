@@ -45,7 +45,6 @@ export default function () {
                 .then(
                     (user) => {
                         state.user = user;
-
                         // If user is added firebase auth su successfully, add this one to users table too 
                         const uid = user.user?.uid;
                         if (uid != null) {
