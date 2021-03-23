@@ -258,10 +258,6 @@ export default {
             getStatistics($event.target.value);
             // location.reload();
         },
-
-        // setup() {
-        //     return {  };
-        // },
     },
 };
 </script>

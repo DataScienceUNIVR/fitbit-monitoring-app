@@ -5,13 +5,12 @@ import useFirebaseAuth from "./firebase-auth";
 import "./firebase-crud.ts";
 const { getLoggedUserInfo } = useFirebaseAuth();
 
-// initialize firebase
+// Init firebase
 if (firebase.apps.length === 0) {
     firebase.initializeApp(FIREBASE_CONFIG);
 }
 
 const db = firebase.firestore();
-// const usersCollection = db.collection("users");
 const stepsCollection = db.collection("steps");
 let message = "";
 
@@ -33,7 +32,7 @@ export const sendStepsFirebase = async (args: any[]) => {
                 const number = parseInt(row.value);
                 const dateTime = firebase.firestore.Timestamp.fromDate(new Date(row.dateTime));
 
-                // Prima controllo la validità dei dati, in caso positivo faccio l'insert
+                // First check the validity of the data, if so I make the insert
                 if (uid != null && number >= 0 && dateTime != null) {
                     stepsCollection
                         .add({
