@@ -162,6 +162,8 @@ export default defineComponent({
         const doSignUp = async () => {
             await register(
                 credentials.value.nome,
+                "cognome",
+                "cf",
                 credentials.value.username,
                 credentials.value.password
             );
