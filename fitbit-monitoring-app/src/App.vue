@@ -215,7 +215,7 @@ export default defineComponent({
             doLogout,
             user,
             loggedUser,
-            isSelected: (url: string) => (url === route.path ? "selected" : ""),
+            // isSelected: (url: string) => (url === route.path ? "selected" : ""),
         };
     },
 });
