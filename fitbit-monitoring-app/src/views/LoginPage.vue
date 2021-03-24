@@ -151,7 +151,7 @@ export default defineComponent({
         IonButton,
         IonImg,
     },
-    
+
     setup() {
         const credentials = ref<{
             nome: string;
@@ -169,9 +169,17 @@ export default defineComponent({
         const { login, register } = useFirebaseAuth();
         const router = useRouter();
 
-        const doSignIn = async () => {
-            await login(credentials.value.email, credentials.value.password);
-            router.replace({ path: "/home" });
+          const doSignIn = async () => {
+            if (!credentials.value.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                const toast = await toastController.create({
+                    message: "Email con conforme",
+                    duration: 2000,
+                });
+                return toast.present();
+            } else {
+                await login(credentials.value.email, credentials.value.password);
+                router.replace({ path: "/home" });
+            }
         };
 
         const doSignUp = async () => {
@@ -193,7 +201,7 @@ export default defineComponent({
                     duration: 2000,
                 });
                 return toast.present();
-            } 
+            }
             // Regular password length check
             if (!credentials.value.password.match(/^.{6,}$/i)) {
                 const toast = await toastController.create({
@@ -201,7 +209,7 @@ export default defineComponent({
                     duration: 2000,
                 });
                 return toast.present();
-            } 
+            }
             // TODO: regex mail
 
             await register(
