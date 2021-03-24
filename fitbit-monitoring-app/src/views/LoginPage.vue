@@ -169,7 +169,7 @@ export default defineComponent({
         const { login, register } = useFirebaseAuth();
         const router = useRouter();
 
-          const doSignIn = async () => {
+        const doSignIn = async () => {
             if (!credentials.value.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
                 const toast = await toastController.create({
                     message: "Email con conforme",
@@ -210,7 +210,14 @@ export default defineComponent({
                 });
                 return toast.present();
             }
-            // TODO: regex mail
+            // Regular mail sintax check
+            if (!credentials.value.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                const toast = await toastController.create({
+                    message: "Email con conforme",
+                    duration: 2000,
+                });
+                return toast.present();
+            }
 
             await register(
                 credentials.value.nome,
