@@ -170,7 +170,7 @@ export default defineComponent({
             },
             {
                 title: "PROFILO",
-                url: "/main/Profilo",
+                url: "/profile",
                 iosIcon: personCircleOutline,
                 mdIcon: personCircleSharp,
             },
