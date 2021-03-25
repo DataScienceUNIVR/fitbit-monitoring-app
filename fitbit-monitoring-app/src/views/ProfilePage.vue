@@ -35,10 +35,10 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: Giacomo
-                    <br/><b>COGNOME</b>: Mirandola
-                    <br/><b>C.F</b>: MRNGCM99P19E349N
-                    <br /><b>EMAIL</b>: mirgiacomo@gmail.com <br />
+                    <b>NOME</b>: Mario
+                    <br/><b>COGNOME</b>: Rossi
+                    <br/><b>C.F</b>: MRNGCN10P19W201N
+                    <br /><b>EMAIL</b>: gmail@gmail.com <br />
                     <b>PESO</b>: 80 KG <br />
                     <b>ALTEZZA</b>: 175 cm
                 </ion-card-content>
