@@ -94,11 +94,34 @@ ion-content.main{
     font-size:      20px;
 } */
 
-
 .logo-menu {
     margin-top:     10%;
 }
 
+.profile-ion-card-subtitle {
+    text-align:     center;
+    font-size:      20px;
+}
+
+.profile-ion-card-content {
+    font-size:      21px;
+    line-height:    1.6;
+}
+
+/* Button edge of avatar circle */
+.profile-ion-fab {
+    margin-left:    -50% !important;
+}
+
+/* User image profile */
+.profile-img {
+    width:          75%;
+    height:         75%;
+    display:        block;
+    margin:         0 auto;
+    margin-top:     10%;
+    margin-bottom:  10%;
+}
 
 /* Android CSS */
 .md .statistiche-ion-card {

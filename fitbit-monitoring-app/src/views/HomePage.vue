@@ -10,7 +10,7 @@
         </ion-header>
 
         <ion-content :fullscreen="true" class="main">
-            eqweqw
+            TODO: Cosa mettere nella home?
         </ion-content>
     </ion-page>
 </template>
