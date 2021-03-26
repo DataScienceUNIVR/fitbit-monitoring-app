@@ -17,28 +17,30 @@
                     >
                     <ion-card-title
                         ><ion-fab vertical="bottom" horizontal="end">
-                            <ion-fab-button class="profile-ion-fab" @click="$refs.file.click()">
+                            <ion-fab-button
+                                class="profile-ion-fab"
+                                @click="$refs.file.click()"
+                            >
                                 <ion-icon :icon="cameraSharp"></ion-icon>
                             </ion-fab-button> </ion-fab
                         ><ion-img
                             class="profile-img"
                             src="./assets/img/avatar.jpg"
                         >
-                        </ion-img
-                    >
-                    <input
-                        type="file"
-                        ref="file"
-                        id="uploadProfilePicture"
-                        hidden
-                        @change="uploadProfilePicture"
+                        </ion-img>
+                        <input
+                            type="file"
+                            ref="file"
+                            id="uploadProfilePicture"
+                            hidden
+                            @change="uploadProfilePicture"
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: Mario
-                    <br/><b>COGNOME</b>: Rossi
-                    <br/><b>C.F</b>: MRNGCN10P19W201N
-                    <br /><b>EMAIL</b>: gmail@gmail.com <br />
+                    <b>NOME</b>: Mario <br /><b>COGNOME</b>: Rossi <br /><b
+                        >C.F</b
+                    >: MRNGCN10P19W201N <br /><b>EMAIL</b>: gmail@gmail.com
+                    <br />
                     <b>PESO</b>: 80 KG <br />
                     <b>ALTEZZA</b>: 175 cm
                 </ion-card-content>
@@ -65,11 +67,13 @@ import {
     IonFab,
     IonFabButton,
     IonIcon,
-    toastController
 } from "@ionic/vue";
 import { cameraSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
+import {
+    uploadImage,
+} from "../hooks/firebase-crud";
 
 export default defineComponent({
     name: "Profile",
@@ -91,37 +95,21 @@ export default defineComponent({
         IonFabButton,
         IonIcon,
     },
-
-methods: {
+    data () {
+        return {
+            selectedFile: null
+        }
+    },
+    methods: {
         // Upload file function
         uploadProfilePicture() {
             const src = this.$el.querySelector("#uploadProfilePicture");
             const image = src.files[0];
-            return AppVue.methods?.openToast("returnMsg");
-            // If it's not JSON file return
-            // if (!file || file.type !== "application/json"){
-            //      return AppVue.methods?.openToast("returnMsg");
-            // }
-            // const reader = new FileReader();
-            // reader.readAsText(file, "UTF-8");
-            // reader.onload = async (evt) => {
-            //     let text = "";
-            //     if (evt.target != null) {
-            //         text = evt.target.result + "";
-            //     }
-            //     try {
-            //         const tmp = JSON.parse(text);
-
-            //         // TODO: fix returned msg
-            //         const returnMsg = await sendStepsFirebase(tmp);
-            //          return AppVue.methods?.openToast("returnMsg");
-            //     } catch (e) {
-            //          return AppVue.methods?.openToast("returnMsg");
-            //     }
-            // };
-            // reader.onerror = (evt) => {
-            //     console.error(evt);
-            // };
+            console.log(image.type);
+            if (!image || (image.type !== "image/jpg" && image.type !== "image/jpeg" && image.type !== "image/png" && image.type !== "image/SVG")){
+                 return AppVue.methods?.openToast("Formato file non corretto");
+            }
+            uploadImage(image)
         },
     },
 

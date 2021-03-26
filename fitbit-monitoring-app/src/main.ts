@@ -26,7 +26,7 @@ import "./theme/style.css";
 
 import useFirebaseAuth from "./hooks/firebase-auth";
 
-const { authCheck  } = useFirebaseAuth();
+const { authCheck } = useFirebaseAuth();
 
 const app = createApp(App).use(IonicVue);
 
