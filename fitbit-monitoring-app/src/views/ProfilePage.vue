@@ -68,8 +68,10 @@ import {
     toastController
 } from "@ionic/vue";
 import { cameraSharp } from "ionicons/icons";
+import { defineComponent } from "vue";
+import AppVue from "@/App.vue";
 
-export default {
+export default defineComponent({
     name: "Profile",
     components: {
         IonButtons,
@@ -91,24 +93,14 @@ export default {
     },
 
 methods: {
-        // Open toast component
-        async openToast(msg: string) {
-            const toast = await toastController.create({
-                message: msg,
-                duration: 2000,
-            });
-            return toast.present();
-        },
-
         // Upload file function
         uploadProfilePicture() {
             const src = this.$el.querySelector("#uploadProfilePicture");
             const image = src.files[0];
-            console.log(image);
+            return AppVue.methods?.openToast("returnMsg");
             // If it's not JSON file return
             // if (!file || file.type !== "application/json"){
-            //     this.openToast("Il file deve essere di tipo JSON!");
-            //     return;
+            //      return AppVue.methods?.openToast("returnMsg");
             // }
             // const reader = new FileReader();
             // reader.readAsText(file, "UTF-8");
@@ -122,9 +114,9 @@ methods: {
 
             //         // TODO: fix returned msg
             //         const returnMsg = await sendStepsFirebase(tmp);
-            //         this.openToast(returnMsg);
+            //          return AppVue.methods?.openToast("returnMsg");
             //     } catch (e) {
-            //         this.openToast(e);
+            //          return AppVue.methods?.openToast("returnMsg");
             //     }
             // };
             // reader.onerror = (evt) => {
@@ -136,5 +128,5 @@ methods: {
     setup() {
         return { cameraSharp };
     },
-};
+});
 </script>

@@ -81,12 +81,14 @@ import {
     IonRow,
     toastController,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+
 import {
     sendStepsFirebase,
     getStepsFirebase,
 } from "../hooks/firebase-crud";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
+import { defineComponent } from "vue";
+import AppVue from "@/App.vue";
 
 export default defineComponent({
     name: "Main",
@@ -109,15 +111,6 @@ export default defineComponent({
         IonRow,
     },
     methods: {
-        // Open toast component
-        async openToast(msg: string) {
-            const toast = await toastController.create({
-                message: msg,
-                duration: 2000,
-            });
-            return toast.present();
-        },
-
         // Upload file function
         uploadData() {
             const src = this.$el.querySelector("#uploadFile");
@@ -125,8 +118,7 @@ export default defineComponent({
 
             // If it's not JSON file return
             if (!file || file.type !== "application/json"){
-                this.openToast("Il file deve essere di tipo JSON!");
-                return;
+                return AppVue.methods?.openToast("Il file deve essere di tipo JSON!");
             }
             const reader = new FileReader();
             reader.readAsText(file, "UTF-8");
@@ -140,9 +132,9 @@ export default defineComponent({
 
                     // TODO: fix returned msg
                     const returnMsg = await sendStepsFirebase(tmp);
-                    this.openToast(returnMsg);
+                    return AppVue.methods?.openToast(returnMsg);
                 } catch (e) {
-                    this.openToast(e);
+                    return AppVue.methods?.openToast(e);
                 }
             };
             reader.onerror = (evt) => {

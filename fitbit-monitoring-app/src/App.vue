@@ -129,10 +129,13 @@ export default defineComponent({
         IonChip,
     },
     methods: {
-        async openToast() {
+        async openToast(msg: string) {
             const toast = await toastController.create({
-                message: "Your settings have been saved.",
-                duration: 2000,
+                message: msg,
+                duration: 200000,
+                position: "bottom",
+                translucent: true,
+                cssClass: "toast-message"
             });
             return toast.present();
         },

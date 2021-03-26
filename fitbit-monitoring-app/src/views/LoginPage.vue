@@ -16,29 +16,35 @@
                 <ion-card-content>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Nome</ion-label>
-                        <ion-input v-model="nome"
-                        @ionChange="
+                        <ion-input
+                            v-model="nome"
+                            @ionChange="
                                 ($event) =>
                                     (credentials.nome = $event.detail.value)
-                            "></ion-input>
+                            "
+                        ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Cognome</ion-label>
-                        <ion-input v-model="cognome"
-                        @ionChange="
+                        <ion-input
+                            v-model="cognome"
+                            @ionChange="
                                 ($event) =>
                                     (credentials.cognome = $event.detail.value)
-                            "></ion-input>
+                            "
+                        ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating"
                             >Codice Fiscale</ion-label
                         >
-                        <ion-input v-model="cf"
-                        @ionChange="
+                        <ion-input
+                            v-model="cf"
+                            @ionChange="
                                 ($event) =>
                                     (credentials.cf = $event.detail.value)
-                            "></ion-input>
+                            "
+                        ></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
@@ -98,11 +104,6 @@
                     </ion-button>
                 </ion-card-content>
             </ion-card>
-            <div id="container">
-                <!-- <ion-content class="ion-padding">
-                    <ion-button @click="openToast">Open Toast</ion-button>
-                </ion-content> -->
-            </div>
         </ion-content>
     </ion-page>
 </template>
@@ -122,11 +123,13 @@ import {
     IonCardContent,
     IonButton,
     IonImg,
-    toastController
 } from "@ionic/vue";
-import { defineComponent, reactive, ref, toRefs } from "vue";
+import { app } from "node_modules/firebase";
+import AppVue from "@/App.vue";
+import { reactive, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "../hooks/firebase-auth";
+
 enum AuthMode {
     SignIn,
     SignUp,
@@ -134,7 +137,7 @@ enum AuthMode {
 const state = reactive({
     mode: AuthMode.SignIn,
 });
-export default defineComponent({
+export default {
     name: "Home",
     components: {
         IonContent,
@@ -170,14 +173,17 @@ export default defineComponent({
         const router = useRouter();
 
         const doSignIn = async () => {
-            if (!credentials.value.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                const toast = await toastController.create({
-                    message: "Email con conforme",
-                    duration: 2000,
-                });
-                return toast.present();
+            if (
+                !credentials.value.email.match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+            ) {
+                return AppVue.methods?.openToast("Email non conforme");
             } else {
-                await login(credentials.value.email, credentials.value.password);
+                await login(
+                    credentials.value.email,
+                    credentials.value.password
+                );
                 router.replace({ path: "/home" });
             }
         };
@@ -188,35 +194,33 @@ export default defineComponent({
                 !credentials.value.cognome ||
                 !credentials.value.email
             ) {
-                const toast = await toastController.create({
-                    message: "Sembra che le informazioni non siano complete",
-                    duration: 2000,
-                });
-                return toast.present();
+                return AppVue.methods?.openToast(
+                    "Sembra che le informazioni non siano complete"
+                );
             }
             // Regular CF sintax check
-            if (!credentials.value.cf.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i)) {
-                const toast = await toastController.create({
-                    message: "Il codice fiscale immesso non è corretto",
-                    duration: 2000,
-                });
-                return toast.present();
+            if (
+                !credentials.value.cf.match(
+                    /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i
+                )
+            ) {
+                return AppVue.methods?.openToast(
+                    "Il codice fiscale immesso non è corretto"
+                );
             }
             // Regular password length check
             if (!credentials.value.password.match(/^.{6,}$/i)) {
-                const toast = await toastController.create({
-                    message: "La password deve contenere almeno 6 caratteri",
-                    duration: 2000,
-                });
-                return toast.present();
+                return AppVue.methods?.openToast(
+                    "La password deve contenere almeno 6 caratteri"
+                );
             }
             // Regular mail sintax check
-            if (!credentials.value.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                const toast = await toastController.create({
-                    message: "Email con conforme",
-                    duration: 2000,
-                });
-                return toast.present();
+            if (
+                !credentials.value.email.match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+            ) {
+                return AppVue.methods?.openToast("Email non conforme");
             }
 
             await register(
@@ -237,5 +241,5 @@ export default defineComponent({
             AuthMode,
         };
     },
-});
+};
 </script>
