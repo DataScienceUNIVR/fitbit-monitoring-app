@@ -4,6 +4,7 @@ import FIREBASE_CONFIG from "./.env.firebase";
 import useFirebaseAuth from "./firebase-auth";
 import "./firebase-crud.ts";
 const { getLoggedUserInfo } = useFirebaseAuth();
+import AppVue from "@/App.vue";
 
 // Init firebase
 if (firebase.apps.length === 0) {
@@ -42,15 +43,14 @@ export const sendStepsFirebase = async (args: any[]) => {
                         })
                         .then(() => {
                             message = "Dati caricati correttamente";
-                            console.log(message);
                         })
                         .catch((error) => {
                             message = "Errore nel caricamento dei dati: " + error;
-                            return message;
+                            throw AppVue.methods?.openToast("ERRORE: " + message);
                         });
                 } else {
                     message = "Dati non conformi, caricamento annullato";
-                    return message;
+                    throw AppVue.methods?.openToast("ERRORE: " + message);
                 }
             });
         });

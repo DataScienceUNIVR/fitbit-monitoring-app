@@ -132,7 +132,7 @@ export default defineComponent({
         async openToast(msg: string) {
             const toast = await toastController.create({
                 message: msg,
-                duration: 200000,
+                duration: 3000,
                 position: "bottom",
                 translucent: true,
                 cssClass: "toast-message"

@@ -3,7 +3,8 @@ import firebase from "firebase";
 import "firebase/firestore";
 import FIREBASE_CONFIG from "./.env.firebase";
 import {Md5} from "md5-typescript";
- 
+import AppVue from "@/App.vue";
+
 // initialize firebase
 if (firebase.apps.length === 0) {
     firebase.initializeApp(FIREBASE_CONFIG);
@@ -31,7 +32,8 @@ export default function () {
                 },
                 (error) => {
                     state.error = error;
-                    throw error;
+                    throw AppVue.methods?.openToast("ERRORE: " + error);
+                    // throw error;
                 }
             );
     };
@@ -63,7 +65,7 @@ export default function () {
                                 })
                                 .catch((error) => {
                                     state.error = "Errore nel caricamento dei dati: " + error;
-                                    throw error;
+                                    throw AppVue.methods?.openToast("Errore nel caricamento dei dati: " + error);
                                 });
                         } else {
                             state.error = "Dati non conformi, caricamento annullato";
@@ -72,7 +74,7 @@ export default function () {
                     },
                     (error) => {
                         state.error = error;
-                        throw error;
+                        throw AppVue.methods?.openToast("ERRORE: " + error);
                     }
                 );
         }

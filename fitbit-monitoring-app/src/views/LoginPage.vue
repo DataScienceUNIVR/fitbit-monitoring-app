@@ -73,6 +73,7 @@
                         class="ion-margin-top"
                         type="submit"
                         v-if="mode === AuthMode.SignIn"
+                        @keyup.enter.native: doSignIn
                         @click="doSignIn"
                     >
                         Sign In
