@@ -6,9 +6,9 @@ const storage = firebase.storage();
 const storageRef = storage.ref();
 
 /**
-     * Get the base information of the logged user (uid, email)
-     * @returns currentUser
-     */
+ * Get the base information of the logged user (uid, email)
+ * @returns currentUser
+ */
  export const getBaseUserInfo = () => {
     return firebase
         .auth()
@@ -25,6 +25,10 @@ export const getAllUserInfo = () => {
         .currentUser
 };
 
+/**
+ * Upload user avatar image
+ * @param file 
+ */
 export const uploadImage = async (file: File) => {
     const imagesRef = storageRef.child('profilePictures/' + getBaseUserInfo()?.uid);
     // There is no need to delete the previous one because it is overwritten 
@@ -37,7 +41,11 @@ export const uploadImage = async (file: File) => {
     }
 };
 
-
+/**
+ * Get statistics of the logged user
+ * @param period 
+ * @returns statistiche
+ */
 export const getStatistics = async (period: any) => {
     const uid = getBaseUserInfo()?.uid;
 

@@ -3,10 +3,16 @@ import "firebase/firestore";
 import { getBaseUserInfo } from "./userCTR";
 import AppVue from "@/App.vue";
 
+
 const db = firebase.firestore();
 const stepsCollection = db.collection("steps");
 let message = "";
 
+/**
+ * Save local steps saved into JSON file on firebase
+ * @param args 
+ * @returns 
+ */
 export const sendStepsFirebase = async (args: any[]) => {
     const uid = getBaseUserInfo()?.uid;
     stepsCollection.where('uid', '==', uid).get()
@@ -49,6 +55,9 @@ export const sendStepsFirebase = async (args: any[]) => {
     return message;
 };
 
+/**
+ * Get all steps of the logged user
+ */
 export const getStepsFirebase = async () => {
     // const doc =  usersCollection.get();
     // const snapshot = await usersCollection.get();
