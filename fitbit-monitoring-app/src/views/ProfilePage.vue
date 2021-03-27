@@ -105,12 +105,16 @@ export default defineComponent({
         uploadProfilePicture() {
             const src = this.$el.querySelector("#uploadProfilePicture");
             const image = src.files[0];
-            console.log(image.type);
             if (!image || (image.type !== "image/jpg" && image.type !== "image/jpeg" && image.type !== "image/png" && image.type !== "image/SVG")){
                  return AppVue.methods?.openToast("Formato file non corretto");
             }
             uploadImage(image)
         },
+
+    },
+
+    mounted() {
+        getAllLoggedUserInfo();
     },
 
     setup() {
