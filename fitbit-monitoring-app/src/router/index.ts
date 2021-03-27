@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import useFirebaseAuth from "../hooks/firebase-auth";
+import useFirebaseAuth from "../controllers/authCTR";
 
 const state = useFirebaseAuth();
 const routes: Array<RouteRecordRaw> = [

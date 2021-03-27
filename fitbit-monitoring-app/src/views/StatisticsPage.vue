@@ -225,7 +225,7 @@ import {
     IonToolbar,
 } from "@ionic/vue";
 import VueFlip from "vue-flip";
-import { getStatistics } from "../hooks/firebase-crud";
+import { getStatistics } from "../controllers/userCTR";
 // let statistiche = "das";
 
 export default {

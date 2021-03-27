@@ -1,7 +1,7 @@
 import { toRefs, reactive } from "vue";
 import firebase from "firebase";
 import "firebase/firestore";
-import FIREBASE_CONFIG from "./.env.firebase";
+import FIREBASE_CONFIG from "../hooks/.env.firebase";
 import { Md5 } from "md5-typescript";
 import AppVue from "@/App.vue";
 
@@ -19,7 +19,12 @@ const state = reactive<{ user: any; initialized: boolean; error: any }>({
 });
 
 export default function () {
-    // Login function with firebase auth
+    /**
+     * Login with firebase auth
+     * @param email 
+     * @param password 
+     * @returns user
+     */
     const login = (email: string, password: string) => {
         return firebase
             .auth()
@@ -38,7 +43,15 @@ export default function () {
             );
     };
 
-    // Register function with firebase auth
+    /**
+     * Register with firebase auth and delete from users if already exist a doc with same uid, after 
+     * @param nome 
+     * @param cognome 
+     * @param cf 
+     * @param email 
+     * @param password 
+     * @returns user
+     */
     const register = (nome: string, cognome: string, cf: string, email: string, password: string) => {
         if (nome != null && cognome != null && cf != null && email != null && password != null) {
             return firebase
@@ -80,7 +93,9 @@ export default function () {
         }
     };
 
-    // Logout function with firebase auth
+    /**
+     * Logout with firebase auth
+     */
     const logout = () => {
         return firebase
             .auth()
@@ -90,7 +105,9 @@ export default function () {
             });
     };
 
-    // Run during startup
+    /**
+     * Run during startup: initialize user
+     */
     const authCheck = () => {
         return new Promise((resolve, reject) => {
             !state.initialized &&
@@ -107,19 +124,11 @@ export default function () {
         });
     };
 
-    // Return user id of authentication
-    const getLoggedUserInfo = () => {
-        return firebase
-            .auth()
-            .currentUser
-    };
-
     return {
         ...toRefs(state),
         login,
         register,
         logout,
         authCheck,
-        getLoggedUserInfo
     };
 }

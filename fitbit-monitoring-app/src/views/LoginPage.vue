@@ -130,7 +130,7 @@ import { app } from "node_modules/firebase";
 import AppVue from "@/App.vue";
 import { reactive, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import useFirebaseAuth from "../hooks/firebase-auth";
+import useFirebaseAuth from "../controllers/authCTR";
 
 enum AuthMode {
     SignIn,

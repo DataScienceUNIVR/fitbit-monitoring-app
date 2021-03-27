@@ -24,7 +24,7 @@ import "@ionic/vue/css/display.css";
 import "./theme/variables.css";
 import "./theme/style.css";
 
-import useFirebaseAuth from "./hooks/firebase-auth";
+import useFirebaseAuth from "./controllers/authCTR";
 
 const { authCheck } = useFirebaseAuth();
 

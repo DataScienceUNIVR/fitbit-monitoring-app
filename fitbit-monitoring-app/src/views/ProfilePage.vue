@@ -71,9 +71,7 @@ import {
 import { cameraSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
-import {
-    uploadImage,
-} from "../hooks/firebase-crud";
+import { uploadImage } from "../controllers/userCTR";
 
 export default defineComponent({
     name: "Profile",
@@ -95,26 +93,31 @@ export default defineComponent({
         IonFabButton,
         IonIcon,
     },
-    data () {
+    data() {
         return {
-            selectedFile: null
-        }
+            selectedFile: null,
+        };
     },
     methods: {
         // Upload file function
         uploadProfilePicture() {
             const src = this.$el.querySelector("#uploadProfilePicture");
             const image = src.files[0];
-            if (!image || (image.type !== "image/jpg" && image.type !== "image/jpeg" && image.type !== "image/png" && image.type !== "image/SVG")){
-                 return AppVue.methods?.openToast("Formato file non corretto");
+            if (
+                !image ||
+                (image.type !== "image/jpg" &&
+                    image.type !== "image/jpeg" &&
+                    image.type !== "image/png" &&
+                    image.type !== "image/SVG")
+            ) {
+                return AppVue.methods?.openToast("Formato file non corretto");
             }
-            uploadImage(image)
+            uploadImage(image);
         },
-
     },
 
     mounted() {
-        getAllLoggedUserInfo();
+        // getAllUserInfo();
     },
 
     setup() {

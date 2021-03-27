@@ -79,13 +79,9 @@ import {
     IonFab,
     IonFabButton,
     IonRow,
-    toastController,
 } from "@ionic/vue";
 
-import {
-    sendStepsFirebase,
-    getStepsFirebase,
-} from "../hooks/firebase-crud";
+import { sendStepsFirebase, getStepsFirebase } from "../controllers/dataCTR";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
@@ -117,8 +113,10 @@ export default defineComponent({
             const file = src.files[0];
 
             // If it's not JSON file return
-            if (!file || file.type !== "application/json"){
-                return AppVue.methods?.openToast("Il file deve essere di tipo JSON!");
+            if (!file || file.type !== "application/json") {
+                return AppVue.methods?.openToast(
+                    "Il file deve essere di tipo JSON!"
+                );
             }
             const reader = new FileReader();
             reader.readAsText(file, "UTF-8");

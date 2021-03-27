@@ -1,26 +1,14 @@
 import firebase from "firebase";
 import "firebase/firestore";
-import FIREBASE_CONFIG from "./.env.firebase";
-import useFirebaseAuth from "./firebase-auth";
-import "./firebase-crud.ts";
+import { getBaseUserInfo } from "./userCTR";
 import AppVue from "@/App.vue";
-const { getLoggedUserInfo } = useFirebaseAuth();
 
-// Get a reference to the storage service, which is used to create references in storage bucket
-const storage = firebase.storage();
-// Create a storage reference from our storage service
-const storageRef = storage.ref();
 const db = firebase.firestore();
 const stepsCollection = db.collection("steps");
 let message = "";
 
-// Init firebase
-if (firebase.apps.length === 0) {
-    firebase.initializeApp(FIREBASE_CONFIG);
-}
-
 export const sendStepsFirebase = async (args: any[]) => {
-    const uid = getLoggedUserInfo()?.uid;
+    const uid = getBaseUserInfo()?.uid;
     stepsCollection.where('uid', '==', uid).get()
         .then(function (querySnapshot) {
             // Once we get the results, begin a batch
@@ -83,25 +71,4 @@ export const getStepsFirebase = async () => {
     //     });
     // console.log(firebase);
     // return usersCollection.add(user);
-};
-
-
-
-export const uploadImage = async (file: File) => {
-    const imagesRef = storageRef.child('profilePictures/' + getLoggedUserInfo()?.uid);
-    // There is no need to delete the previous one because it is overwritten 
-    try {
-        imagesRef.put(file).then(() => {
-            return AppVue.methods?.openToast("Aggiornare la pagina");
-        })
-    } catch (error) {
-        throw AppVue.methods?.openToast("ERRORE: " + error);
-    }
-};
-
-
-export const getStatistics = async (period: any) => {
-    const uid = getLoggedUserInfo()?.uid;
-
-    return "testo" + period;
 };
