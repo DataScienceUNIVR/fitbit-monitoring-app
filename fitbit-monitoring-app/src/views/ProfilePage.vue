@@ -39,7 +39,7 @@
                 <ion-card-content class="profile-ion-card-content">
                     <b>NOME</b>: Mario <br /><b>COGNOME</b>: Rossi <br /><b
                         >C.F</b
-                    >: MRNGCN10P19W201N <br /><b>EMAIL</b>: gmail@gmail.com
+                    >: {{user}} <br /><b>EMAIL</b>: gmail@gmail.com
                     <br />
                     <b>PESO</b>: 80 KG <br />
                     <b>ALTEZZA</b>: 175 cm
@@ -71,7 +71,7 @@ import {
 import { cameraSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
-import { uploadImage } from "../controllers/userCTR";
+import { getAllUserInfo, uploadImage } from "../controllers/userCTR";
 
 export default defineComponent({
     name: "Profile",
@@ -96,6 +96,7 @@ export default defineComponent({
     data() {
         return {
             selectedFile: null,
+            user: null,
         };
     },
     methods: {
@@ -117,7 +118,8 @@ export default defineComponent({
     },
 
     mounted() {
-        // getAllUserInfo();
+        const user = getAllUserInfo();
+        console.log(getAllUserInfo());
     },
 
     setup() {

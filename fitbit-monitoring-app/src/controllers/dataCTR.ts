@@ -3,7 +3,6 @@ import "firebase/firestore";
 import { getBaseUserInfo } from "./userCTR";
 import AppVue from "@/App.vue";
 
-
 const db = firebase.firestore();
 const stepsCollection = db.collection("steps");
 let message = "";

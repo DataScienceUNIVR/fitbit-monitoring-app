@@ -1,9 +1,13 @@
 import firebase from "firebase";
 import "firebase/firestore";
 import AppVue from "@/App.vue";
+import { reactive } from "vue";
 
 const storage = firebase.storage();
 const storageRef = storage.ref();
+const db = firebase.firestore();
+const usersCollection = db.collection("users");
+
 
 /**
  * Get the base information of the logged user (uid, email)
@@ -19,10 +23,39 @@ const storageRef = storage.ref();
  * Get all information of the logged user (nome, cognome, email, cf, pwd, uid, img)
  * @returns currentUser
  */
-export const getAllUserInfo = () => {
-    return firebase
-        .auth()
-        .currentUser
+export const getAllUserInfo = async () => {
+    const user = reactive<{ nome: any; cognome: any; cf: any; email: any; imageURL: any; uid: any }> ({
+        nome: null,
+        cognome: null,
+        cf: null,
+        email: null,
+        imageURL: null,
+        uid: null,
+    });
+
+    user.uid = getBaseUserInfo()?.uid;
+
+    const snapshot = await usersCollection.where('uid', '==', user.uid).get();
+    if (snapshot.empty) {
+        return AppVue.methods?.openToast("Errore: eseguire il logout e riautenticarsi");
+    }
+    
+    snapshot.forEach(doc => {
+        user.nome = doc.get("nome");
+        user.cognome = doc.get("cognome");
+        user.cf = doc.get("cf");
+        user.email = doc.get("email");
+    });
+    
+    // image URL of logged user
+    const pathReference = storageRef.child("profilePictures/"+user.uid);
+    Promise.resolve(pathReference.getDownloadURL()).then(function(value) {
+        if(value){
+            user.imageURL = value;
+        }
+    });
+    console.log(user);
+    return user;
 };
 
 /**
