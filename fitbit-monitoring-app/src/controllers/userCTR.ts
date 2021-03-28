@@ -13,7 +13,7 @@ const usersCollection = db.collection("users");
  * Get the base information of the logged user (uid, email)
  * @returns currentUser
  */
- export const getBaseUserInfo = () => {
+export const getBaseUserInfo = () => {
     return firebase
         .auth()
         .currentUser
@@ -24,7 +24,7 @@ const usersCollection = db.collection("users");
  * @returns currentUser
  */
 export const getAllUserInfo = async () => {
-    const user = reactive<{ nome: any; cognome: any; cf: any; email: any; imageURL: any; uid: any }> ({
+    const user = reactive<{ nome: any; cognome: any; cf: any; email: any; imageURL: any; uid: any }>({
         nome: null,
         cognome: null,
         cf: null,
@@ -39,22 +39,21 @@ export const getAllUserInfo = async () => {
     if (snapshot.empty) {
         return AppVue.methods?.openToast("Errore: eseguire il logout e riautenticarsi");
     }
-    
+
     snapshot.forEach(doc => {
         user.nome = doc.get("nome");
         user.cognome = doc.get("cognome");
         user.cf = doc.get("cf");
         user.email = doc.get("email");
     });
-    
+
     // image URL of logged user
-    const pathReference = storageRef.child("profilePictures/"+user.uid);
-    Promise.resolve(pathReference.getDownloadURL()).then(function(value) {
-        if(value){
+    const pathReference = storageRef.child("profilePictures/" + user.uid);
+    Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+        if (value) {
             user.imageURL = value;
         }
     });
-    console.log(user);
     return user;
 };
 

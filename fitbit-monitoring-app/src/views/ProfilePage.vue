@@ -119,7 +119,7 @@ export default defineComponent({
 
     mounted() {
         const user = getAllUserInfo();
-        console.log(getAllUserInfo());
+        console.log(user);
     },
 
     setup() {
