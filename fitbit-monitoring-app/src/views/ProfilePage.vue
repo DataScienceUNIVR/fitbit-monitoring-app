@@ -37,10 +37,10 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: Mario <br /><b>COGNOME</b>: Rossi <br /><b
-                        >C.F</b
-                    >: {{user}} <br /><b>EMAIL</b>: gmail@gmail.com
-                    <br />
+                    <b>NOME</b>: {{ test.nome }} <br />
+                    <b>COGNOME</b>: {{ test.cognome }} <br />
+                    <b>C.F</b>: {{ test.cf }} <br />
+                    <b>EMAIL</b>: {{ test.email }}<br />
                     <b>PESO</b>: 80 KG <br />
                     <b>ALTEZZA</b>: 175 cm
                 </ion-card-content>
@@ -72,6 +72,15 @@ import { cameraSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
 import { getAllUserInfo, uploadImage } from "../controllers/userCTR";
+interface Utente {
+    nome?: any;
+    cognome?: any;
+    cf?: any;
+    email?: any;
+    imageURL?: any;
+    uid?: any;
+}
+const test: Utente = {};
 
 export default defineComponent({
     name: "Profile",
@@ -96,7 +105,7 @@ export default defineComponent({
     data() {
         return {
             selectedFile: null,
-            user: null,
+            test,
         };
     },
     methods: {
@@ -115,11 +124,28 @@ export default defineComponent({
             }
             uploadImage(image);
         },
+        getUser() {
+            Promise.resolve(getAllUserInfo()).then((user) => {
+                if (user) {
+                    this.test.nome = user.nome;
+                    this.test.cognome = user.cognome;
+                    this.test.cf = user.cf;
+                    this.test.email = user.email;
+                    this.test.uid = user.uid;
+                }
+            });
+            //     Promise.resolve(getAllUserInfo()).then(function (user) {
+            //         test.name = user.;
+            //         // console.log(user.nome);
+            //     }).catch(e => {
+            //         return "dsa"
+            // });
+            // return test;
+        },
     },
 
     mounted() {
-        const user = getAllUserInfo();
-        console.log(user);
+        this.getUser();
     },
 
     setup() {

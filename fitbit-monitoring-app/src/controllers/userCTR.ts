@@ -49,11 +49,16 @@ export const getAllUserInfo = async () => {
 
     // image URL of logged user
     const pathReference = storageRef.child("profilePictures/" + user.uid);
-    Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
-        if (value) {
-            user.imageURL = value;
-        }
-    });
+    if(pathReference){
+        Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+            if (value) {
+                user.imageURL = value;
+            }
+        }).catch(e => {
+            user.imageURL = null;
+        });
+    }
+    
     return user;
 };
 
