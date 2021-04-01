@@ -1,0 +1,13 @@
+{
+  "appId": "fitbit.monitoring.app",
+  "appName": "fitbit-monitoring-app",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

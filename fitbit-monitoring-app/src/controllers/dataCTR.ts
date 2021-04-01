@@ -1,22 +1,19 @@
 import firebase from "firebase";
 import "firebase/firestore";
-import FIREBASE_CONFIG from "./.env.firebase";
-import useFirebaseAuth from "./firebase-auth";
-import "./firebase-crud.ts";
-const { getLoggedUserInfo } = useFirebaseAuth();
-
-// initialize firebase
-if (firebase.apps.length === 0) {
-    firebase.initializeApp(FIREBASE_CONFIG);
-}
+import { getBaseUserInfo } from "./userCTR";
+import AppVue from "@/App.vue";
 
 const db = firebase.firestore();
-// const usersCollection = db.collection("users");
 const stepsCollection = db.collection("steps");
 let message = "";
 
-export const sendStepsToFirebase = async (args: any[]) => {
-    const uid = getLoggedUserInfo()?.uid;
+/**
+ * Save local steps saved into JSON file on firebase
+ * @param args 
+ * @returns 
+ */
+export const sendStepsFirebase = async (args: any[]) => {
+    const uid = getBaseUserInfo()?.uid;
     stepsCollection.where('uid', '==', uid).get()
         .then(function (querySnapshot) {
             // Once we get the results, begin a batch
@@ -33,7 +30,7 @@ export const sendStepsToFirebase = async (args: any[]) => {
                 const number = parseInt(row.value);
                 const dateTime = firebase.firestore.Timestamp.fromDate(new Date(row.dateTime));
 
-                // Prima controllo la validità dei dati, in caso positivo faccio l'insert
+                // First check the validity of the data, if so I make the insert
                 if (uid != null && number >= 0 && dateTime != null) {
                     stepsCollection
                         .add({
@@ -43,22 +40,24 @@ export const sendStepsToFirebase = async (args: any[]) => {
                         })
                         .then(() => {
                             message = "Dati caricati correttamente";
-                            console.log(message);
                         })
                         .catch((error) => {
                             message = "Errore nel caricamento dei dati: " + error;
-                            return message;
+                            throw AppVue.methods?.openToast(message);
                         });
                 } else {
                     message = "Dati non conformi, caricamento annullato";
-                    return message;
+                    throw AppVue.methods?.openToast(message);
                 }
             });
         });
     return message;
 };
 
-export const getStepsToFirebase = async () => {
+/**
+ * Get all steps of the logged user
+ */
+export const getStepsFirebase = async () => {
     // const doc =  usersCollection.get();
     // const snapshot = await usersCollection.get();
     //     snapshot.forEach(doc => {

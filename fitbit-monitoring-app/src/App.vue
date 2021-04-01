@@ -6,6 +6,7 @@
                     <ion-list-header>
                         <ion-img
                             src="./assets/img/logo_app_white.png"
+                            class="logo-menu"
                         ></ion-img>
                     </ion-list-header>
 
@@ -13,7 +14,9 @@
                         <ion-avatar>
                             <img src="/assets/img/avatar.jpg" />
                         </ion-avatar>
-                        <ion-label v-if="loggedUser != null"> {{ loggedUser.email }}</ion-label>
+                        <ion-label v-if="loggedUser != null">
+                            {{ loggedUser.email }}</ion-label
+                        >
                     </ion-chip>
 
                     <!-- <ion-note></ion-note> -->
@@ -30,10 +33,7 @@
                             class="hydrated menu-item"
                             :class="{ selected: selectedIndex === i }"
                         >
-                            <ion-icon
-                                slot="start"
-                                :icon="p.iosIcon"
-                            ></ion-icon>
+                            <ion-icon slot="start" :icon="p.iosIcon"></ion-icon>
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
                         <ion-item
@@ -46,10 +46,7 @@
                             class="hydrated menu-item"
                             :class="{ selected: selectedIndex === i }"
                         >
-                            <ion-icon
-                                slot="start"
-                                :icon="p.iosIcon"
-                            ></ion-icon>
+                            <ion-icon slot="start" :icon="p.iosIcon"></ion-icon>
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
@@ -103,12 +100,11 @@ import {
     logOutOutline,
     logOutSharp,
     cloudUploadSharp,
-    cloudDownloadSharp
+    cloudDownloadSharp,
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
-import useFirebaseAuth from "./hooks/firebase-auth";
-import getLoggedUserData from "./hooks/firebase-auth";
-
+import useFirebaseAuth from "./controllers/authCTR";
+import getLoggedUserData from "./controllers/authCTR";
 
 export default defineComponent({
     name: "App",
@@ -128,10 +124,13 @@ export default defineComponent({
         IonChip,
     },
     methods: {
-        async openToast() {
+        async openToast(msg: string) {
             const toast = await toastController.create({
-                message: "Your settings have been saved.",
-                duration: 2000,
+                message: msg,
+                duration: 3000,
+                position: "bottom",
+                translucent: true,
+                cssClass: "toast-message",
             });
             return toast.present();
         },
@@ -169,7 +168,7 @@ export default defineComponent({
             },
             {
                 title: "PROFILO",
-                url: "/main/Profilo",
+                url: "/profile",
                 iosIcon: personCircleOutline,
                 mdIcon: personCircleSharp,
             },
@@ -214,7 +213,7 @@ export default defineComponent({
             doLogout,
             user,
             loggedUser,
-            isSelected: (url: string) => (url === route.path ? "selected" : ""),
+            // isSelected: (url: string) => (url === route.path ? "selected" : ""),
         };
     },
 });

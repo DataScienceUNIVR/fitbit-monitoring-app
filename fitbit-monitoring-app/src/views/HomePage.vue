@@ -10,7 +10,7 @@
         </ion-header>
 
         <ion-content :fullscreen="true" class="main">
-            
+            TODO: Cosa mettere nella home?
         </ion-content>
     </ion-page>
 </template>
@@ -27,7 +27,7 @@ import {
 } from "@ionic/vue";
 
 export default {
-    name: "Main",
+    name: "HomePage",
     components: {
         IonButtons,
         IonContent,

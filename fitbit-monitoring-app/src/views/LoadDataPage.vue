@@ -79,14 +79,12 @@ import {
     IonFab,
     IonFabButton,
     IonRow,
-    toastController,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
-import {
-    sendStepsToFirebase,
-    getStepsToFirebase,
-} from "../hooks/firebase-crud";
+
+import { sendStepsFirebase, getStepsFirebase } from "../controllers/dataCTR";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
+import { defineComponent } from "vue";
+import AppVue from "@/App.vue";
 
 export default defineComponent({
     name: "Main",
@@ -109,24 +107,16 @@ export default defineComponent({
         IonRow,
     },
     methods: {
-        // Open toast component
-        async openToast(msg: string) {
-            const toast = await toastController.create({
-                message: msg,
-                duration: 2000,
-            });
-            return toast.present();
-        },
-
         // Upload file function
         uploadData() {
             const src = this.$el.querySelector("#uploadFile");
             const file = src.files[0];
 
             // If it's not JSON file return
-            if (!file || file.type !== "application/json"){
-                this.openToast("Il file deve essere di tipo JSON!");
-                return;
+            if (!file || file.type !== "application/json") {
+                return AppVue.methods?.openToast(
+                    "Il file deve essere di tipo JSON!"
+                );
             }
             const reader = new FileReader();
             reader.readAsText(file, "UTF-8");
@@ -139,10 +129,10 @@ export default defineComponent({
                     const tmp = JSON.parse(text);
 
                     // TODO: fix returned msg
-                    const returnMsg = await sendStepsToFirebase(tmp);
-                    this.openToast(returnMsg);
+                    const returnMsg = await sendStepsFirebase(tmp);
+                    return AppVue.methods?.openToast(returnMsg);
                 } catch (e) {
-                    this.openToast(e);
+                    return AppVue.methods?.openToast(e);
                 }
             };
             reader.onerror = (evt) => {
@@ -152,9 +142,9 @@ export default defineComponent({
 
         // Upload file function
         downloadData() {
-            // const doc = JSON.stringify(getStepsToFirebase());
+            // const doc = JSON.stringify(getStepsFirebase());
             // // console.log(doc);
-            // const blob = new Blob([JSON.stringify(getStepsToFirebase())], {
+            // const blob = new Blob([JSON.stringify(getStepsFirebase())], {
             //     type: "application/json",
             // });
             // if (navigator.msSaveBlob) {
