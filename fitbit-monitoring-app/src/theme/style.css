@@ -157,6 +157,15 @@ ion-content.main{
     color:        #c6c7ca;
 }
 
+.peso-input {
+    font-size: 40px;
+    margin-left: 3%;
+}
+
+.peso-input-ion-card {
+    height: 200px;
+}
+
 .pulse {
     position: relative;
     border: none;
@@ -164,7 +173,7 @@ ion-content.main{
     height: 27%;
     margin: 10% auto;
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-    background-color: #36416e;
+    background-color: #4173ca00;
     background-size:cover;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -184,7 +193,11 @@ ion-content.main{
 @-ms-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
 
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 /* Android CSS */
 .md .statistiche-ion-card {
