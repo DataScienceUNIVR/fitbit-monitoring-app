@@ -82,7 +82,7 @@ import { add } from "ionicons/icons";
 import moment from "moment";
 
 const peso = null;
-const data = null;
+const data = "";
 const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
 
 export default defineComponent({
@@ -113,7 +113,8 @@ export default defineComponent({
     },
     methods: {
         saveWeight() {
-            addWeight(this.$refs.newWeight.value);
+            const peso = this.$refs.newWeight as any;
+            addWeight(peso.value);
             console.log("fine");
         },
     },
@@ -123,14 +124,15 @@ export default defineComponent({
             .then((value) => {
                 if (value) {
                     this.peso = value.peso;
+                    // const tmp = moment(value.dateTime.toDate()).format(
+                    //     "DD/MM/YYYY HH:mm");
                     this.data = moment(value.dateTime.toDate()).format(
-                        "DD/MM/YYYY HH:mm"
-                    );
+                        "DD/MM/YYYY HH:mm");
                 }
             })
             .catch((e) => {
                 this.peso = null;
-                this.data = null;
+                this.data = "";
             });
     },
 

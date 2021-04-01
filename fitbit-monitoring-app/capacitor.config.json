@@ -1,6 +1,6 @@
 {
   "appId": "fitbit.monitoring.app",
-  "appName": "fitbit-monitoring-app",
+  "appName": "Fitbit Monitoring App",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",

@@ -21,6 +21,42 @@ export const getBaseUserInfo = () => {
 };
 
 /**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getProfileImage = async () => {
+    let URL = null;
+    const pathReference = storageRef.child("profilePictures/" + getBaseUserInfo()?.uid);
+    if(pathReference){
+        try {
+            await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+                if (value) {
+                    URL = value;
+                }
+            });
+            return URL;
+        } catch (error) {
+            return null;      
+        }
+        
+    }
+
+};
+
+/**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getLastWeight = async () => {
+    let datiPeso: any = null;
+    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', getBaseUserInfo()?.uid).get();
+    snapshot.forEach(element => {
+        datiPeso =  element.data();
+    });
+    return datiPeso;
+};
+
+/**
  * Get all information of the logged user (nome, cognome, email, cf, pwd, uid, img)
  * @returns currentUser
  */
@@ -55,16 +91,13 @@ export const getAllUserInfo = async () => {
         if (value) {
             user.imageURL = value;
         }
-    }).catch(e => {
-        user.imageURL = null;
     });
 
     await Promise.resolve(getLastWeight()).then(function (value) {
-        if (value) {
+        if (value != null) {
+            console.log(value);
             user.peso = value["peso"];
         }
-    }).catch(e => {
-        user.peso = null;
     });
 
     return user;
@@ -90,38 +123,7 @@ export const setProfileImage = async (file: File) => {
  * Get last weight value loaded
  * @return weight 
  */
- export const getProfileImage = async () => {
-    let URL = null;
-    const pathReference = storageRef.child("profilePictures/" + getBaseUserInfo()?.uid);
-    if(pathReference){
-        await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
-            if (value) {
-                URL = value;
-            }
-        });
-        return URL;
-    }
-
-};
-
-/**
- * Get last weight value loaded
- * @return weight 
- */
- export const getLastWeight = async () => {
-    let datiPeso = null;
-    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', getBaseUserInfo()?.uid).get();
-    snapshot.forEach(element => {
-        datiPeso =  element.data();
-    });
-    return datiPeso;
-};
-
-/**
- * Get last weight value loaded
- * @return weight 
- */
- export const addWeight = async (value : number) => {
+ export const addWeight = async (value: number) => {
     // Now add user weight to peso table (trace history)
     const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
     pesoCollection
@@ -146,7 +148,7 @@ export const setProfileImage = async (file: File) => {
  */
 export const getStatistics = async (period: any) => {
     const uid = getBaseUserInfo()?.uid;
-
+    console.log(period);
     return "statistiche di: " + uid;
 };
 
