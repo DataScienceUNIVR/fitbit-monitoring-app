@@ -12,14 +12,48 @@
         <ion-content :fullscreen="true" class="main">
             <ion-card class="pulse" v-if="peso">
                 <ion-card-header>
-                    <ion-card-subtitle class="peso-ion-card-subtitle">IL TUO ULTIMO PESO REGISTRATO:</ion-card-subtitle>
+                    <ion-card-subtitle class="peso-ion-card-subtitle"
+                        >IL TUO ULTIMO PESO REGISTRATO:</ion-card-subtitle
+                    >
                 </ion-card-header>
-                <ion-card-title class="peso-ion-card-title">{{ peso }} KG</ion-card-title>
+                <ion-card-title class="peso-ion-card-title"
+                    >{{ peso }} KG</ion-card-title
+                >
 
-                 <ion-card-content class="peso-ion-card-content">
+                <ion-card-content class="peso-ion-card-content">
                     {{ data }}
                 </ion-card-content>
             </ion-card>
+            <ion-row>
+                <ion-card class="peso-input-ion-card">
+                    <ion-card-header>
+                        <ion-card-subtitle class="peso-ion-card-subtitle"
+                            >AGGIORNA IL TUO PESO:</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                    <ion-card-title class="peso-ion-card-title">
+                        <ion-item>
+                            <ion-label>Valore: </ion-label>
+                            <ion-input
+                                ref="newWeight"
+                                class="peso-input"
+                                inputmode="decimal"
+                                type="number"
+                                min="0"
+                            ></ion-input
+                            >KG
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-card-content class="peso-ion-card-content">
+                        <br />
+                    </ion-card-content>
+                    <ion-fab horizontal="center" vertical="bottom">
+                        <ion-fab-button @click="saveWeight">
+                            <ion-icon :icon="add"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-card>
+            </ion-row>
         </ion-content>
     </ion-page>
 </template>
@@ -43,12 +77,13 @@ import {
     IonIcon,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import AppVue from "@/App.vue";
-import { getLastWeight } from "../controllers/userCTR";
-import moment from 'moment'
+import { getLastWeight, addWeight } from "../controllers/userCTR";
+import { add } from "ionicons/icons";
+import moment from "moment";
 
 const peso = null;
 const data = null;
+const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
 
 export default defineComponent({
     name: "Weight",
@@ -73,16 +108,24 @@ export default defineComponent({
         return {
             peso,
             data,
+            dataCorrente,
         };
     },
-    methods: {},
+    methods: {
+        saveWeight() {
+            addWeight(this.$refs.newWeight.value);
+            console.log("fine");
+        },
+    },
 
     async mounted() {
         await Promise.resolve(getLastWeight())
             .then((value) => {
                 if (value) {
                     this.peso = value.peso;
-                    this.data = moment(value.dateTime.toDate()).format('DD/MM/YYYY HH:mm');
+                    this.data = moment(value.dateTime.toDate()).format(
+                        "DD/MM/YYYY HH:mm"
+                    );
                 }
             })
             .catch((e) => {
@@ -92,7 +135,9 @@ export default defineComponent({
     },
 
     setup() {
-        return {};
+        return {
+            add,
+        };
     },
 });
 </script>

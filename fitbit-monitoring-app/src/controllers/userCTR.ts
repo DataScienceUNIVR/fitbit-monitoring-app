@@ -117,6 +117,27 @@ export const setProfileImage = async (file: File) => {
     return datiPeso;
 };
 
+/**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const addWeight = async (value : number) => {
+    // Now add user weight to peso table (trace history)
+    const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
+    pesoCollection
+    .add({
+        uid: getBaseUserInfo()?.uid,
+        peso: value,
+        dateTime: currenteDateTime
+    })
+    .then(() => {
+        location.reload(true);
+    })
+    .catch((error) => {
+        throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
+    });
+};
+
 
 /**
  * Get statistics of the logged user
