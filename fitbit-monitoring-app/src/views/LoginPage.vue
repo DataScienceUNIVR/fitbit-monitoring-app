@@ -18,6 +18,7 @@
                         <ion-label position="floating">Nome</ion-label>
                         <ion-input
                             v-model="nome"
+                            required="true"
                             @ionChange="
                                 ($event) =>
                                     (credentials.nome = $event.detail.value)
@@ -28,6 +29,7 @@
                         <ion-label position="floating">Cognome</ion-label>
                         <ion-input
                             v-model="cognome"
+                            required="true"
                             @ionChange="
                                 ($event) =>
                                     (credentials.cognome = $event.detail.value)
@@ -46,10 +48,33 @@
                             "
                         ></ion-input>
                     </ion-item>
+                    <ion-item v-if="mode === AuthMode.SignUp">
+                        <ion-label position="floating">Peso (KG)</ion-label>
+                        <ion-input
+                            v-model="peso"
+                            inputmode="decimal"
+                            type="number"
+                            @ionChange="
+                                ($event) =>
+                                    (credentials.peso = $event.detail.value)
+                            "
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item v-if="mode === AuthMode.SignUp">
+                        <ion-label position="floating">Altezza (cm)</ion-label>
+                        <ion-input
+                            v-model="altezza"
+                            @ionChange="
+                                ($event) =>
+                                    (credentials.altezza = $event.detail.value)
+                            "
+                        ></ion-input>
+                    </ion-item>
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
                         <ion-input
                             v-model="email"
+                            required="true"
                             @ionChange="
                                 ($event) =>
                                     (credentials.email = $event.detail.value)
@@ -60,6 +85,7 @@
                         <ion-label position="floating">Password</ion-label>
                         <ion-input
                             v-model="password"
+                            required="true"
                             @ionChange="
                                 ($event) =>
                                     (credentials.password = $event.detail.value)
@@ -162,12 +188,16 @@ export default {
             nome: string;
             cognome: string;
             cf: string;
+            peso: number;
+            altezza: number;
             email: string;
             password: string;
         }>({
             nome: "",
             cognome: "",
             cf: "",
+            peso: 0,
+            altezza: 0,
             email: "",
             password: "",
         });
@@ -200,22 +230,14 @@ export default {
                     "Sembra che le informazioni non siano complete"
                 );
             }
-            // Regular CF sintax check
-            if (
-                !credentials.value.cf.match(
-                    /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i
-                )
-            ) {
-                return AppVue.methods?.openToast(
-                    "Il codice fiscale immesso non è corretto"
-                );
-            }
+
             // Regular password length check
             if (!credentials.value.password.match(/^.{6,}$/i)) {
                 return AppVue.methods?.openToast(
                     "La password deve contenere almeno 6 caratteri"
                 );
             }
+
             // Regular mail sintax check
             if (
                 !credentials.value.email.match(
@@ -225,10 +247,47 @@ export default {
                 return AppVue.methods?.openToast("Email non conforme");
             }
 
+            // Regular CF sintax check
+            if (credentials.value.cf) {
+                if (
+                    !credentials.value.cf.match(
+                        /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i
+                    )
+                ) {
+                    return AppVue.methods?.openToast(
+                        "Il codice fiscale immesso non è corretto"
+                    );
+                }
+            }
+
+            // Check peso value
+            if (credentials.value.peso) {
+                if (
+                    credentials.value.peso <= 0
+                ) {
+                    return AppVue.methods?.openToast(
+                        "Il peso deve essere un valore positivo"
+                    );
+                }
+            }
+            
+            // Check altezza value
+            if (credentials.value.altezza) {
+                if (
+                    credentials.value.altezza <= 0
+                ) {
+                    return AppVue.methods?.openToast(
+                        "L'altezza deve essere un valore positivo"
+                    );
+                }
+            }
+
             await register(
                 credentials.value.nome,
                 credentials.value.cognome,
                 credentials.value.cf,
+                credentials.value.peso,
+                credentials.value.altezza,
                 credentials.value.email,
                 credentials.value.password
             );
