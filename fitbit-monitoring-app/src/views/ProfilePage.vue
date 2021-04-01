@@ -26,9 +26,8 @@
                         </ion-fab>
                         <img
                             class="profile-img"
-                            :src="user.imageURL"
+                            :src="user.imageURL ? user.imageURL : './assets/img/avatar.jpg'"
                             :alt="user.nome" />
-
                         <input
                             type="file"
                             ref="file"
@@ -42,7 +41,7 @@
                     <b>COGNOME</b>: {{ user.cognome }} <br />
                     <b>C.F</b>: {{ user.cf }} <br />
                     <b>EMAIL</b>: {{ user.email }} <br />
-                    <b>PESO</b>: {{ user.peso }} <br />
+                    <b>PESO</b>: {{ user.peso }} Kg <br />
                     <b>ALTEZZA</b>: {{ user.altezza }} cm
                 </ion-card-content>
             </ion-card>
@@ -132,8 +131,8 @@ export default defineComponent({
                     this.user.cognome = user.cognome;
                     this.user.cf = user.cf;
                     this.user.imageURL = user.imageURL;
-                    this.user.altezza = user.altezza;
-                    this.user.peso = user.peso;
+                    this.user.altezza = user.altezza ? user.altezza : "---";
+                    this.user.peso = user.peso ? user.peso : "---";
                     this.user.email = user.email;
                     this.user.uid = user.uid;
                 }
