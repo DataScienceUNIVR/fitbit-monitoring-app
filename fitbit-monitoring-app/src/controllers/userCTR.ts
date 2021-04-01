@@ -7,6 +7,7 @@ const storage = firebase.storage();
 const storageRef = storage.ref();
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
+const pesoCollection = db.collection("peso");
 
 
 /**
@@ -61,6 +62,13 @@ export const getAllUserInfo = async () => {
             user.imageURL = null;
         });
     }
+
+    // Indicizzato
+    const snapshot2 = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', user.uid).get();
+    snapshot2.forEach(element => {
+        user.peso = element.get("peso");
+    });
+
     return user;
 };
 
@@ -74,7 +82,6 @@ export const uploadImage = async (file: File) => {
     try {
         imagesRef.put(file).then(() => {
             location.reload(true)
-            // return AppVue.methods?.openToast("Aggiornare la pagina");
         })
     } catch (error) {
         throw AppVue.methods?.openToast(error);

@@ -133,6 +133,7 @@ export default defineComponent({
                     this.user.cf = user.cf;
                     this.user.imageURL = user.imageURL;
                     this.user.altezza = user.altezza;
+                    this.user.peso = user.peso;
                     this.user.email = user.email;
                     this.user.uid = user.uid;
                 }
