@@ -23,11 +23,9 @@
                             >
                                 <ion-icon :icon="cameraSharp"></ion-icon>
                             </ion-fab-button> </ion-fab
-                        ><ion-img
-                            class="profile-img"
-                            src="./assets/img/avatar.jpg"
                         >
-                        </ion-img>
+                        <img class="profile-img" :src="user.imageURL" :alt="user.nome">
+
                         <input
                             type="file"
                             ref="file"
@@ -37,12 +35,12 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: {{ test.nome }} <br />
-                    <b>COGNOME</b>: {{ test.cognome }} <br />
-                    <b>C.F</b>: {{ test.cf }} <br />
-                    <b>EMAIL</b>: {{ test.email }}<br />
-                    <b>PESO</b>: 80 KG <br />
-                    <b>ALTEZZA</b>: 175 cm
+                    <b>NOME</b>: {{ user.nome }} <br />
+                    <b>COGNOME</b>: {{ user.cognome }} <br />
+                    <b>C.F</b>: {{ user.cf }} <br />
+                    <b>EMAIL</b>: {{ user.email }} <br />
+                    <b>PESO</b>: {{ user.peso }} <br />
+                    <b>ALTEZZA</b>: {{ user.altezza }} cm
                 </ion-card-content>
             </ion-card>
         </ion-content>
@@ -63,7 +61,6 @@ import {
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonImg,
     IonFab,
     IonFabButton,
     IonIcon,
@@ -78,9 +75,11 @@ interface Utente {
     cf?: any;
     email?: any;
     imageURL?: any;
+    altezza?: any;
+    peso?: any;
     uid?: any;
 }
-const test: Utente = {};
+const user: Utente = {};
 
 export default defineComponent({
     name: "Profile",
@@ -97,7 +96,6 @@ export default defineComponent({
         IonCardHeader,
         IonCardSubtitle,
         IonCardTitle,
-        IonImg,
         IonFab,
         IonFabButton,
         IonIcon,
@@ -105,7 +103,7 @@ export default defineComponent({
     data() {
         return {
             selectedFile: null,
-            test,
+            user,
         };
     },
     methods: {
@@ -124,23 +122,18 @@ export default defineComponent({
             }
             uploadImage(image);
         },
-        getUser() {
-            Promise.resolve(getAllUserInfo()).then((user) => {
+        async getUser() {
+            await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
-                    this.test.nome = user.nome;
-                    this.test.cognome = user.cognome;
-                    this.test.cf = user.cf;
-                    this.test.email = user.email;
-                    this.test.uid = user.uid;
+                    this.user.nome = user.nome;
+                    this.user.cognome = user.cognome;
+                    this.user.cf = user.cf;
+                    this.user.imageURL = user.imageURL;
+                    this.user.altezza = user.altezza;
+                    this.user.email = user.email;
+                    this.user.uid = user.uid;
                 }
             });
-            //     Promise.resolve(getAllUserInfo()).then(function (user) {
-            //         test.name = user.;
-            //         // console.log(user.nome);
-            //     }).catch(e => {
-            //         return "dsa"
-            // });
-            // return test;
         },
     },
 

@@ -24,12 +24,14 @@ export const getBaseUserInfo = () => {
  * @returns currentUser
  */
 export const getAllUserInfo = async () => {
-    const user = reactive<{ nome: any; cognome: any; cf: any; email: any; imageURL: any; uid: any }>({
+    const user = reactive<{ nome: any; cognome: any; cf: any; email: any; imageURL: any; altezza: any; peso: any; uid: any }>({
         nome: null,
         cognome: null,
         cf: null,
         email: null,
         imageURL: null,
+        altezza: null,
+        peso: null,
         uid: null,
     });
 
@@ -45,12 +47,13 @@ export const getAllUserInfo = async () => {
         user.cognome = doc.get("cognome");
         user.cf = doc.get("cf");
         user.email = doc.get("email");
+        user.altezza = doc.get("altezza");
     });
 
     // image URL of logged user
     const pathReference = storageRef.child("profilePictures/" + user.uid);
     if(pathReference){
-        Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+        await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
             if (value) {
                 user.imageURL = value;
             }
@@ -58,7 +61,6 @@ export const getAllUserInfo = async () => {
             user.imageURL = null;
         });
     }
-    
     return user;
 };
 
@@ -74,7 +76,7 @@ export const uploadImage = async (file: File) => {
             return AppVue.methods?.openToast("Aggiornare la pagina");
         })
     } catch (error) {
-        throw AppVue.methods?.openToast("ERRORE: " + error);
+        throw AppVue.methods?.openToast(error);
     }
 };
 
