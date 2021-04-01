@@ -51,17 +51,13 @@ export const getAllUserInfo = async () => {
         user.altezza = doc.get("altezza");
     });
 
-    // image URL of logged user
-    const pathReference = storageRef.child("profilePictures/" + user.uid);
-    if(pathReference){
-        await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
-            if (value) {
-                user.imageURL = value;
-            }
-        }).catch(e => {
-            user.imageURL = null;
-        });
-    }
+    await Promise.resolve(getProfileImage()).then(function (value) {
+        if (value) {
+            user.imageURL = value;
+        }
+    }).catch(e => {
+        user.imageURL = null;
+    });
 
     await Promise.resolve(getLastWeight()).then(function (value) {
         if (value) {
@@ -78,7 +74,7 @@ export const getAllUserInfo = async () => {
  * Upload user avatar image
  * @param file 
  */
-export const uploadImage = async (file: File) => {
+export const setProfileImage = async (file: File) => {
     const imagesRef = storageRef.child('profilePictures/' + getBaseUserInfo()?.uid);
     // There is no need to delete the previous one because it is overwritten 
     try {
@@ -88,6 +84,24 @@ export const uploadImage = async (file: File) => {
     } catch (error) {
         throw AppVue.methods?.openToast(error);
     }
+};
+
+/**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getProfileImage = async () => {
+    let URL = null;
+    const pathReference = storageRef.child("profilePictures/" + getBaseUserInfo()?.uid);
+    if(pathReference){
+        await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+            if (value) {
+                URL = value;
+            }
+        });
+        return URL;
+    }
+
 };
 
 /**
