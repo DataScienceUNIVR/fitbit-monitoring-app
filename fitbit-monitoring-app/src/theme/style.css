@@ -136,8 +136,75 @@ ion-content.main{
     border-radius: 50%;
 }
 
+.peso-ion-card-title {
+    font-size:      50px;
+    text-align:     center;
+    font-weight:    bold;
+    color:        #ffffff;
+}
+
+.peso-ion-card-subtitle {
+    font-size:      15px;
+    font-weight:    bold;
+    text-align:     center;
+    color:        #c6c7ca;
+}
+
+.peso-ion-card-content {
+    font-size:      20px;
+    font-weight:    bold;
+    text-align:     center;
+    color:        #c6c7ca;
+}
+
+.pulse {
+    position: relative;
+    border: none;
+    width: 70%;
+    height: 27%;
+    margin: 10% auto;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    background-color: #36416e;
+    background-size:cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -moz-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -ms-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+}
+
+/* .pulse:hover 
+{
+  -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+} */
+
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
+
+
+
 /* Android CSS */
 .md .statistiche-ion-card {
     width: 80%      !important;
     margin-bottom:  45%;
+}
+
+.md .pulse {
+    position: relative;
+    border: none;
+    width: 70%;
+    height: 32%;
+    margin: 10% auto;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    background-color: #36416e;
+    background-size:cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -moz-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -ms-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
