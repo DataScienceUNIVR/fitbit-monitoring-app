@@ -99,7 +99,8 @@ import {
     personCircleSharp,
     logOutOutline,
     logOutSharp,
-    cloudUploadSharp,
+    home,
+    speedometerOutline,
     cloudDownloadSharp,
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
@@ -151,8 +152,8 @@ export default defineComponent({
             {
                 title: "HOME",
                 url: "/home",
-                iosIcon: cloudUploadSharp,
-                mdIcon: cloudUploadSharp,
+                iosIcon: home,
+                mdIcon: home,
             },
             {
                 title: "GESTIONE DATI",
@@ -165,6 +166,12 @@ export default defineComponent({
                 url: "/statistics",
                 iosIcon: pulseOutline,
                 mdIcon: pulseSharp,
+            },
+            {
+                title: "TRACKING PESO",
+                url: "/weight",
+                iosIcon: speedometerOutline,
+                mdIcon: speedometerOutline,
             },
             {
                 title: "PROFILO",
@@ -204,12 +211,13 @@ export default defineComponent({
             ribbonSharp,
             homeOutline,
             homeSharp,
-            cloudUploadSharp,
+            home,
             paperPlaneSharp,
             personCircleOutline,
             personCircleSharp,
             logOutOutline,
             logOutSharp,
+            speedometerOutline,
             doLogout,
             user,
             loggedUser,
