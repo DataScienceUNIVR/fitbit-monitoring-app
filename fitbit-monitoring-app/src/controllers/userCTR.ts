@@ -63,10 +63,12 @@ export const getAllUserInfo = async () => {
         });
     }
 
-    // Indicizzato
-    const snapshot2 = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', user.uid).get();
-    snapshot2.forEach(element => {
-        user.peso = element.get("peso");
+    await Promise.resolve(getLastWeight()).then(function (value) {
+        if (value) {
+            user.peso = value["peso"];
+        }
+    }).catch(e => {
+        user.peso = null;
     });
 
     return user;
@@ -87,6 +89,20 @@ export const uploadImage = async (file: File) => {
         throw AppVue.methods?.openToast(error);
     }
 };
+
+/**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getLastWeight = async () => {
+    let datiPeso = null;
+    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', getBaseUserInfo()?.uid).get();
+    snapshot.forEach(element => {
+        datiPeso =  element.data();
+    });
+    return datiPeso;
+};
+
 
 /**
  * Get statistics of the logged user
