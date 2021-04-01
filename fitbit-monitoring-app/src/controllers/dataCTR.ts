@@ -43,11 +43,11 @@ export const sendStepsFirebase = async (args: any[]) => {
                         })
                         .catch((error) => {
                             message = "Errore nel caricamento dei dati: " + error;
-                            throw AppVue.methods?.openToast("ERRORE: " + message);
+                            throw AppVue.methods?.openToast(message);
                         });
                 } else {
                     message = "Dati non conformi, caricamento annullato";
-                    throw AppVue.methods?.openToast("ERRORE: " + message);
+                    throw AppVue.methods?.openToast(message);
                 }
             });
         });

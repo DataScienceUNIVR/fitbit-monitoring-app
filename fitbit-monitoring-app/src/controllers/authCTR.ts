@@ -12,6 +12,7 @@ if (firebase.apps.length === 0) {
 
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
+const pesoCollection = db.collection("peso");
 const state = reactive<{ user: any; initialized: boolean; error: any }>({
     user: null,
     initialized: false,
@@ -37,8 +38,7 @@ export default function () {
                 },
                 (error) => {
                     state.error = error;
-                    throw AppVue.methods?.openToast("ERRORE: " + error);
-                    // throw error;
+                    throw AppVue.methods?.openToast(error);
                 }
             );
     };
@@ -48,12 +48,15 @@ export default function () {
      * @param nome 
      * @param cognome 
      * @param cf 
+     * @param peso
+     * @param altezza
      * @param email 
      * @param password 
      * @returns user
      */
-    const register = (nome: string, cognome: string, cf: string, email: string, password: string) => {
-        if (nome != null && cognome != null && cf != null && email != null && password != null) {
+    const register = (nome: string, cognome: string, cf: string, peso: number, altezza: number, email: string, password: string) => {
+       
+        if (nome != null && cognome != null && email != null && password != null) {
             return firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
@@ -63,31 +66,49 @@ export default function () {
                         // If user is added firebase auth su successfully, add this one to users table too 
                         const uid = user.user?.uid;
                         if (uid != null) {
+                            // First add data to users table
                             usersCollection
                                 .add({
                                     uid: uid,
                                     nome: nome,
                                     cognome: cognome,
                                     cf: cf,
+                                    altezza: parseInt(altezza.toString()),
                                     email: email,
                                     password: Md5.init(password),
+                                })
+                                .then(() => {
+                                    state.error = null;
+                                })
+                                .catch((error) => {
+                                    state.error = "Errore nella registrazione: " + error;
+                                    throw AppVue.methods?.openToast("Errore nella registrazione: " + error);
+                                });
+
+                                // Now add user weight to peso table (trace history)
+                                const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
+                                pesoCollection
+                                .add({
+                                    uid: uid,
+                                    peso: parseFloat(peso.toString()),
+                                    dateTime: currenteDateTime
                                 })
                                 .then(() => {
                                     state.error = null;
                                     return user;
                                 })
                                 .catch((error) => {
-                                    state.error = "Errore nel caricamento dei dati: " + error;
-                                    throw AppVue.methods?.openToast("Errore nel caricamento dei dati: " + error);
+                                    state.error = "Errore nella registrazione: " + error;
+                                    throw AppVue.methods?.openToast("Errore nella registrazione: " + error);
                                 });
                         } else {
-                            state.error = "Dati non conformi, caricamento annullato";
+                            state.error = "Dati non conformi, registrazione annullata";
                             return;
                         }
                     },
                     (error) => {
                         state.error = error;
-                        throw AppVue.methods?.openToast("ERRORE: " + error);
+                        throw AppVue.methods?.openToast(error);
                     }
                 );
         }
