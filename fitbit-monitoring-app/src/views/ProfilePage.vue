@@ -22,9 +22,12 @@
                                 @click="$refs.file.click()"
                             >
                                 <ion-icon :icon="cameraSharp"></ion-icon>
-                            </ion-fab-button> </ion-fab
-                        >
-                        <img class="profile-img" :src="user.imageURL" :alt="user.nome">
+                            </ion-fab-button>
+                        </ion-fab>
+                        <img
+                            class="profile-img"
+                            :src="user.imageURL"
+                            :alt="user.nome" />
 
                         <input
                             type="file"
@@ -108,7 +111,7 @@ export default defineComponent({
     },
     methods: {
         // Upload file function
-        uploadProfilePicture() {
+        async uploadProfilePicture() {
             const src = this.$el.querySelector("#uploadProfilePicture");
             const image = src.files[0];
             if (
@@ -120,7 +123,7 @@ export default defineComponent({
             ) {
                 return AppVue.methods?.openToast("Formato file non corretto");
             }
-            uploadImage(image);
+            await uploadImage(image);
         },
         async getUser() {
             await Promise.resolve(getAllUserInfo()).then((user) => {

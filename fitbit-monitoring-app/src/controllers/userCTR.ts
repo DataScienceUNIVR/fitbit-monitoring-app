@@ -73,7 +73,8 @@ export const uploadImage = async (file: File) => {
     // There is no need to delete the previous one because it is overwritten 
     try {
         imagesRef.put(file).then(() => {
-            return AppVue.methods?.openToast("Aggiornare la pagina");
+            location.reload(true)
+            // return AppVue.methods?.openToast("Aggiornare la pagina");
         })
     } catch (error) {
         throw AppVue.methods?.openToast(error);
