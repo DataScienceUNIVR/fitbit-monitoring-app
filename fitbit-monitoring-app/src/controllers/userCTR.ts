@@ -40,7 +40,6 @@ export const getBaseUserInfo = () => {
         }
         
     }
-
 };
 
 /**
@@ -54,6 +53,28 @@ export const getBaseUserInfo = () => {
         datiPeso =  element.data();
     });
     return datiPeso;
+};
+
+/**
+ * Get weight values
+ * @return weight 
+ */
+ export const getWeights = async () => {
+    interface Peso {
+        data: any;
+        valore: any;
+    }
+    const listaPesi: Peso[] = [];
+
+    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(10).where('uid', '==', getBaseUserInfo()?.uid).get();
+    snapshot.forEach(row => {      
+        listaPesi.push({
+            data: row.get("dateTime").toDate().getDate() + "/" + (row.get("dateTime").toDate().getMonth() + 1) + "/" + row.get("dateTime").toDate().getFullYear(),
+            valore: row.get("peso"),
+        });
+    });
+
+    return listaPesi;
 };
 
 /**
@@ -95,7 +116,6 @@ export const getAllUserInfo = async () => {
 
     await Promise.resolve(getLastWeight()).then(function (value) {
         if (value != null) {
-            console.log(value);
             user.peso = value["peso"];
         }
     });

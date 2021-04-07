@@ -54,6 +54,20 @@
                     </ion-fab>
                 </ion-card>
             </ion-row>
+            <ion-card>
+                <ion-card-header>
+                        <ion-card-subtitle class="peso-ion-card-subtitle"
+                            >TRACKING DEI TUOI UTLIMI PESI REGISTRATI</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                <div id="weight-chart">
+                    <!-- <img width="25%" src="./assets/logo.png" /> -->
+
+                    <hr />
+
+                    <div ref="chart" class="chart"></div>
+                </div>
+            </ion-card>
         </ion-content>
     </ion-page>
 </template>
@@ -74,16 +88,23 @@ import {
     IonCardTitle,
     IonFab,
     IonFabButton,
+    IonRow,
+    IonItem,
+    IonLabel,
     IonIcon,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { getLastWeight, addWeight } from "../controllers/userCTR";
+import { getLastWeight, addWeight, getWeights } from "../controllers/userCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
+import ApexCharts from "apexcharts";
 
 const peso = null;
 const data = "";
 const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
+
+const valoriPesiChart: number[] = [];
+const datePesiChart: string[] = [];
 
 export default defineComponent({
     name: "Weight",
@@ -102,6 +123,9 @@ export default defineComponent({
         IonCardTitle,
         IonFab,
         IonFabButton,
+        IonRow,
+        IonItem,
+        IonLabel,
         IonIcon,
     },
     data() {
@@ -109,13 +133,14 @@ export default defineComponent({
             peso,
             data,
             dataCorrente,
+            valoriPesiChart,
+            datePesiChart,
         };
     },
     methods: {
         saveWeight() {
             const peso = this.$refs.newWeight as any;
             addWeight(peso.value);
-            console.log("fine");
         },
     },
 
@@ -127,13 +152,66 @@ export default defineComponent({
                     // const tmp = moment(value.dateTime.toDate()).format(
                     //     "DD/MM/YYYY HH:mm");
                     this.data = moment(value.dateTime.toDate()).format(
-                        "DD/MM/YYYY HH:mm");
+                        "DD/MM/YYYY HH:mm"
+                    );
                 }
             })
             .catch((e) => {
                 this.peso = null;
                 this.data = "";
             });
+
+        await Promise.resolve(getWeights())
+            .then((element) => {
+                if (element) {
+                    element.forEach((item) => {
+                        valoriPesiChart.unshift(item.valore);
+                        datePesiChart.unshift(item.data);
+                    });
+                }
+            })
+            .catch((e) => {
+                console.log("Errore");
+            });
+
+        const options = {
+            chart: {
+                height: 550,
+                type: "area",
+                foreColor: "white",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            series: [
+                {
+                    name: "series1",
+                    data: this.valoriPesiChart,
+                },
+                // {
+                //     name: "series2",
+                //     data: [11, 32, 45, 32, 34, 52, 41],
+                // },
+            ],
+
+            xaxis: {
+                type: "date",
+                categories: this.datePesiChart,
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy",
+                },
+            },
+        };
+
+        if (this.$refs.chart) {
+            const chart = new ApexCharts(this.$refs.chart, options);
+            chart.render();
+        }
     },
 
     setup() {
