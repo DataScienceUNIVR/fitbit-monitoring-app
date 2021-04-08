@@ -1,11 +1,11 @@
 <template>
     <ion-page>
         <ion-header>
-            <ion-title>STATISTICHE</ion-title>
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
+                <ion-title>STATISTICHE</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
