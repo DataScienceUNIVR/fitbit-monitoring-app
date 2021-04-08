@@ -231,7 +231,11 @@ input::-webkit-inner-spin-button {
 }
 
 .md .peso-text-input {
-    color: #1C1C1D;
+    color: #ffffff;
+}
+
+.md .sc-ion-input-md {
+    color: white;
 }
 
 /* Sidebar android */
@@ -247,7 +251,6 @@ input::-webkit-inner-spin-button {
 .md ion-list {
     background-color: #1E1E1E !important;
 }
-
 
 .md .pulse {
     position: relative;
