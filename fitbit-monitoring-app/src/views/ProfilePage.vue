@@ -10,7 +10,7 @@
         </ion-header>
 
         <ion-content :fullscreen="true" class="main">
-            <ion-card>
+            <ion-card class="profile-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="profile-ion-card-subtitle"
                         >PROFILO DATI</ion-card-subtitle

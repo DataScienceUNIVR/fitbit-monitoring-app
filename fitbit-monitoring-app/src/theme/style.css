@@ -73,10 +73,11 @@ ion-content.main{
 .statistiche-ion-card-title {
     font-size:      60px;
     text-align:     center;
+    color:          white;
 }
 
 .statistiche-ion-card-subtitle {
-    font-size:      15px;
+    font-size:      18px;
     font-weight:    bold;
     text-align:     center;
     font-style:     italic;
@@ -212,16 +213,18 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Android CSS */
-.md .statistiche-ion-card {
-    width: 80%      !important;
-    margin-bottom:  45%;
-}
-
-.md .ion-card {
+.md .ion-card{
     background-color: #1C1C1D;
 }
+.md .toolbar-background {
+    background-color: #1C1C1D !important;
+}
+ion-title {
+    color: white !important;
+    font-weight: 900 !important;
+}
 
+/* Pagina di peso */
 .md .peso-input-ion-card {
     background-color: #1C1C1D;
 }
@@ -231,47 +234,105 @@ input::-webkit-inner-spin-button {
 }
 
 .md .peso-text-input {
-    color: #ffffff;
+    color: black !important;
 }
 
+.md .peso-input > .native-input {
+    color: black;
+}
 .md .sc-ion-input-md {
     color: white;
 }
+/* ################################################################ */
+
+/* Pagina di login */
+.md .item .sc-ion-label-md-h, .md .item.sc-ion-label-md-h {
+    color:          #6b6868 !important;
+}
+.md .translucent-login {
+    background:         #201f1fd1;
+}
+.md .login-ion-card-title {
+    color:              white;
+    font-weight:        bolder;
+}
+.md .login-ion-card-subtitle {
+    color:              #e1e1e1;
+}
+.md .item .sc-ion-label-md-h, .md .item.sc-ion-label-md-h {
+    color:              #4c4c4c!important;
+}
+.md .login-item-top {
+    border-top-left-radius:     10px !important;
+    border-top-right-radius:    10px !important;
+}
+.md .login-item-bottom {
+    border-bottom-left-radius:  10px !important;
+    border-bottom-right-radius: 10px !important;
+}
+.md .login-input-text > .native-input {
+    color:              black;
+}
+/* ################################################################ */
 
 /* Sidebar android */
 .md .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
-    color: white !important;
+    color:              white !important;
 }
 .md .item-native {
-    background-color: #21a88b !important;
+    background-color:   #21a88b !important;
 }
 .md inner-scroll {
-    background-color: #1E1E1E !important;
+    background-color:   #1E1E1E !important;
 }
 .md ion-list {
-    background-color: #1E1E1E !important;
+    background-color:   #1E1E1E !important;
 }
+/* ################################################################ */
+
+/* Pagina profili */
+.md .profile-ion-fab {
+    margin-left:        -100% !important;
+}
+.md .profile-ion-card {
+    background:         #070707c7 !important;
+}
+/* ################################################################ */
+
+/* Pagina statistiche */
+.md .statistiche-ion-card {
+    width:              80% !important;
+    margin-bottom:      45%;
+}
+/* ################################################################ */
+
+/* Pagina load data */
+.md .load-fab {
+    margin-top:         -4%;
+    margin-right:       -1%;
+}
+/* ################################################################ */
 
 .md .pulse {
-    position: relative;
-    border: none;
-    width: 70%;
-    height: 27%;
-    margin: 10% auto;
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    position:           relative;
+    border:             none;
+    width:              70%;
+    height:             27%;
+    margin:             10% auto;
+    box-shadow:         0 0 0 0 rgba(255, 255, 255, 0.7);
     background-color: #4173ca00;
-    background-size:cover;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    -webkit-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
-    -moz-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
-    -ms-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
-    animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    background-size:    cover;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    -webkit-animation:  pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -moz-animation:     pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    -ms-animation:      pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+    animation:          pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
 
 .md .statistiche-row {
-    margin-bottom:  45%;
-    justify-content: center;
-    margin-left: 15%;
-    margin-right: -2%;
+    margin-bottom:      45%;
+    justify-content:    center;
+    margin-left:        15%;
+    margin-right:       -2%;
 }

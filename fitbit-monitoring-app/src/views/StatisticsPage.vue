@@ -10,9 +10,6 @@
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-header collapse="condense">
-                <!-- <ion-toolbar>
-                    <ion-title size="large">{{ $route.params.id }}</ion-title>
-                </ion-toolbar> -->
                 <ion-item>
                     <ion-label>PERIODO STATISTICHE</ion-label>
                     <ion-select
