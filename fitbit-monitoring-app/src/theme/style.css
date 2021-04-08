@@ -218,6 +218,10 @@ input::-webkit-inner-spin-button {
     margin-bottom:  45%;
 }
 
+.md ion-card {
+    background-color: "#1C1C1D";
+}
+
 .md .pulse {
     position: relative;
     border: none;
