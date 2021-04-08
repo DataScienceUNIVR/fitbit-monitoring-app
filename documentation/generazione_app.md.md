@@ -42,7 +42,7 @@ LINK UTILI: https://developer.android.com/studio/publish/app-signing#generate-ke
 -	`npx cap open android`
 
 
-#### PER RIFARE LA BUILD:
+#### PER RIFARE LA BUILD 2' METODO:
 
 -   `ionic build --watch`
 
