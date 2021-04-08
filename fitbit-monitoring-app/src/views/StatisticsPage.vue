@@ -43,7 +43,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'
+                                    >MINUTI DI ATTIVITA'<br>
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -62,7 +62,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -85,7 +85,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA
+                                    >MINUTI DI ATTIVITA<br>
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -104,7 +104,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -127,7 +127,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA
+                                    >MINUTI DI ATTIVITA<br>
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -146,7 +146,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -169,7 +169,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'
+                                    >MINUTI DI ATTIVITA'<br>
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -188,7 +188,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA'
+                                    >PASSI DI ATTIVITA'<br>
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title

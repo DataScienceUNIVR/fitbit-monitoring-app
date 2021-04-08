@@ -187,7 +187,7 @@ ion-content.main{
     width: 100%;
 }
 
-#weight-chart {
+.md .ios #weight-chart {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -222,10 +222,10 @@ input::-webkit-inner-spin-button {
     position: relative;
     border: none;
     width: 70%;
-    height: 32%;
+    height: 27%;
     margin: 10% auto;
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-    background-color: #36416e;
+    background-color: #4173ca00;
     background-size:cover;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -233,4 +233,11 @@ input::-webkit-inner-spin-button {
     -moz-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
     -ms-animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
     animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
+}
+
+.md .statistiche-row {
+    margin-bottom:  45%;
+    justify-content: center;
+    margin-left: 15%;
+    margin-right: -2%;
 }
