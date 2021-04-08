@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>TRACKING PESOX</ion-title>
+                <ion-title>TRACKING PESO</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -32,7 +32,7 @@
                         >
                     </ion-card-header>
                     <ion-card-title class="peso-ion-card-title">
-                        <ion-item>
+                        <ion-item class="peso-text-input">
                             <ion-label>Valore: </ion-label>
                             <ion-input
                                 ref="newWeight"
@@ -56,7 +56,7 @@
                     </ion-fab>
                 </ion-card>
             </ion-row>
-            <ion-card>
+            <ion-card class="peso-chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="peso-ion-card-subtitle"
                         >TRACKING DEI TUOI UTLIMI PESI

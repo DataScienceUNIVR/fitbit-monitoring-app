@@ -218,9 +218,36 @@ input::-webkit-inner-spin-button {
     margin-bottom:  45%;
 }
 
-.md ion-card {
-    background-color: "#1C1C1D";
+.md .ion-card {
+    background-color: #1C1C1D;
 }
+
+.md .peso-input-ion-card {
+    background-color: #1C1C1D;
+}
+
+.md .peso-chart-ion-card {
+    background-color: #1C1C1D;
+}
+
+.md .peso-text-input {
+    color: #1C1C1D;
+}
+
+/* Sidebar android */
+.md .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
+    color: white !important;
+}
+.md .item-native {
+    background-color: #21a88b !important;
+}
+.md inner-scroll {
+    background-color: #1E1E1E !important;
+}
+.md ion-list {
+    background-color: #1E1E1E !important;
+}
+
 
 .md .pulse {
     position: relative;
