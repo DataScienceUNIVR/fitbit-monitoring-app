@@ -36,10 +36,12 @@
                             <ion-label>Valore: </ion-label>
                             <ion-input
                                 ref="newWeight"
+                                v-model="newWeight"
                                 class="peso-input"
                                 inputmode="decimal"
                                 type="number"
                                 min="0"
+                                :readonly="false"
                             ></ion-input
                             >KG
                         </ion-item>
@@ -48,7 +50,7 @@
                         <br />
                     </ion-card-content>
                     <ion-fab horizontal="center" vertical="bottom">
-                        <ion-fab-button @click="saveWeight">
+                        <ion-fab-button @click="presentAlert">
                             <ion-icon :icon="add"></ion-icon>
                         </ion-fab-button>
                     </ion-fab>
@@ -56,10 +58,11 @@
             </ion-row>
             <ion-card>
                 <ion-card-header>
-                        <ion-card-subtitle class="peso-ion-card-subtitle"
-                            >TRACKING DEI TUOI UTLIMI PESI REGISTRATI</ion-card-subtitle
-                        >
-                    </ion-card-header>
+                    <ion-card-subtitle class="peso-ion-card-subtitle"
+                        >TRACKING DEI TUOI UTLIMI PESI
+                        REGISTRATI</ion-card-subtitle
+                    >
+                </ion-card-header>
                 <div id="weight-chart">
                     <!-- <img width="25%" src="./assets/logo.png" /> -->
 
@@ -92,12 +95,14 @@ import {
     IonItem,
     IonLabel,
     IonIcon,
+    alertController,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { getLastWeight, addWeight, getWeights } from "../controllers/userCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
 import ApexCharts from "apexcharts";
+import AppVue from "@/App.vue";
 
 const peso = null;
 const data = "";
@@ -141,6 +146,34 @@ export default defineComponent({
         saveWeight() {
             const peso = this.$refs.newWeight as any;
             addWeight(peso.value);
+        },
+
+        async presentAlert() {
+            const alert = await alertController.create({
+                cssClass: "my-custom-class",
+                header: "Immissione di un nuovo peso",
+                message:
+                    "Sei sicuro di voler inserire questo tuo nuovo peso con data odierna?",
+                buttons: [
+                    {
+                        text: "Cancella",
+                        role: "cancel",
+                        cssClass: "secondary",
+                        handler: () => {
+                            return AppVue.methods?.openToast(
+                                "Peso non salvato."
+                            );
+                        },
+                    },
+                    {
+                        text: "Inserisci",
+                        handler: () => {
+                            this.saveWeight();
+                        },
+                    },
+                ],
+            });
+            return alert.present();
         },
     },
 
