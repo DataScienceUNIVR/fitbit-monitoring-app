@@ -21,6 +21,63 @@ export const getBaseUserInfo = () => {
 };
 
 /**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getProfileImage = async () => {
+    let URL = null;
+    const pathReference = storageRef.child("profilePictures/" + getBaseUserInfo()?.uid);
+    if(pathReference){
+        try {
+            await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
+                if (value) {
+                    URL = value;
+                }
+            });
+            return URL;
+        } catch (error) {
+            return null;      
+        }
+        
+    }
+};
+
+/**
+ * Get last weight value loaded
+ * @return weight 
+ */
+ export const getLastWeight = async () => {
+    let datiPeso: any = null;
+    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', getBaseUserInfo()?.uid).get();
+    snapshot.forEach(element => {
+        datiPeso =  element.data();
+    });
+    return datiPeso;
+};
+
+/**
+ * Get weight values
+ * @return weight 
+ */
+ export const getWeights = async () => {
+    interface Peso {
+        data: any;
+        valore: any;
+    }
+    const listaPesi: Peso[] = [];
+
+    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(10).where('uid', '==', getBaseUserInfo()?.uid).get();
+    snapshot.forEach(row => {      
+        listaPesi.push({
+            data: row.get("dateTime").toDate().getDate() + "/" + (row.get("dateTime").toDate().getMonth() + 1) + "/" + row.get("dateTime").toDate().getFullYear(),
+            valore: row.get("peso"),
+        });
+    });
+
+    return listaPesi;
+};
+
+/**
  * Get all information of the logged user (nome, cognome, email, cf, pwd, uid, img)
  * @returns currentUser
  */
@@ -51,24 +108,16 @@ export const getAllUserInfo = async () => {
         user.altezza = doc.get("altezza");
     });
 
-    // image URL of logged user
-    const pathReference = storageRef.child("profilePictures/" + user.uid);
-    if(pathReference){
-        await Promise.resolve(pathReference.getDownloadURL()).then(function (value) {
-            if (value) {
-                user.imageURL = value;
-            }
-        }).catch(e => {
-            user.imageURL = null;
-        });
-    }
+    await Promise.resolve(getProfileImage()).then(function (value) {
+        if (value) {
+            user.imageURL = value;
+        }
+    });
 
     await Promise.resolve(getLastWeight()).then(function (value) {
-        if (value) {
+        if (value != null) {
             user.peso = value["peso"];
         }
-    }).catch(e => {
-        user.peso = null;
     });
 
     return user;
@@ -78,7 +127,7 @@ export const getAllUserInfo = async () => {
  * Upload user avatar image
  * @param file 
  */
-export const uploadImage = async (file: File) => {
+export const setProfileImage = async (file: File) => {
     const imagesRef = storageRef.child('profilePictures/' + getBaseUserInfo()?.uid);
     // There is no need to delete the previous one because it is overwritten 
     try {
@@ -94,13 +143,21 @@ export const uploadImage = async (file: File) => {
  * Get last weight value loaded
  * @return weight 
  */
- export const getLastWeight = async () => {
-    let datiPeso = null;
-    const snapshot = await pesoCollection.orderBy("dateTime", 'desc').limit(1).where('uid', '==', getBaseUserInfo()?.uid).get();
-    snapshot.forEach(element => {
-        datiPeso =  element.data();
+ export const addWeight = async (value: number) => {
+    // Now add user weight to peso table (trace history)
+    const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
+    pesoCollection
+    .add({
+        uid: getBaseUserInfo()?.uid,
+        peso: value,
+        dateTime: currenteDateTime
+    })
+    .then(() => {
+        location.reload(true);
+    })
+    .catch((error) => {
+        throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
     });
-    return datiPeso;
 };
 
 
@@ -111,7 +168,7 @@ export const uploadImage = async (file: File) => {
  */
 export const getStatistics = async (period: any) => {
     const uid = getBaseUserInfo()?.uid;
-
+    console.log(period);
     return "statistiche di: " + uid;
 };
 

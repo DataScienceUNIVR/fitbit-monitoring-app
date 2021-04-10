@@ -8,15 +8,32 @@
                 src="./assets/img/logo_app_white.png"
             ></ion-img>
 
-            <ion-card>
+            <ion-card class="translucent-login">
                 <ion-card-header>
-                    <ion-card-title> Benvenuto! </ion-card-title>
-                    <ion-card-subtitle>Accedi o registrati</ion-card-subtitle>
+                    <ion-card-title class="login-ion-card-title">
+                        Benvenuto!
+                    </ion-card-title>
+                    <ion-card-subtitle class="login-ion-card-subtitle"
+                        >Accedi o registrati</ion-card-subtitle
+                    >
                 </ion-card-header>
                 <ion-card-content>
+                    <ion-item class="login-item-top">
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input
+                            class="login-input-text"
+                            v-model="email"
+                            required="true"
+                            @ionChange="
+                                ($event) =>
+                                    (credentials.email = $event.detail.value)
+                            "
+                        ></ion-input>
+                    </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Nome</ion-label>
                         <ion-input
+                            class="login-input-text"
                             v-model="nome"
                             required="true"
                             @ionChange="
@@ -28,6 +45,7 @@
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Cognome</ion-label>
                         <ion-input
+                            class="login-input-text"
                             v-model="cognome"
                             required="true"
                             @ionChange="
@@ -41,6 +59,7 @@
                             >Codice Fiscale</ion-label
                         >
                         <ion-input
+                            class="login-input-text"
                             v-model="cf"
                             @ionChange="
                                 ($event) =>
@@ -51,6 +70,7 @@
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Peso (KG)</ion-label>
                         <ion-input
+                            class="login-input-text"
                             v-model="peso"
                             inputmode="decimal"
                             type="number"
@@ -63,6 +83,7 @@
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating">Altezza (cm)</ion-label>
                         <ion-input
+                            class="login-input-text"
                             v-model="altezza"
                             @ionChange="
                                 ($event) =>
@@ -70,20 +91,10 @@
                             "
                         ></ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">Email</ion-label>
-                        <ion-input
-                            v-model="email"
-                            required="true"
-                            @ionChange="
-                                ($event) =>
-                                    (credentials.email = $event.detail.value)
-                            "
-                        ></ion-input>
-                    </ion-item>
-                    <ion-item>
+                    <ion-item class="login-item-bottom">
                         <ion-label position="floating">Password</ion-label>
                         <ion-input
+                            class="login-input-text"
                             v-model="password"
                             required="true"
                             @ionChange="
@@ -262,20 +273,16 @@ export default {
 
             // Check peso value
             if (credentials.value.peso) {
-                if (
-                    credentials.value.peso <= 0
-                ) {
+                if (credentials.value.peso <= 0) {
                     return AppVue.methods?.openToast(
                         "Il peso deve essere un valore positivo"
                     );
                 }
             }
-            
+
             // Check altezza value
             if (credentials.value.altezza) {
-                if (
-                    credentials.value.altezza <= 0
-                ) {
+                if (credentials.value.altezza <= 0) {
                     return AppVue.methods?.openToast(
                         "L'altezza deve essere un valore positivo"
                     );

@@ -10,7 +10,7 @@
         </ion-header>
 
         <ion-content :fullscreen="true" class="main">
-            <ion-card>
+            <ion-card class="profile-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="profile-ion-card-subtitle"
                         >PROFILO DATI</ion-card-subtitle
@@ -70,7 +70,7 @@ import {
 import { cameraSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
-import { getAllUserInfo, uploadImage } from "../controllers/userCTR";
+import { getAllUserInfo, setProfileImage } from "../controllers/userCTR";
 interface Utente {
     nome?: any;
     cognome?: any;
@@ -122,7 +122,7 @@ export default defineComponent({
             ) {
                 return AppVue.methods?.openToast("Formato file non corretto");
             }
-            await uploadImage(image);
+            await setProfileImage(image);
         },
         async getUser() {
             await Promise.resolve(getAllUserInfo()).then((user) => {

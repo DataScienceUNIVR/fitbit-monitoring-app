@@ -1,18 +1,15 @@
 <template>
     <ion-page>
         <ion-header>
-            <ion-title>STATISTICHE</ion-title>
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
+                <ion-title>STATISTICHE</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-header collapse="condense">
-                <!-- <ion-toolbar>
-                    <ion-title size="large">{{ $route.params.id }}</ion-title>
-                </ion-toolbar> -->
                 <ion-item>
                     <ion-label>PERIODO STATISTICHE</ion-label>
                     <ion-select
@@ -43,7 +40,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'
+                                    >MINUTI DI ATTIVITA'<br>
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -62,7 +59,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -85,7 +82,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA
+                                    >MINUTI DI ATTIVITA<br>
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -104,7 +101,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -127,7 +124,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA
+                                    >MINUTI DI ATTIVITA<br>
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -146,7 +143,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA
+                                    >PASSI DI ATTIVITA<br>
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -169,7 +166,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'
+                                    >MINUTI DI ATTIVITA'<br>
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -188,7 +185,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA'
+                                    >PASSI DI ATTIVITA'<br>
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title

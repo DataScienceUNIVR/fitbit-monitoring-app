@@ -1,18 +1,15 @@
 <template>
     <ion-page>
         <ion-header>
-            <ion-title>CARICAMENTO DATI</ion-title>
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
+                <ion-title>CARICAMENTO DATI</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-header collapse="condense">
-                <!-- <ion-toolbar>
-                    <ion-title size="large">{{ $route.params.id }}</ion-title>
-                </ion-toolbar> -->
             </ion-header>
             <ion-row class="dati-row">
                 <ion-card>
@@ -33,7 +30,7 @@
                         @change="uploadData"
                     />
                 </ion-card>
-                <ion-fab horizontal="end">
+                <ion-fab class="load-fab" horizontal="end">
                     <ion-fab-button @click="$refs.file.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
@@ -51,7 +48,7 @@
                         giornalieri registrati.
                     </ion-card-content>
                 </ion-card>
-                <ion-fab horizontal="end">
+                <ion-fab class="load-fab" horizontal="end">
                     <ion-fab-button @click="downloadData">
                         <ion-icon :icon="cloudDownloadSharp"></ion-icon>
                     </ion-fab-button>
