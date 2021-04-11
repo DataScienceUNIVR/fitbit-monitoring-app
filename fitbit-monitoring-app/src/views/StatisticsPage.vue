@@ -9,7 +9,7 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-header collapse="condense">
+            <ion-toolbar collapse="condense">
                 <ion-item>
                     <ion-label>PERIODO STATISTICHE</ion-label>
                     <ion-select
@@ -27,7 +27,7 @@
                         >
                     </ion-select>
                 </ion-item>
-            </ion-header>
+            </ion-toolbar>
 
             <!-- TODO: ciclarli -->
             <ion-row class="statistiche-row">

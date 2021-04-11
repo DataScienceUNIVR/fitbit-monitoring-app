@@ -57,7 +57,26 @@ ion-content.main{
 
 /* loadData page cards */
 .dati-row {
-    margin-top:     30px;
+    margin-top:     0px;
+}
+
+.dati-ion-card-title {
+    font-size:      26px;
+}
+.dati-sedentary-ion-fab-button {
+    /* background-color: red; */
+}
+.dati-light-ion-fab-button {
+    /* background-color: red; */
+}
+.dati-moderately-ion-fab-button {
+    /* background-color: red; */
+}
+.dati-intense-ion-fab-button {
+    /* background-color: red; */
+}
+.dati-upload-ion-fab-button {
+    /* background-color: #5c2763; */
 }
 
 /* Statistiche page */
@@ -197,6 +216,8 @@ ion-content.main{
     margin-top: 60px;
 }
 
+
+
 /* .pulse:hover 
 {
   -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
@@ -212,16 +233,18 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+.header-md, .header-ios  {
+    z-index: 999999;
+}
 .md .ion-card{
     background-color: #1C1C1D;
 }
 .md .toolbar-background {
-    background-color: #1C1C1D !important;
+    background-color: #1d1d1c !important;
 }
 ion-title {
     color: white !important;
-    font-weight: 900 !important;
+    font-weight: 600 !important;
 }
 
 /* Pagina di peso */
@@ -310,6 +333,9 @@ ion-title {
 .md .load-fab {
     margin-top:         -4%;
     margin-right:       -1%;
+}
+.md .dati-row {
+    margin-top:     30px;
 }
 /* ################################################################ */
 
