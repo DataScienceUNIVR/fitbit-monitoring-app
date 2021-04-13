@@ -39,9 +39,9 @@ export const getStatistics = async (period: any) => {
 
     const dateTime = firebase.firestore.Timestamp.fromDate(dateDiff);
     let sedentaryActivityMinutes = 0;
-    // let lightActivityMinutes = 0;
-    // let moderatelyActivityMinutes = 0;
-    // let intenseActivityMinutes = 0;
+    let lightActivityMinutes = 0;
+    let moderatelyActivityMinutes = 0;
+    let intenseActivityMinutes = 0;
 
     /**
      * Sedentary Activity: ~ 2 Km/h
@@ -49,45 +49,46 @@ export const getStatistics = async (period: any) => {
      * Moderate Activity: ~ 8 Km/h
      * Intense Activity: ~ 13 Km/h
      */
-    const snapshot = sedentaryActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
-    // (await snapshot).forEach(element => {
-    //     sedentaryActivityMinutes += element.get("minutes");
-    // });
-    // listaStatistiche.push({
-    //     tipology: "sedentaryActivity",
-    //     minutes: sedentaryActivityMinutes,
-    //     distance: (sedentaryActivityMinutes/60)*2,
-    // });
+    let snapshot = sedentaryActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
+    (await snapshot).forEach(element => {
+        sedentaryActivityMinutes += element.get("minutes");
+    });
+    listaStatistiche.push({
+        tipology: "sedentaryActivity",
+        minutes: sedentaryActivityMinutes,
+        distance: ((sedentaryActivityMinutes/60)*2).toFixed(1),
+    });
+    console.log(listaStatistiche);
 
-    // snapshot = lightActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
-    // (await snapshot).forEach(element => {
-    //     lightActivityMinutes += element.get("minutes");
-    // });
-    // listaStatistiche.push({
-    //     tipology: "lightActivity",
-    //     minutes: lightActivityMinutes,
-    //     distance: (lightActivityMinutes/60)*4,
-    // });
+    snapshot = lightActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
+    (await snapshot).forEach(element => {
+        lightActivityMinutes += element.get("minutes");
+    });
+    listaStatistiche.push({
+        tipology: "lightActivity",
+        minutes: lightActivityMinutes,
+        distance: ((lightActivityMinutes/60)*4).toFixed(1),
+    });
 
-    // snapshot = moderatelyActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
-    // (await snapshot).forEach(element => {
-    //     moderatelyActivityMinutes += element.get("minutes");
-    // });
-    // listaStatistiche.push({
-    //     tipology: "moderatelyActivity",
-    //     minutes: moderatelyActivityMinutes,
-    //     distance: (moderatelyActivityMinutes/60)*5,
-    // });
+    snapshot = moderatelyActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
+    (await snapshot).forEach(element => {
+        moderatelyActivityMinutes += element.get("minutes");
+    });
+    listaStatistiche.push({
+        tipology: "moderatelyActivity",
+        minutes: moderatelyActivityMinutes,
+        distance: ((moderatelyActivityMinutes/60)*5).toFixed(1),
+    });
 
-    // snapshot = intenseActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
-    // (await snapshot).forEach(element => {
-    //     intenseActivityMinutes += element.get("minutes");
-    // });
-    // listaStatistiche.push({
-    //     tipology: "intenseActivity",
-    //     minutes: intenseActivityMinutes,
-    //     distance: (intenseActivityMinutes/60)*13,
-    // });
+    snapshot = intenseActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
+    (await snapshot).forEach(element => {
+        intenseActivityMinutes += element.get("minutes");
+    });
+    listaStatistiche.push({
+        tipology: "intenseActivity",
+        minutes: intenseActivityMinutes,
+        distance: ((intenseActivityMinutes/60)*13).toFixed(1),
+    });
     return listaStatistiche;
 };
 

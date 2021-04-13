@@ -40,13 +40,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br />
+                                    >TEMPO DI ATTIVITÀ'<br />
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    <!-- {{ sedentaryActivityStatistics.minutes }} -->
+                                    {{ sedentaryActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -59,13 +59,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br />
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    <!-- {{ sedentaryActivityStatistics.minutes }} -->
+                                    {{ sedentaryActivityStatistics.distance }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -82,13 +82,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br />
+                                    >TEMPO DI ATTIVITÀ<br />
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    5241
+                                    {{ lightActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -101,13 +101,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br />
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    421
+                                    {{ lightActivityStatistics.distance }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -124,13 +124,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br />
+                                    >TEMPO DI ATTIVITÀ<br />
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    3600
+                                    {{ moderateActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -143,13 +143,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br />
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    84
+                                    {{ moderateActivityStatistics.distance }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -166,13 +166,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br />
+                                    >TEMPO DI ATTIVITÀ'<br />
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    60
+                                    {{ intenseActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -185,13 +185,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA'<br />
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    9580
+                                    {{ intenseActivityStatistics.minutes }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
