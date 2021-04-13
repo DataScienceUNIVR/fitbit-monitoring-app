@@ -156,6 +156,10 @@ ion-content.main{
     border-radius: 50%;
 }
 
+.profile-delete-account-button {
+    margin-bottom: 10% !important;
+}
+
 .peso-ion-card-title {
     font-size:      50px;
     text-align:     center;
