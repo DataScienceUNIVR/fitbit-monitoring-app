@@ -29,9 +29,13 @@
                 </ion-item>
             </ion-toolbar>
 
-            <!-- TODO: ciclarli -->
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="sedentaryFlip"
+                    active-click="true"
+                    width="100%"
+                    height="100%"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -46,7 +50,10 @@
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    {{ sedentaryActivityStatistics.minutes }} min
+                                    {{
+                                        sedentaryActivityStatistics.minutes
+                                    }}
+                                    min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -65,7 +72,10 @@
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    {{ sedentaryActivityStatistics.distance }} km
+                                    {{
+                                        sedentaryActivityStatistics.distance
+                                    }}
+                                    km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -73,7 +83,7 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip width="100%" height="100%">
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -115,7 +125,12 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="lightFlip"
+                    active-click=""
+                    width="100%"
+                    height="100%"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -157,7 +172,7 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip ref="" active-click="" width="100%" height="100%">
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -223,7 +238,7 @@ import {
 } from "@ionic/vue";
 import VueFlip from "vue-flip";
 import { getStatistics } from "../controllers/statisticsCTR";
-import AppVue from '../App.vue';
+import AppVue from "../App.vue";
 
 interface Statistic {
     tipology?: any;
@@ -261,12 +276,8 @@ export default {
             sedentaryActivityStatistics,
             lightActivityStatistics,
             moderateActivityStatistics,
-            intenseActivityStatistics
+            intenseActivityStatistics,
         };
-    },
-    /** Always executed when page is load */
-    ready() {
-    console.log(localStorage);
     },
     async mounted() {
         await Promise.resolve(getStatistics(localStorage.period))
@@ -276,27 +287,40 @@ export default {
                     element.forEach((item) => {
                         switch (item.tipology) {
                             case "sedentaryActivity":
-                                sedentaryActivityStatistics.tipology = item.tipology;
-                                sedentaryActivityStatistics.minutes = item.minutes;
-                                sedentaryActivityStatistics.distance = item.distance;
+                                sedentaryActivityStatistics.tipology =
+                                    item.tipology;
+                                sedentaryActivityStatistics.minutes =
+                                    item.minutes;
+                                sedentaryActivityStatistics.distance =
+                                    item.distance;
                                 break;
                             case "lightActivity":
-                                lightActivityStatistics.tipology = item.tipology;
+                                lightActivityStatistics.tipology =
+                                    item.tipology;
                                 lightActivityStatistics.minutes = item.minutes;
-                                lightActivityStatistics.distance = item.distance;
+                                lightActivityStatistics.distance =
+                                    item.distance;
                                 break;
                             case "moderatelyActivity":
-                                moderateActivityStatistics.tipology = item.tipology;
-                                moderateActivityStatistics.minutes = item.minutes;
-                                moderateActivityStatistics.distance = item.distance;
+                                moderateActivityStatistics.tipology =
+                                    item.tipology;
+                                moderateActivityStatistics.minutes =
+                                    item.minutes;
+                                moderateActivityStatistics.distance =
+                                    item.distance;
                                 break;
                             case "intenseActivity":
-                                intenseActivityStatistics.tipology = item.tipology;
-                                intenseActivityStatistics.minutes = item.minutes;
-                                intenseActivityStatistics.distance = item.distance;
+                                intenseActivityStatistics.tipology =
+                                    item.tipology;
+                                intenseActivityStatistics.minutes =
+                                    item.minutes;
+                                intenseActivityStatistics.distance =
+                                    item.distance;
                                 break;
                             default:
-                                return AppVue.methods?.openToast("Impossibile caricare le statistiche");
+                                return AppVue.methods?.openToast(
+                                    "Impossibile caricare le statistiche"
+                                );
                         }
                     });
                 }
@@ -305,6 +329,23 @@ export default {
                 console.log("Errore");
             });
 
+        // this.$refs.sedentaryFlip.click();
+        // this.$refs.lightFlip.click();
+        let msg = "";
+        switch (localStorage.period) {
+            case "d":
+                msg = "Statistiche relative all'ultimo giorno";
+                break;
+            case "w":
+                msg = "Statistiche relative all'ultima settimana";
+                break;
+            case "m":
+                msg = "Statistiche relative all'ultimo mese";
+                break;
+            default:
+                break;
+        }
+        return AppVue.methods?.openToast(msg);
     },
     methods: {
         changePeriod($event: any) {
