@@ -16,7 +16,7 @@
                         placeholder="SELEZIONA"
                         @ionchange="changePeriod"
                     >
-                        <ion-select-option value="d"
+                        <ion-select-option value="d" selected="true"
                             >Ultimo giorno</ion-select-option
                         >
                         <ion-select-option value="w"
@@ -40,13 +40,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br>
+                                    >MINUTI DI ATTIVITA'<br />
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    25
+                                    <!-- {{ sedentaryActivityStatistics.minutes }} -->
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -59,13 +59,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >PASSI DI ATTIVITA<br />
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    5241
+                                    <!-- {{ sedentaryActivityStatistics.minutes }} -->
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -82,7 +82,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br>
+                                    >MINUTI DI ATTIVITA<br />
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -101,7 +101,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >PASSI DI ATTIVITA<br />
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -124,7 +124,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br>
+                                    >MINUTI DI ATTIVITA<br />
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -143,7 +143,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >PASSI DI ATTIVITA<br />
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -166,7 +166,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br>
+                                    >MINUTI DI ATTIVITA'<br />
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -185,7 +185,7 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA'<br>
+                                    >PASSI DI ATTIVITA'<br />
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
@@ -222,8 +222,18 @@ import {
     IonToolbar,
 } from "@ionic/vue";
 import VueFlip from "vue-flip";
-import { getStatistics } from "../controllers/userCTR";
-// let statistiche = "das";
+import { getStatistics } from "../controllers/statisticsCTR";
+import AppVue from '../App.vue';
+
+interface Statistic {
+    tipology?: any;
+    minutes?: any;
+    distance?: any;
+}
+const sedentaryActivityStatistics: Statistic = {};
+const lightActivityStatistics: Statistic = {};
+const moderateActivityStatistics: Statistic = {};
+const intenseActivityStatistics: Statistic = {};
 
 export default {
     name: "Main",
@@ -246,14 +256,60 @@ export default {
         IonToolbar,
         "vue-flip": VueFlip,
     },
+    data() {
+        return {
+            sedentaryActivityStatistics,
+            lightActivityStatistics,
+            moderateActivityStatistics,
+            intenseActivityStatistics
+        };
+    },
     /** Always executed when page is load */
     ready() {
-        console.log("init");
+    console.log(localStorage);
+    },
+    async mounted() {
+        await Promise.resolve(getStatistics(localStorage.period))
+            .then((element) => {
+                // console.log(element);
+                if (element) {
+                    element.forEach((item) => {
+                        switch (item.tipology) {
+                            case "sedentaryActivity":
+                                sedentaryActivityStatistics.tipology = item.tipology;
+                                sedentaryActivityStatistics.minutes = item.minutes;
+                                sedentaryActivityStatistics.distance = item.distance;
+                                break;
+                            case "lightActivity":
+                                lightActivityStatistics.tipology = item.tipology;
+                                lightActivityStatistics.minutes = item.minutes;
+                                lightActivityStatistics.distance = item.distance;
+                                break;
+                            case "moderatelyActivity":
+                                moderateActivityStatistics.tipology = item.tipology;
+                                moderateActivityStatistics.minutes = item.minutes;
+                                moderateActivityStatistics.distance = item.distance;
+                                break;
+                            case "intenseActivity":
+                                intenseActivityStatistics.tipology = item.tipology;
+                                intenseActivityStatistics.minutes = item.minutes;
+                                intenseActivityStatistics.distance = item.distance;
+                                break;
+                            default:
+                                return AppVue.methods?.openToast("Impossibile caricare le statistiche");
+                        }
+                    });
+                }
+            })
+            .catch((e) => {
+                console.log("Errore");
+            });
+
     },
     methods: {
         changePeriod($event: any) {
-            getStatistics($event.target.value);
-            // location.reload();
+            localStorage.setItem("period", $event.target.value);
+            location.reload();
         },
     },
 };

@@ -216,7 +216,9 @@ ion-content.main{
     margin-top: 60px;
 }
 
-
+.md ion-content.main{
+    --background: url(../../public/assets/img/main_bg3.jpg) 0 0/100% 100% no-repeat;
+}
 
 /* .pulse:hover 
 {
