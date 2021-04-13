@@ -150,7 +150,6 @@ export default defineComponent({
 
         async presentAlert() {
             const alert = await alertController.create({
-                cssClass: "my-custom-class",
                 header: "Immissione di un nuovo peso",
                 message:
                     "Sei sicuro di voler inserire questo tuo nuovo peso con data odierna?",
