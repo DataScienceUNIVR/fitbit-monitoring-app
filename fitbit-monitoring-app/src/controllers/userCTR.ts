@@ -14,7 +14,7 @@ const pesoCollection = db.collection("peso");
  * @returns currentUser
  */
 export const getBaseUserInfo = () => {
-  return firebase.auth().currentUser;
+    return firebase.auth().currentUser;
 };
 
 /**
@@ -22,24 +22,24 @@ export const getBaseUserInfo = () => {
  * @return weight
  */
 export const getProfileImage = async () => {
-  let URL = null;
-  const pathReference = storageRef.child(
-    "profilePictures/" + getBaseUserInfo()?.uid
-  );
-  if (pathReference) {
-    try {
-      await Promise.resolve(pathReference.getDownloadURL()).then(function(
-        value
-      ) {
-        if (value) {
-          URL = value;
+    let URL = null;
+    const pathReference = storageRef.child(
+        "profilePictures/" + getBaseUserInfo()?.uid
+    );
+    if (pathReference) {
+        try {
+            await Promise.resolve(pathReference.getDownloadURL()).then(function (
+                value
+            ) {
+                if (value) {
+                    URL = value;
+                }
+            });
+            return URL;
+        } catch (error) {
+            return null;
         }
-      });
-      return URL;
-    } catch (error) {
-      return null;
     }
-  }
 };
 
 /**
@@ -47,16 +47,16 @@ export const getProfileImage = async () => {
  * @return weight
  */
 export const getLastWeight = async () => {
-  let datiPeso: any = null;
-  const snapshot = await pesoCollection
-    .orderBy("dateTime", "desc")
-    .limit(1)
-    .where("uid", "==", getBaseUserInfo()?.uid)
-    .get();
-  snapshot.forEach((element) => {
-    datiPeso = element.data();
-  });
-  return datiPeso;
+    let datiPeso: any = null;
+    const snapshot = await pesoCollection
+        .orderBy("dateTime", "desc")
+        .limit(1)
+        .where("uid", "==", getBaseUserInfo()?.uid)
+        .get();
+    snapshot.forEach((element) => {
+        datiPeso = element.data();
+    });
+    return datiPeso;
 };
 
 /**
@@ -64,40 +64,40 @@ export const getLastWeight = async () => {
  * @return weight
  */
 export const getWeights = async () => {
-  interface Peso {
-    data: any;
-    valore: any;
-  }
-  const listaPesi: Peso[] = [];
+    interface Peso {
+        data: any;
+        valore: any;
+    }
+    const listaPesi: Peso[] = [];
 
-  const snapshot = await pesoCollection
-    .orderBy("dateTime", "desc")
-    .limit(10)
-    .where("uid", "==", getBaseUserInfo()?.uid)
-    .get();
-  snapshot.forEach((row) => {
-    listaPesi.push({
-      data:
-        row
-          .get("dateTime")
-          .toDate()
-          .getDate() +
-        "/" +
-        (row
-          .get("dateTime")
-          .toDate()
-          .getMonth() +
-          1) +
-        "/" +
-        row
-          .get("dateTime")
-          .toDate()
-          .getFullYear(),
-      valore: row.get("peso"),
+    const snapshot = await pesoCollection
+        .orderBy("dateTime", "desc")
+        .limit(10)
+        .where("uid", "==", getBaseUserInfo()?.uid)
+        .get();
+    snapshot.forEach((row) => {
+        listaPesi.push({
+            data:
+                row
+                    .get("dateTime")
+                    .toDate()
+                    .getDate() +
+                "/" +
+                (row
+                    .get("dateTime")
+                    .toDate()
+                    .getMonth() +
+                    1) +
+                "/" +
+                row
+                    .get("dateTime")
+                    .toDate()
+                    .getFullYear(),
+            valore: row.get("peso"),
+        });
     });
-  });
 
-  return listaPesi;
+    return listaPesi;
 };
 
 /**
@@ -105,56 +105,56 @@ export const getWeights = async () => {
  * @returns currentUser
  */
 export const getAllUserInfo = async () => {
-  const user = reactive<{
-    nome: any;
-    cognome: any;
-    cf: any;
-    email: any;
-    imageURL: any;
-    altezza: any;
-    peso: any;
-    uid: any;
-  }>({
-    nome: null,
-    cognome: null,
-    cf: null,
-    email: null,
-    imageURL: null,
-    altezza: null,
-    peso: null,
-    uid: null,
-  });
+    const user = reactive<{
+        nome: any;
+        cognome: any;
+        cf: any;
+        email: any;
+        imageURL: any;
+        altezza: any;
+        peso: any;
+        uid: any;
+    }>({
+        nome: null,
+        cognome: null,
+        cf: null,
+        email: null,
+        imageURL: null,
+        altezza: null,
+        peso: null,
+        uid: null,
+    });
 
-  user.uid = getBaseUserInfo()?.uid;
+    user.uid = getBaseUserInfo()?.uid;
 
-  const snapshot = await usersCollection.where("uid", "==", user.uid).get();
-  if (snapshot.empty) {
-    return AppVue.methods?.openToast(
-      "Errore: eseguire il logout e riautenticarsi"
-    );
-  }
-
-  snapshot.forEach((doc) => {
-    user.nome = doc.get("nome");
-    user.cognome = doc.get("cognome");
-    user.cf = doc.get("cf");
-    user.email = doc.get("email");
-    user.altezza = doc.get("altezza");
-  });
-
-  await Promise.resolve(getProfileImage()).then(function(value) {
-    if (value) {
-      user.imageURL = value;
+    const snapshot = await usersCollection.where("uid", "==", user.uid).get();
+    if (snapshot.empty) {
+        return AppVue.methods?.openToast(
+            "Errore: eseguire il logout e riautenticarsi"
+        );
     }
-  });
 
-  await Promise.resolve(getLastWeight()).then(function(value) {
-    if (value != null) {
-      user.peso = value["peso"];
-    }
-  });
+    snapshot.forEach((doc) => {
+        user.nome = doc.get("nome");
+        user.cognome = doc.get("cognome");
+        user.cf = doc.get("cf");
+        user.email = doc.get("email");
+        user.altezza = doc.get("altezza");
+    });
 
-  return user;
+    await Promise.resolve(getProfileImage()).then(function (value) {
+        if (value) {
+            user.imageURL = value;
+        }
+    });
+
+    await Promise.resolve(getLastWeight()).then(function (value) {
+        if (value != null) {
+            user.peso = value["peso"];
+        }
+    });
+
+    return user;
 };
 
 /**
@@ -162,17 +162,17 @@ export const getAllUserInfo = async () => {
  * @param file
  */
 export const setProfileImage = async (file: File) => {
-  const imagesRef = storageRef.child(
-    "profilePictures/" + getBaseUserInfo()?.uid
-  );
-  // There is no need to delete the previous one because it is overwritten
-  try {
-    imagesRef.put(file).then(() => {
-      location.reload(true);
-    });
-  } catch (error) {
-    throw AppVue.methods?.openToast(error);
-  }
+    const imagesRef = storageRef.child(
+        "profilePictures/" + getBaseUserInfo()?.uid
+    );
+    // There is no need to delete the previous one because it is overwritten
+    try {
+        imagesRef.put(file).then(() => {
+            location.reload(true);
+        });
+    } catch (error) {
+        throw AppVue.methods?.openToast(error);
+    }
 };
 
 /**
@@ -180,18 +180,27 @@ export const setProfileImage = async (file: File) => {
  * @return weight
  */
 export const addWeight = async (value: number) => {
-  // Now add user weight to peso table (trace history)
-  const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
-  pesoCollection
-    .add({
-      uid: getBaseUserInfo()?.uid,
-      peso: value,
-      dateTime: currenteDateTime,
-    })
-    .then(() => {
-      location.reload(true);
-    })
-    .catch((error) => {
-      throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
-    });
+    // Now add user weight to peso table (trace history)
+    const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
+    pesoCollection
+        .add({
+            uid: getBaseUserInfo()?.uid,
+            peso: value,
+            dateTime: currenteDateTime,
+        })
+        .then(() => {
+            location.reload(true);
+        })
+        .catch((error) => {
+            throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
+        });
 };
+
+/**
+ * Delete account with all user informations
+ * @param file
+ */
+ export const deleteAccount = async () => {
+
+    return AppVue.methods?.openToast("Cancellato");
+  };
