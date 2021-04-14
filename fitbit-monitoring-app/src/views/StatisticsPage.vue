@@ -83,7 +83,12 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip width="100%" height="100%">
+                <vue-flip
+                    ref="sedentaryFlip"
+                    active-click="true"
+                    width="100%"
+                    height="100%"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
