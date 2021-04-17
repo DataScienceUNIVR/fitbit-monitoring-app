@@ -190,6 +190,14 @@ ion-content.main{
     height: 200px;
 }
 
+/* Report Page */
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets{
+    bottom: 0% !important;
+}
+.swiper-pagination-bullet-active {
+    background-color: #97a6c2 !important;
+}
+
 .pulse {
     position: relative;
     border: none;
@@ -208,7 +216,7 @@ ion-content.main{
 }
 
 .chart {
-    width: 100%;
+    width: 110%;
 }
 
 .md .ios #weight-chart {

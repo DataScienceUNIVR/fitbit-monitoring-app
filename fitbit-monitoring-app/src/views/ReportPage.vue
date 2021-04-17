@@ -1,0 +1,224 @@
+<template>
+    <ion-page>
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button color="primary"></ion-menu-button>
+                </ion-buttons>
+                <ion-title>REPORT ATTIVITA'</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content :fullscreen="true" class="main">
+            <ion-item>
+                DATA INIZIO:
+                <ion-datetime
+                    :picker-options="customPickerOptions"
+                    display-format="DD/MM/YYYY"
+                    min="2000-01-01"
+                    value="2021-04-17"
+                ></ion-datetime>
+            </ion-item>
+            <ion-item>
+                DATA FINE: 
+                <ion-datetime
+                    :picker-options="customPickerOptions"
+                    display-format="DD/MM/YYYY"
+                    min="2000-01-01"
+                    value="2021-04-17"
+                ></ion-datetime>
+            </ion-item>
+            <ion-slides pager="true" :options="slideOpts">
+                <ion-slide>
+                    <ion-card class="peso-chart-ion-card">
+                        <ion-card-header>
+                            <ion-card-subtitle class="peso-ion-card-subtitle"
+                                >ATTVITA' GENERALE SVOLTA</ion-card-subtitle
+                            >
+                        </ion-card-header>
+                        <div id="weight-chart">
+                            <hr />
+                            <div ref="chart" class="chart"></div>
+                        </div>
+                    </ion-card>
+                </ion-slide>
+                <ion-slide>
+                    <h1>Slide 2</h1>
+                </ion-slide>
+                <ion-slide>
+                    <h1>Slide 3</h1>
+                </ion-slide>
+            </ion-slides>
+        </ion-content>
+    </ion-page>
+</template>
+
+<script lang="ts">
+import {
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonMenuButton,
+    IonPage,
+    IonTitle,
+    IonToolbar,
+    IonSlides,
+    IonSlide,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonItem,
+    IonDatetime,
+} from "@ionic/vue";
+import { defineComponent } from "vue";
+import moment from "moment";
+import ApexCharts from "apexcharts";
+import { getLastWeight, getWeights } from "../controllers/userCTR";
+
+const peso = null;
+const data = "";
+const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
+
+const valoriPesiChart: number[] = [];
+const datePesiChart: string[] = [];
+
+export default defineComponent({
+    name: "Weight",
+    components: {
+        IonButtons,
+        IonContent,
+        IonHeader,
+        IonMenuButton,
+        IonPage,
+        IonTitle,
+        IonToolbar,
+        IonSlides,
+        IonSlide,
+        IonCard,
+        IonCardHeader,
+        IonCardSubtitle,
+        IonItem,
+        IonDatetime,
+    },
+    data() {
+        return {
+            peso,
+            data,
+            dataCorrente,
+            valoriPesiChart,
+            datePesiChart,
+        };
+    },
+    methods: {},
+
+    async mounted() {
+        await Promise.resolve(getLastWeight())
+            .then((value) => {
+                if (value) {
+                    this.peso = value.peso;
+                    // const tmp = moment(value.dateTime.toDate()).format(
+                    //     "DD/MM/YYYY HH:mm");
+                    this.data = moment(value.dateTime.toDate()).format(
+                        "DD/MM/YYYY HH:mm"
+                    );
+                }
+            })
+            .catch((e) => {
+                this.peso = null;
+                this.data = "";
+            });
+
+        await Promise.resolve(getWeights())
+            .then((element) => {
+                if (element) {
+                    element.forEach((item) => {
+                        valoriPesiChart.unshift(item.valore);
+                        datePesiChart.unshift(item.data);
+                    });
+                }
+            })
+            .catch((e) => {
+                console.log("Errore");
+            });
+
+        const options = {
+            chart: {
+                height: "450",
+                type: "area",
+                foreColor: "white",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            colors:['#F44336', '#E91E63', '#9C27B0'],
+
+            series: [
+                {
+                    name: "series1",
+                    data: this.valoriPesiChart,
+                },
+                // {
+                //     name: "series2",
+                //     data: [11, 32, 45, 32, 34, 52, 41],
+                // },
+            ],
+
+            xaxis: {
+                type: "date",
+                categories: this.datePesiChart,
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy",
+                },
+            },
+        };
+
+        if (this.$refs.chart) {
+            const chart = new ApexCharts(this.$refs.chart, options);
+            chart.render();
+        }
+    },
+
+    setup() {
+        // const customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
+        // const customDayShortNames = [
+        //     "s\u00f8n",
+        //     "man",
+        //     "tir",
+        //     "ons",
+        //     "tor",
+        //     "fre",
+        //     "l\u00f8r",
+        // ];
+        const customPickerOptions = {
+            buttons: [
+                {
+                    text: "Cancel",
+                    handler: () => {
+                        console.log("Annullato");
+                    },
+                },
+                {
+                    text: "Seleziona",
+                    handler: () => {
+                        console.log("Selezionato");
+                    },
+                },
+            ],
+        };
+
+        const slideOpts = {
+            initialSlide: 0,
+            speed: 400,
+            autoplay: true,
+        };
+        return {
+            customPickerOptions,
+            slideOpts,
+        };
+    },
+});
+</script>
