@@ -89,7 +89,7 @@ import AppVue from "@/App.vue";
 import {
     getAllUserInfo,
     setProfileImage,
-    deleteAccount,
+    deleteAccountInfo,
 } from "../controllers/userCTR";
 
 interface Utente {
@@ -176,7 +176,7 @@ export default defineComponent({
                                 deleteConfirmation++;
                                 this.confirmDelete();
                             } else {
-                                deleteAccount();
+                                deleteAccountInfo();
                             }
                         },
                     },
