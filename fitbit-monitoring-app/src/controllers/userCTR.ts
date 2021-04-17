@@ -1,13 +1,17 @@
 import firebase from "firebase";
 import "firebase/firestore";
-import AppVue from "@/App.vue";
-import { reactive } from "vue";
 
 const storage = firebase.storage();
 const storageRef = storage.ref();
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
 const pesoCollection = db.collection("peso");
+const sedentaryActivityCollection = db.collection("sedentaryActivity");
+const lightActivityCollection = db.collection("lightActivity");
+const moderatelyActivityCollection = db.collection("moderatelyActivity");
+const intenseActivityCollection = db.collection("intenseActivity");
+import AppVue from "@/App.vue";
+import { reactive } from "vue";
 
 /**
  * Get the base information of the logged user (uid, email)
@@ -200,7 +204,38 @@ export const addWeight = async (value: number) => {
  * Delete account with all user informations
  * @param file
  */
- export const deleteAccount = async () => {
+export const deleteAccountInfo = async () => {
+    const uid = getBaseUserInfo()?.uid;
 
-    return AppVue.methods?.openToast("Cancellato");
-  };
+    // First delete profile img
+    const res = storageRef.child("profilePictures/" + uid);
+    res
+        .delete()
+        .then(() => {
+            console.log("User profile img deleted");
+        })
+        .catch((error) => {
+            return AppVue.methods?.openToast("Errore nella cancellazione dell'immagine di profilo");
+        });
+
+    // Delete all data from collections
+    const collections = [pesoCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderatelyActivityCollection, intenseActivityCollection];
+    collections.forEach(async (collection) => {
+        const snapshot = await collection
+            .where("uid", "==", getBaseUserInfo()?.uid)
+            .get();
+        snapshot.forEach((row) => {
+            row.ref.delete();
+        });
+    });
+
+    // Delete real auth user
+    const user = firebase.auth().currentUser;
+    user?.delete().then(function () {
+        console.log(user);
+    }).catch(function (error) {
+        return AppVue.methods?.openToast("Errore nella cancellazione dell'utente auth");
+    });
+
+    return AppVue.methods?.openToast("Utente cancellato correttamente");
+};
