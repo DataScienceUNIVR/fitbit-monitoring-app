@@ -9,27 +9,39 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-item>
-                DATA INIZIO:
-                <ion-datetime
-                    :picker-options="customPickerOptions"
-                    display-format="DD/MM/YYYY"
-                    min="2000-01-01"
-                    value="2021-04-17"
-                ></ion-datetime>
-            </ion-item>
-            <ion-item>
-                DATA FINE: 
-                <ion-datetime
-                    :picker-options="customPickerOptions"
-                    display-format="DD/MM/YYYY"
-                    min="2000-01-01"
-                    value="2021-04-17"
-                ></ion-datetime>
-            </ion-item>
+            <ion-toolbar>
+                <ion-item>
+                    DATA INIZIO:
+                    <ion-datetime
+                        :picker-options="customPickerOptions"
+                        display-format="DD/MM/YYYY"
+                        min="2000-01-01"
+                        value="new Date(2017, 9,  5)"
+                    ></ion-datetime>
+                </ion-item>
+                <ion-item>
+                    DATA FINE:&nbsp;&nbsp;
+                    <ion-datetime
+                        :picker-options="customPickerOptions"
+                        display-format="DD/MM/YYYY"
+                        min="2000-01-01"
+                        value="2021-04-17"
+                    ></ion-datetime>
+                </ion-item>
+                <ion-fab vertical="center" horizontal="end">
+                    <ion-fab-button
+                        color="light"
+                        id="btnFilter"
+                        @click="getReport"
+                    >
+                        <ion-icon :icon="filterSharp"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-toolbar>
+
             <ion-slides pager="true" :options="slideOpts">
                 <ion-slide>
-                    <ion-card class="peso-chart-ion-card">
+                    <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="peso-ion-card-subtitle"
                                 >ATTVITA' GENERALE SVOLTA</ion-card-subtitle
@@ -68,18 +80,39 @@ import {
     IonCardSubtitle,
     IonItem,
     IonDatetime,
+    IonIcon,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import moment from "moment";
 import ApexCharts from "apexcharts";
-import { getLastWeight, getWeights } from "../controllers/userCTR";
+import { getLastWeight, getWeights } from "../controllers/weightCTR";
+import { filterSharp } from "ionicons/icons";
 
 const peso = null;
 const data = "";
-const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
 
 const valoriPesiChart: number[] = [];
 const datePesiChart: string[] = [];
+
+// const tmp = new Date("2017/5/10");
+
+// const result = "" + tmp.getFullYear() + ((tmp.getMonth() + 1) > 9 ? '' : '0') + (tmp.getMonth() + 1) + (tmp.getDate() > 9 ? '' : '0') + tmp.getDate();
+
+// console.log(tmp);
+
+const current = new Date();
+const currentDate = `${current.getDate()}/${
+    current.getMonth() + 1
+}/${current.getFullYear()}`;
+const startDate = `${current.getDate()}/${
+    current.getMonth() + 2
+}/${current.getFullYear()}`;
+// localStorage.start = currentDate;
+// console.log(date2);
+// console.log(currentDate);
+    localStorage.start = current.toISOString();
+    console.log("2021-04-20");
+
 
 export default defineComponent({
     name: "Weight",
@@ -98,19 +131,24 @@ export default defineComponent({
         IonCardSubtitle,
         IonItem,
         IonDatetime,
+        IonIcon,
     },
     data() {
         return {
             peso,
             data,
-            dataCorrente,
             valoriPesiChart,
             datePesiChart,
         };
     },
-    methods: {},
+    methods: {
+        getReport() {
+            console.log("das");
+        }
+    },
 
     async mounted() {
+
         await Promise.resolve(getLastWeight())
             .then((value) => {
                 if (value) {
@@ -152,19 +190,13 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors:['#F44336', '#E91E63', '#9C27B0'],
-
+            colors: ["#F44336", "#E91E63", "#9C27B0"],
             series: [
                 {
                     name: "series1",
                     data: this.valoriPesiChart,
                 },
-                // {
-                //     name: "series2",
-                //     data: [11, 32, 45, 32, 34, 52, 41],
-                // },
             ],
-
             xaxis: {
                 type: "date",
                 categories: this.datePesiChart,
@@ -183,16 +215,6 @@ export default defineComponent({
     },
 
     setup() {
-        // const customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
-        // const customDayShortNames = [
-        //     "s\u00f8n",
-        //     "man",
-        //     "tir",
-        //     "ons",
-        //     "tor",
-        //     "fre",
-        //     "l\u00f8r",
-        // ];
         const customPickerOptions = {
             buttons: [
                 {
@@ -218,6 +240,7 @@ export default defineComponent({
         return {
             customPickerOptions,
             slideOpts,
+            filterSharp,
         };
     },
 });
