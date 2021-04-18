@@ -56,7 +56,7 @@
                     </ion-fab>
                 </ion-card>
             </ion-row>
-            <ion-card class="peso-chart-ion-card">
+            <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="peso-ion-card-subtitle"
                         >TRACKING DEI TUOI UTLIMI PESI
@@ -64,11 +64,8 @@
                     >
                 </ion-card-header>
                 <div id="weight-chart">
-                    <!-- <img width="25%" src="./assets/logo.png" /> -->
-
                     <hr />
-
-                    <div ref="chart" class="chart"></div>
+                    <div ref="chart" class="peso-chart"></div>
                 </div>
             </ion-card>
         </ion-content>
@@ -98,7 +95,7 @@ import {
     alertController,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
-import { getLastWeight, addWeight, getWeights } from "../controllers/userCTR";
+import { getLastWeight, addWeight, getWeights } from "../controllers/weightCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
 import ApexCharts from "apexcharts";
