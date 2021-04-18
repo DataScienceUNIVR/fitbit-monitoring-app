@@ -215,9 +215,19 @@ ion-content.main{
     animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
 
+.peso-chart {
+    width: 100%;
+}
+
 .chart {
     width: 110%;
 }
+
+#btnFilter {
+    --ion-color-base: #f24336af !important;
+}
+
+
 
 .md .ios #weight-chart {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -266,7 +276,7 @@ ion-title {
     background-color: #1C1C1D;
 }
 
-.md .peso-chart-ion-card {
+.md .chart-ion-card {
     background-color: #1C1C1D;
 }
 
