@@ -58,7 +58,6 @@ export const getStatistics = async (period: any) => {
         minutes: sedentaryActivityMinutes,
         distance: ((sedentaryActivityMinutes/60)*2).toFixed(1),
     });
-    console.log(listaStatistiche);
 
     snapshot = lightActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
     (await snapshot).forEach(element => {
