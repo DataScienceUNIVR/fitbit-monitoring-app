@@ -14,9 +14,8 @@
                     DATA INIZIO:
                     <ion-datetime
                         :picker-options="customPickerOptions"
-                        display-format="DD/MM/YYYY"
+                        display-format="YYYY/MM/DD"
                         min="2000-01-01"
-                        value="new Date(2017, 9,  5)"
                     ></ion-datetime>
                 </ion-item>
                 <ion-item>
@@ -27,6 +26,7 @@
                         min="2000-01-01"
                         value="2021-04-17"
                     ></ion-datetime>
+                    <!-- <date-picker v-model="time1" valueType="format"></date-picker> -->
                 </ion-item>
                 <ion-fab vertical="center" horizontal="end">
                     <ion-fab-button
@@ -44,7 +44,8 @@
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="peso-ion-card-subtitle"
-                                >ATTVITA' GENERALE SVOLTA</ion-card-subtitle
+                                >
+</ion-card-subtitle
                             >
                         </ion-card-header>
                         <div id="weight-chart">
@@ -86,6 +87,7 @@ import { defineComponent } from "vue";
 import moment from "moment";
 import ApexCharts from "apexcharts";
 import { getLastWeight, getWeights } from "../controllers/weightCTR";
+import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp } from "ionicons/icons";
 
 const peso = null;
@@ -93,27 +95,6 @@ const data = "";
 
 const valoriPesiChart: number[] = [];
 const datePesiChart: string[] = [];
-
-// const tmp = new Date("2017/5/10");
-
-// const result = "" + tmp.getFullYear() + ((tmp.getMonth() + 1) > 9 ? '' : '0') + (tmp.getMonth() + 1) + (tmp.getDate() > 9 ? '' : '0') + tmp.getDate();
-
-// console.log(tmp);
-
-const current = new Date();
-const currentDate = `${current.getDate()}/${
-    current.getMonth() + 1
-}/${current.getFullYear()}`;
-const startDate = `${current.getDate()}/${
-    current.getMonth() + 2
-}/${current.getFullYear()}`;
-// localStorage.start = currentDate;
-// console.log(date2);
-// console.log(currentDate);
-    localStorage.start = current.toISOString();
-    console.log("2021-04-20");
-
-
 export default defineComponent({
     name: "Weight",
     components: {
@@ -134,20 +115,40 @@ export default defineComponent({
         IonIcon,
     },
     data() {
+    const prova = new Date().toISOString();
+    console.log(prova);
+
         return {
             peso,
             data,
             valoriPesiChart,
             datePesiChart,
+            prova
         };
     },
     methods: {
         getReport() {
-            console.log("das");
-        }
+            console.log("INIZIO");
+            getActivityTimeWithRange();
+            console.log("FINE");
+        },
     },
 
     async mounted() {
+        const current = new Date();
+        const currentDate = `${current.getFullYear()}-${
+            current.getMonth() + 1
+        }-${current.getDate()}`;
+
+        const startDate = `${current.getDate()}/${
+            current.getMonth() + 2
+        }/${current.getFullYear()}`;
+        // localStorage.start = currentDate;
+        // console.log(date2);
+        // console.log(currentDate);
+
+        localStorage.start = current;
+        console.log(current);
 
         await Promise.resolve(getLastWeight())
             .then((value) => {
