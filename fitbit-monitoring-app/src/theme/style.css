@@ -227,8 +227,6 @@ ion-content.main{
     --ion-color-base: #f24336af !important;
 }
 
-
-
 .md .ios #weight-chart {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -241,11 +239,6 @@ ion-content.main{
 .md ion-content.main{
     --background: url(../../public/assets/img/main_bg3.jpg) 0 0/100% 100% no-repeat;
 }
-
-/* .pulse:hover 
-{
-  -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
-} */
 
 @-webkit-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
 @-moz-keyframes pulse {to {box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);}}
