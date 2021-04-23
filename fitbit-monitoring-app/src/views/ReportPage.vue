@@ -40,40 +40,78 @@
             </ion-toolbar>
 
             <ion-slides pager="true" :options="slideOpts">
-                <ion-slide>
+                <ion-slide v-if="{ minutiSedentaryActivity }">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
-                            <ion-card-subtitle class="peso-ion-card-subtitle">
+                            <ion-card-subtitle class="report-ion-card-subtitle">
+                                MINUTI / GIORNO ATTIVITÀ SEDENTARIA
                             </ion-card-subtitle>
                         </ion-card-header>
-                        <div id="weight-chart">
+                        <div id="chart">
                             <hr />
                             <div ref="sedentaryChart" class="chart"></div>
                         </div>
                     </ion-card>
                 </ion-slide>
-                <ion-slide>
+                <ion-slide v-if="!minutiLightActivity.size">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
-                            <ion-card-subtitle class="peso-ion-card-subtitle">
+                            <ion-card-subtitle class="report-ion-card-subtitle">
+                                MINUTI / GIORNO ATTIVITÀ LEGGERA
                             </ion-card-subtitle>
                         </ion-card-header>
-                        <div id="weight-chart">
+                        <div id="chart">
                             <hr />
                             <div ref="lightChart" class="chart"></div>
                         </div>
                     </ion-card>
                 </ion-slide>
-                <ion-slide>
+                <ion-slide v-if="{ minutiModerateActivity }">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
-                            <ion-card-subtitle class="peso-ion-card-subtitle">
+                            <ion-card-subtitle class="report-ion-card-subtitle">
+                                MINUTI / GIORNO ATTIVITÀ MODERATA
                             </ion-card-subtitle>
                         </ion-card-header>
-                        <div id="weight-chart">
+                        <div id="chart">
                             <hr />
                             <div ref="moderateChart" class="chart"></div>
                         </div>
+                    </ion-card>
+                </ion-slide>
+                <ion-slide v-if="{ minutiIntenseActivity }">
+                    <ion-card class="chart-ion-card">
+                        <ion-card-header>
+                            <ion-card-subtitle class="report-ion-card-subtitle">
+                                MINUTI / GIORNO ATTIVITÀ INTENSA
+                            </ion-card-subtitle>
+                        </ion-card-header>
+                        <div id="chart">
+                            <hr />
+                            <div ref="intenseChart" class="chart"></div>
+                        </div>
+                    </ion-card>
+                </ion-slide>
+                <ion-slide
+                    v-if="
+                        minutiSedentaryActivity.lenght == 0 &&
+                        minutiLightActivity.lenght == 0 &&
+                        minutiModerateActivity.lenght == 0 &&
+                        minutiIntenseActivity.lenght == 0
+                    "
+                >
+                    <ion-card class="report-alert-ion-card">
+                        <ion-card-header>
+                            <ion-card-title> MI DISPIACE, </ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content class="report-ion-card-content">
+                            PURTROPPO NON SEMBRANO ESSERCI DATI CARICATI PER
+                            NESSUNA ATTIVITÀ!
+                            <br /><br /><ion-icon
+                                :icon="sad"
+                                class="report-no-data-ion-icon"
+                            ></ion-icon>
+                        </ion-card-content>
                     </ion-card>
                 </ion-slide>
             </ion-slides>
@@ -94,7 +132,9 @@ import {
     IonSlide,
     IonCard,
     IonCardHeader,
+    IonCardTitle,
     IonCardSubtitle,
+    IonCardContent,
     IonItem,
     IonDatetime,
     IonFabButton,
@@ -104,7 +144,7 @@ import {
 import { defineComponent } from "vue";
 import ApexCharts from "apexcharts";
 import { getActivityTimeWithRange } from "../controllers/reportCTR";
-import { filterSharp } from "ionicons/icons";
+import { filterSharp, sad } from "ionicons/icons";
 
 interface Attivita {
     data: any;
@@ -134,7 +174,9 @@ export default defineComponent({
         IonSlide,
         IonCard,
         IonCardHeader,
+        IonCardTitle,
         IonCardSubtitle,
+        IonCardContent,
         IonItem,
         IonDatetime,
         IonFabButton,
@@ -177,13 +219,12 @@ export default defineComponent({
                 //         date.getMonth() + 1
                 //     }/${date.getFullYear()}`;
 
-
                 //     while (dopo < prima) {
                 //         console.log("OK");
-                        // this line modifies the original firstDate reference which you want to make the while loop work
-                        // firstDate.setDate(firstDate + 1);
-                        // this pushes a new date , if you were to push firstDate then you will keep updating every item in the array
-                        // dates.push(new Date(firstDate));
+                // this line modifies the original firstDate reference which you want to make the while loop work
+                // firstDate.setDate(firstDate + 1);
+                // this pushes a new date , if you were to push firstDate then you will keep updating every item in the array
+                // dates.push(new Date(firstDate));
                 //     }
                 // }
                 // secondDate = firstDate;
@@ -203,7 +244,6 @@ export default defineComponent({
 
                 minutiSedentaryActivity.push(element.minuti);
                 dataSedentaryActivity.push(element.data);
-                // this.lastDate = newDate;
             });
 
             result[1].forEach((element: Attivita) => {
@@ -238,7 +278,7 @@ export default defineComponent({
 
         await this.getReport();
 
-        const options = {
+        const sedentaryChartOptions = {
             chart: {
                 height: "450",
                 type: "area",
@@ -253,7 +293,7 @@ export default defineComponent({
             colors: ["#F44336", "#E91E63", "#9C27B0"],
             series: [
                 {
-                    name: "series1",
+                    name: "minuti",
                     data: this.minutiSedentaryActivity,
                 },
             ],
@@ -268,7 +308,7 @@ export default defineComponent({
             },
         };
 
-        const options2 = {
+        const lightChartOptions = {
             chart: {
                 height: "450",
                 type: "area",
@@ -280,10 +320,10 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#F44336", "#E91E63", "#9C27B0"],
+            colors: ["#FFEC62", "#E91E63", "#9C27B0"],
             series: [
                 {
-                    name: "series1",
+                    name: "minuti",
                     data: this.minutiLightActivity,
                 },
             ],
@@ -298,7 +338,7 @@ export default defineComponent({
             },
         };
 
-        const options3 = {
+        const moderateChartOptions = {
             chart: {
                 height: "450",
                 type: "area",
@@ -310,15 +350,11 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#F44336", "#E91E63", "#9C27B0"],
+            colors: ["#9147E1", "#E91E63", "#9C27B0"],
             series: [
                 {
-                    name: "series1",
+                    name: "minuti",
                     data: this.minutiModerateActivity,
-                },
-                {
-                    name: "series2",
-                    data: this.minutiLightActivity,
                 },
             ],
             xaxis: {
@@ -332,16 +368,62 @@ export default defineComponent({
             },
         };
 
+        const intenseChartOptions = {
+            chart: {
+                height: "450",
+                type: "area",
+                foreColor: "white",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            colors: ["#359946", "#E91E63", "#9C27B0"],
+            series: [
+                {
+                    name: "minuti",
+                    data: this.minutiIntenseActivity,
+                },
+            ],
+            xaxis: {
+                type: "date",
+                categories: this.dataIntenseActivity,
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy",
+                },
+            },
+        };
+
         if (this.$refs.sedentaryChart) {
-            const chart = new ApexCharts(this.$refs.sedentaryChart, options);
+            const chart = new ApexCharts(
+                this.$refs.sedentaryChart,
+                sedentaryChartOptions
+            );
             chart.render();
         }
         if (this.$refs.lightChart) {
-            const chart = new ApexCharts(this.$refs.lightChart, options2);
+            const chart = new ApexCharts(
+                this.$refs.lightChart,
+                lightChartOptions
+            );
             chart.render();
         }
         if (this.$refs.moderateChart) {
-            const chart = new ApexCharts(this.$refs.moderateChart, options3);
+            const chart = new ApexCharts(
+                this.$refs.moderateChart,
+                moderateChartOptions
+            );
+            chart.render();
+        }
+        if (this.$refs.intenseChart) {
+            const chart = new ApexCharts(
+                this.$refs.intenseChart,
+                intenseChartOptions
+            );
             chart.render();
         }
     },
@@ -373,6 +455,7 @@ export default defineComponent({
             customPickerOptions,
             slideOpts,
             filterSharp,
+            sad,
         };
     },
 });
