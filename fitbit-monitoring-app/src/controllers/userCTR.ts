@@ -131,13 +131,13 @@ export const deleteAccountInfo = async () => {
 
     // First delete profile img
     const res = storageRef.child("profilePictures/" + uid);
-    res
+        res
         .delete()
         .then(() => {
             console.log("User profile img deleted");
         })
         .catch((error) => {
-            return AppVue.methods?.openToast("Errore nella cancellazione dell'immagine di profilo");
+            console.log(error);
         });
 
     // Delete all data from collections
@@ -154,10 +154,9 @@ export const deleteAccountInfo = async () => {
     // Delete real auth user
     const user = firebase.auth().currentUser;
     user?.delete().then(function () {
-        console.log(user);
+        return document.location.href="/login";
     }).catch(function (error) {
-        return AppVue.methods?.openToast("Errore nella cancellazione dell'utente auth");
+        return AppVue.methods?.openToast("Errore nella cancellazione dell'utente auth: " + error);
     });
 
-    return AppVue.methods?.openToast("Utente cancellato correttamente");
 };
