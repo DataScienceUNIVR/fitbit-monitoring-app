@@ -198,6 +198,27 @@ ion-content.main{
     background-color: #97a6c2 !important;
 }
 
+.report-ion-card-subtitle {
+    font-size:      17px;
+    font-weight:    bold;
+    text-align:     center;
+    color:        #c6c7ca;
+}
+
+.report-no-data-ion-icon {
+    font-size:      77px;
+}
+
+.report-ion-card-content {
+    font-size:      20px;
+}
+
+.report-alert-ion-card {
+    margin-top:     30%;
+    max-width:      70%;
+}
+
+
 .pulse {
     position: relative;
     border: none;
@@ -215,19 +236,15 @@ ion-content.main{
     animation: pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
 
-.peso-chart {
-    width: 100%;
-}
-
 .chart {
-    width: 110%;
+    width: 100%;
 }
 
 #btnFilter {
     --ion-color-base: #f24336af !important;
 }
 
-.md .ios #weight-chart {
+.md .ios #chart {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

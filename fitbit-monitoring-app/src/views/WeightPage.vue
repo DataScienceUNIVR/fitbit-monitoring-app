@@ -63,9 +63,9 @@
                         REGISTRATI</ion-card-subtitle
                     >
                 </ion-card-header>
-                <div id="weight-chart">
+                <div id="chart">
                     <hr />
-                    <div ref="chart" class="peso-chart"></div>
+                    <div ref="chart" class="chart"></div>
                 </div>
             </ion-card>
         </ion-content>
