@@ -32,9 +32,10 @@
             <ion-row class="statistiche-row">
                 <vue-flip
                     ref="sedentaryFlip"
-                    active-click="true"
+                    active-click=true
                     width="100%"
                     height="100%"
+                    id="flipCard1"
                 >
                     <template v-slot:front class="front">
                         <ion-card
@@ -50,9 +51,7 @@
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    {{
-                                        sedentaryActivityStatistics.minutes
-                                    }}
+                                    {{ sedentaryActivityStatistics.minutes }}
                                     min
                                 </ion-card-title>
                             </ion-card-header>
@@ -72,9 +71,7 @@
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    {{
-                                        sedentaryActivityStatistics.distance
-                                    }}
+                                    {{ sedentaryActivityStatistics.distance }}
                                     km
                                 </ion-card-title>
                             </ion-card-header>
@@ -84,10 +81,11 @@
             </ion-row>
             <ion-row class="statistiche-row">
                 <vue-flip
-                    ref="sedentaryFlip"
-                    active-click="true"
+                    ref="lightFlip"
+                    active-click=true
                     width="100%"
                     height="100%"
+                    id="flipCard2"
                 >
                     <template v-slot:front class="front">
                         <ion-card
@@ -131,10 +129,11 @@
             </ion-row>
             <ion-row class="statistiche-row">
                 <vue-flip
-                    ref="lightFlip"
-                    active-click=""
+                    ref="moderateFlip"
+                    active-click=true
                     width="100%"
                     height="100%"
+                    id="flipCard3"
                 >
                     <template v-slot:front class="front">
                         <ion-card
@@ -177,7 +176,13 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip ref="" active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="intenseFlip"
+                    active-click=true
+                    width="100%"
+                    height="100%"
+                    id="flipCard4"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -334,8 +339,12 @@ export default {
                 console.log("Errore");
             });
 
-        // this.$refs.sedentaryFlip.click();
-        // this.$refs.lightFlip.click();
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById("flipCard"+i)!.click();
+            document.getElementById("flipCard"+i)!.click();
+            
+        }
+
         let msg = "";
         switch (localStorage.period) {
             case "d":
