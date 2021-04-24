@@ -218,6 +218,11 @@ ion-content.main{
     max-width:      70%;
 }
 
+.report-pie-chart {
+    margin-top: -7%;
+    margin-bottom: 10%;
+}
+
 
 .pulse {
     position: relative;

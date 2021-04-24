@@ -39,6 +39,16 @@
                 </ion-fab>
             </ion-toolbar>
 
+            <ion-card-header>
+                <ion-card-subtitle class="report-ion-card-subtitle">
+                    RIPARTIZIONE TOTALE IN MINUTI
+                </ion-card-subtitle>
+            </ion-card-header>
+            <div id="chart">
+                <hr />
+                <div ref="pieChart" class="report-pie-chart"></div>
+            </div>
+
             <ion-slides pager="true" :options="slideOpts">
                 <ion-slide v-if="{ minutiSedentaryActivity }">
                     <ion-card class="chart-ion-card">
@@ -160,6 +170,10 @@ const dataModerateActivity: string[] = [];
 const minutiIntenseActivity: number[] = [];
 const dataIntenseActivity: string[] = [];
 
+let totaleMinutiSedentaryActivity = 0;
+let totaleMinutiLightActivity = 0;
+let totaleMinutiModerateActivity = 0;
+let totaleMinutiIntenseActivity = 0;
 export default defineComponent({
     name: "Report Attività",
     components: {
@@ -193,6 +207,11 @@ export default defineComponent({
             dataModerateActivity,
             minutiIntenseActivity,
             dataIntenseActivity,
+
+            totaleMinutiSedentaryActivity,
+            totaleMinutiLightActivity,
+            totaleMinutiModerateActivity,
+            totaleMinutiIntenseActivity,
         };
     },
     methods: {
@@ -244,19 +263,23 @@ export default defineComponent({
 
                 minutiSedentaryActivity.push(element.minuti);
                 dataSedentaryActivity.push(element.data);
+                totaleMinutiSedentaryActivity += parseInt(element.minuti);
             });
 
             result[1].forEach((element: Attivita) => {
                 minutiLightActivity.push(element.minuti);
                 dataLightActivity.push(element.data);
+                totaleMinutiLightActivity += parseInt(element.minuti);
             });
             result[2].forEach((element: Attivita) => {
                 minutiModerateActivity.push(element.minuti);
                 dataModerateActivity.push(element.data);
+                totaleMinutiModerateActivity += parseInt(element.minuti);
             });
             result[3].forEach((element: Attivita) => {
                 minutiIntenseActivity.push(element.minuti);
                 dataIntenseActivity.push(element.data);
+                totaleMinutiIntenseActivity += parseInt(element.minuti);
             });
         },
     },
@@ -267,7 +290,7 @@ export default defineComponent({
         //     current.getMonth() + 1
         // }/${current.getFullYear()}`;
         // console.log(currentDate);
-
+    
         // const tomorrow = `${current.getDate() + 1}/${
         //     current.getMonth() + 1
         // }/${current.getFullYear()}`;
@@ -277,7 +300,7 @@ export default defineComponent({
         // console.log(currentDate < tomorrow);
 
         await this.getReport();
-
+        // console.log(totaleMinutiSedentaryActivity);
         const sedentaryChartOptions = {
             chart: {
                 height: "450",
@@ -398,6 +421,40 @@ export default defineComponent({
             },
         };
 
+        const pieChartOptions = {
+            chart: {
+                width: "100%",
+                type: "pie",
+                foreColor: "white",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            series: [
+                totaleMinutiSedentaryActivity,
+                totaleMinutiLightActivity,
+                totaleMinutiModerateActivity,
+                totaleMinutiIntenseActivity,
+            ],
+            labels: [
+                "Attività sedentaria",
+                "Attività leggera",
+                "Attività moderata",
+                "Attività intensa",
+            ],
+
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        };
+
         if (this.$refs.sedentaryChart) {
             const chart = new ApexCharts(
                 this.$refs.sedentaryChart,
@@ -424,6 +481,10 @@ export default defineComponent({
                 this.$refs.intenseChart,
                 intenseChartOptions
             );
+            chart.render();
+        }
+        if (this.$refs.pieChart) {
+            const chart = new ApexCharts(this.$refs.pieChart, pieChartOptions);
             chart.render();
         }
     },
