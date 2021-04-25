@@ -38,7 +38,6 @@
                     </ion-fab-button>
                 </ion-fab>
             </ion-toolbar>
-
             <ion-card-header>
                 <ion-card-subtitle class="report-ion-card-subtitle">
                     RIPARTIZIONE TOTALE IN MINUTI
@@ -290,7 +289,7 @@ export default defineComponent({
         //     current.getMonth() + 1
         // }/${current.getFullYear()}`;
         // console.log(currentDate);
-    
+
         // const tomorrow = `${current.getDate() + 1}/${
         //     current.getMonth() + 1
         // }/${current.getFullYear()}`;
@@ -313,7 +312,7 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#F44336", "#E91E63", "#9C27B0"],
+            colors: ["#008ffb"],
             series: [
                 {
                     name: "minuti",
@@ -343,7 +342,7 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#FFEC62", "#E91E63", "#9C27B0"],
+            colors: ["#00e396"],
             series: [
                 {
                     name: "minuti",
@@ -373,7 +372,7 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#9147E1", "#E91E63", "#9C27B0"],
+            colors: ["#feb019"],
             series: [
                 {
                     name: "minuti",
@@ -403,7 +402,7 @@ export default defineComponent({
             stroke: {
                 curve: "smooth",
             },
-            colors: ["#359946", "#E91E63", "#9C27B0"],
+            colors: ["#a62fd8"],
             series: [
                 {
                     name: "minuti",
@@ -436,6 +435,7 @@ export default defineComponent({
                 totaleMinutiModerateActivity,
                 totaleMinutiIntenseActivity,
             ],
+            colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             labels: [
                 "Attività sedentaria",
                 "Attività leggera",
