@@ -4,24 +4,40 @@ import { getBaseUserInfo } from "./userCTR";
 import AppVue from "@/App.vue";
 
 const db = firebase.firestore();
-const stepsCollection = db.collection("steps");
 let message = "";
+let activityCollection = db.collection("steps");
 
 /**
  * Save local steps saved into JSON file on firebase
  * @param args 
  * @returns 
  */
-export const sendStepsFirebase = async (args: any[]) => {
+export const saveUserActivity = async (args: any[], type: string) => {
     const uid = getBaseUserInfo()?.uid;
-    stepsCollection.where('uid', '==', uid).get()
+    switch (type) {
+        case "sedentary":
+            activityCollection = db.collection("sedentaryActivity");
+            break;
+        case "light":
+            activityCollection = db.collection("lightActivity");
+            break;
+        case "moderately":
+            activityCollection = db.collection("moderatelyActivity");
+            break;
+        case "intense":
+            activityCollection = db.collection("intenseActivity");
+            break;
+        default:
+            message = "Si è verificato un errore, ripetere la procedura";
+            throw AppVue.methods?.openToast(message);
+    }
+    activityCollection.where('uid', '==', uid).get()
         .then(function (querySnapshot) {
             // Once we get the results, begin a batch
             const batch = db.batch();
             querySnapshot.forEach(function (doc) {
                 batch.delete(doc.ref);
             });
-            // Commit the batch
             batch.commit();
 
         }).then(function () {
@@ -32,11 +48,11 @@ export const sendStepsFirebase = async (args: any[]) => {
 
                 // First check the validity of the data, if so I make the insert
                 if (uid != null && number >= 0 && dateTime != null) {
-                    stepsCollection
+                    activityCollection
                         .add({
                             uid: uid,
                             dateTime: dateTime,
-                            value: number,
+                            minutes: number,
                         })
                         .then(() => {
                             message = "Dati caricati correttamente";

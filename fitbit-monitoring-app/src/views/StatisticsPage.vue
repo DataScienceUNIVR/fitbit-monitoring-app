@@ -9,14 +9,14 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-header collapse="condense">
+            <ion-toolbar collapse="condense">
                 <ion-item>
                     <ion-label>PERIODO STATISTICHE</ion-label>
                     <ion-select
                         placeholder="SELEZIONA"
                         @ionchange="changePeriod"
                     >
-                        <ion-select-option value="d"
+                        <ion-select-option value="d" selected="true"
                             >Ultimo giorno</ion-select-option
                         >
                         <ion-select-option value="w"
@@ -27,11 +27,16 @@
                         >
                     </ion-select>
                 </ion-item>
-            </ion-header>
+            </ion-toolbar>
 
-            <!-- TODO: ciclarli -->
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="sedentaryFlip"
+                    active-click=true
+                    width="100%"
+                    height="100%"
+                    id="flipCard1"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -40,13 +45,14 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br>
+                                    >TEMPO DI ATTIVITÀ'<br />
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    25
+                                    {{ sedentaryActivityStatistics.minutes }}
+                                    min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -59,13 +65,14 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    5241
+                                    {{ sedentaryActivityStatistics.distance }}
+                                    km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -73,7 +80,13 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="lightFlip"
+                    active-click=true
+                    width="100%"
+                    height="100%"
+                    id="flipCard2"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -82,13 +95,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br>
+                                    >TEMPO DI ATTIVITÀ<br />
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    5241
+                                    {{ lightActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -101,13 +114,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    421
+                                    {{ lightActivityStatistics.distance }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -115,7 +128,13 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="moderateFlip"
+                    active-click=true
+                    width="100%"
+                    height="100%"
+                    id="flipCard3"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -124,13 +143,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA<br>
+                                    >TEMPO DI ATTIVITÀ<br />
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    3600
+                                    {{ moderateActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -143,13 +162,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA<br>
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    84
+                                    {{ moderateActivityStatistics.distance }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -157,7 +176,13 @@
                 </vue-flip>
             </ion-row>
             <ion-row class="statistiche-row">
-                <vue-flip active-click="" width="100%" height="100%">
+                <vue-flip
+                    ref="intenseFlip"
+                    active-click=true
+                    width="100%"
+                    height="100%"
+                    id="flipCard4"
+                >
                     <template v-slot:front class="front">
                         <ion-card
                             class="statistiche-ion-card"
@@ -166,13 +191,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >MINUTI DI ATTIVITA'<br>
+                                    >TEMPO DI ATTIVITÀ'<br />
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    60
+                                    {{ intenseActivityStatistics.minutes }} min
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -185,13 +210,13 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistiche-ion-card-subtitle"
-                                    >PASSI DI ATTIVITA'<br>
+                                    >DISTANZA PERCORSA IN ATTIVITÀ
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistiche-ion-card-title"
                                 >
-                                    9580
+                                    {{ intenseActivityStatistics.minutes }} km
                                 </ion-card-title>
                             </ion-card-header>
                         </ion-card>
@@ -222,8 +247,18 @@ import {
     IonToolbar,
 } from "@ionic/vue";
 import VueFlip from "vue-flip";
-import { getStatistics } from "../controllers/userCTR";
-// let statistiche = "das";
+import { getStatistics } from "../controllers/statisticsCTR";
+import AppVue from "../App.vue";
+
+interface Statistic {
+    tipology?: any;
+    minutes?: any;
+    distance?: any;
+}
+const sedentaryActivityStatistics: Statistic = {};
+const lightActivityStatistics: Statistic = {};
+const moderateActivityStatistics: Statistic = {};
+const intenseActivityStatistics: Statistic = {};
 
 export default {
     name: "Main",
@@ -246,14 +281,90 @@ export default {
         IonToolbar,
         "vue-flip": VueFlip,
     },
-    /** Always executed when page is load */
-    ready() {
-        console.log("init");
+    data() {
+        return {
+            sedentaryActivityStatistics,
+            lightActivityStatistics,
+            moderateActivityStatistics,
+            intenseActivityStatistics,
+        };
+    },
+    async mounted() {
+        await Promise.resolve(getStatistics(localStorage.period))
+            .then((element) => {
+                // console.log(element);
+                if (element) {
+                    element.forEach((item) => {
+                        switch (item.tipology) {
+                            case "sedentaryActivity":
+                                sedentaryActivityStatistics.tipology =
+                                    item.tipology;
+                                sedentaryActivityStatistics.minutes =
+                                    item.minutes;
+                                sedentaryActivityStatistics.distance =
+                                    item.distance;
+                                break;
+                            case "lightActivity":
+                                lightActivityStatistics.tipology =
+                                    item.tipology;
+                                lightActivityStatistics.minutes = item.minutes;
+                                lightActivityStatistics.distance =
+                                    item.distance;
+                                break;
+                            case "moderatelyActivity":
+                                moderateActivityStatistics.tipology =
+                                    item.tipology;
+                                moderateActivityStatistics.minutes =
+                                    item.minutes;
+                                moderateActivityStatistics.distance =
+                                    item.distance;
+                                break;
+                            case "intenseActivity":
+                                intenseActivityStatistics.tipology =
+                                    item.tipology;
+                                intenseActivityStatistics.minutes =
+                                    item.minutes;
+                                intenseActivityStatistics.distance =
+                                    item.distance;
+                                break;
+                            default:
+                                return AppVue.methods?.openToast(
+                                    "Impossibile caricare le statistiche"
+                                );
+                        }
+                    });
+                }
+            })
+            .catch((e) => {
+                console.log("Errore");
+            });
+
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById("flipCard"+i)!.click();
+            document.getElementById("flipCard"+i)!.click();
+            
+        }
+
+        let msg = "";
+        switch (localStorage.period) {
+            case "d":
+                msg = "Statistiche relative all'ultimo giorno";
+                break;
+            case "w":
+                msg = "Statistiche relative all'ultima settimana";
+                break;
+            case "m":
+                msg = "Statistiche relative all'ultimo mese";
+                break;
+            default:
+                break;
+        }
+        return AppVue.methods?.openToast(msg);
     },
     methods: {
         changePeriod($event: any) {
-            getStatistics($event.target.value);
-            // location.reload();
+            localStorage.setItem("period", $event.target.value);
+            location.reload();
         },
     },
 };

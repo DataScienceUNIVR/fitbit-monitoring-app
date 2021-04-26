@@ -1,4 +1,4 @@
 Header set Access-Control-Allow-Origin "*"
 
 RewriteEngine on
-RewriteRule ^api/users/?$ api/authentication.php
+RewriteRule ^api/associationRules/?$ api/associationRules.php

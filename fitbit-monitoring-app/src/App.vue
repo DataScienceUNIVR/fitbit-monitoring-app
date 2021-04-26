@@ -85,6 +85,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
+
 import {
     pulseOutline,
     pulseSharp,
@@ -101,7 +102,7 @@ import {
     logOutSharp,
     home,
     speedometerOutline,
-    cloudDownloadSharp,
+    medalOutline,
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
@@ -164,6 +165,12 @@ export default defineComponent({
             {
                 title: "STATISTICHE",
                 url: "/statistics",
+                iosIcon: medalOutline,
+                mdIcon: pulseSharp,
+            },
+            {
+                title: "REPORT",
+                url: "/report",
                 iosIcon: pulseOutline,
                 mdIcon: pulseSharp,
             },

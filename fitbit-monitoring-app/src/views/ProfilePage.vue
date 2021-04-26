@@ -26,7 +26,11 @@
                         </ion-fab>
                         <img
                             class="profile-img"
-                            :src="user.imageURL ? user.imageURL : './assets/img/avatar.jpg'"
+                            :src="
+                                user.imageURL
+                                    ? user.imageURL
+                                    : './assets/img/avatar.jpg'
+                            "
                             :alt="user.nome" />
                         <input
                             type="file"
@@ -44,6 +48,16 @@
                     <b>PESO</b>: {{ user.peso }} Kg <br />
                     <b>ALTEZZA</b>: {{ user.altezza }} cm
                 </ion-card-content>
+
+                <ion-button
+                    color="danger"
+                    shape="round"
+                    expand="full"
+                    size="small"
+                    class="profile-delete-account-button"
+                    @click="deleteAccount"
+                    >Cancella Account</ion-button
+                >
             </ion-card>
         </ion-content>
     </ion-page>
@@ -65,12 +79,19 @@ import {
     IonCardTitle,
     IonFab,
     IonFabButton,
+    IonButton,
     IonIcon,
+    actionSheetController,
 } from "@ionic/vue";
-import { cameraSharp } from "ionicons/icons";
+import { cameraSharp, trash } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";
-import { getAllUserInfo, setProfileImage } from "../controllers/userCTR";
+import {
+    getAllUserInfo,
+    setProfileImage,
+    deleteAccountInfo,
+} from "../controllers/userCTR";
+
 interface Utente {
     nome?: any;
     cognome?: any;
@@ -82,7 +103,7 @@ interface Utente {
     uid?: any;
 }
 const user: Utente = {};
-
+let deleteConfirmation = 0;
 export default defineComponent({
     name: "Profile",
     components: {
@@ -100,6 +121,7 @@ export default defineComponent({
         IonCardTitle,
         IonFab,
         IonFabButton,
+        IonButton,
         IonIcon,
     },
     data() {
@@ -124,6 +146,7 @@ export default defineComponent({
             }
             await setProfileImage(image);
         },
+
         async getUser() {
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
@@ -138,6 +161,42 @@ export default defineComponent({
                 }
             });
         },
+
+        async confirmDelete() {
+            const actionSheet = await actionSheetController.create({
+                header: (deleteConfirmation != 1) ? "Cancellare Account?" : "Conferma cancellazione",
+                cssClass: "my-custom-class",
+                buttons: [
+                    {
+                        text: (deleteConfirmation != 1) ? "Cancella Account" : "Cancella definitivamente",
+                        role: "destructive",
+                        icon: trash,
+                        handler: () => {
+                            if(deleteConfirmation != 1) {
+                                deleteConfirmation++;
+                                this.confirmDelete();
+                            } else {
+                                deleteAccountInfo();
+                            }
+                        },
+                    },
+                    {
+                        text: "Annulla",
+                        role: "cancel",
+                        handler: () => {
+                            console.log("Cancel clicked");
+                        },
+                    },
+                ],
+            });
+            await actionSheet.present();
+
+        },
+
+        async deleteAccount() {
+            this.confirmDelete();
+            console.log("cancellazione");
+        },
     },
 
     mounted() {
@@ -145,7 +204,7 @@ export default defineComponent({
     },
 
     setup() {
-        return { cameraSharp };
+        return { cameraSharp, trash };
     },
 });
 </script>

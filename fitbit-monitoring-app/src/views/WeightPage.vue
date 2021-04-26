@@ -56,18 +56,15 @@
                     </ion-fab>
                 </ion-card>
             </ion-row>
-            <ion-card class="peso-chart-ion-card">
+            <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="peso-ion-card-subtitle"
                         >TRACKING DEI TUOI UTLIMI PESI
                         REGISTRATI</ion-card-subtitle
                     >
                 </ion-card-header>
-                <div id="weight-chart">
-                    <!-- <img width="25%" src="./assets/logo.png" /> -->
-
+                <div id="chart">
                     <hr />
-
                     <div ref="chart" class="chart"></div>
                 </div>
             </ion-card>
@@ -98,7 +95,7 @@ import {
     alertController,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
-import { getLastWeight, addWeight, getWeights } from "../controllers/userCTR";
+import { getLastWeight, addWeight, getWeights } from "../controllers/weightCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
 import ApexCharts from "apexcharts";
@@ -150,7 +147,6 @@ export default defineComponent({
 
         async presentAlert() {
             const alert = await alertController.create({
-                cssClass: "my-custom-class",
                 header: "Immissione di un nuovo peso",
                 message:
                     "Sei sicuro di voler inserire questo tuo nuovo peso con data odierna?",

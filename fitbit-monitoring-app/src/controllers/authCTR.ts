@@ -1,7 +1,7 @@
 import { toRefs, reactive } from "vue";
 import firebase from "firebase";
 import "firebase/firestore";
-import FIREBASE_CONFIG from "../hooks/.env.firebase";
+import FIREBASE_CONFIG from "../config/.env.firebase";
 import { Md5 } from "md5-typescript";
 import AppVue from "@/App.vue";
 
