@@ -9,6 +9,47 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
+            <ion-card class="chart-ion-card counter1">
+                <ion-card-header>
+                    <ion-card-subtitle class="report-ion-card-subtitle">
+                        PASSI ATTIVITÀ SEDENTARIA
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="counter-ion-card">
+                    105
+                </ion-card-content>
+            </ion-card>
+            <ion-card class="chart-ion-card counter2">
+                <ion-card-header>
+                    <ion-card-subtitle class="report-ion-card-subtitle">
+                        PASSI ATTIVITÀ LEGGERA
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="counter-ion-card">
+                    105
+                </ion-card-content>
+            </ion-card>
+            <ion-card class="chart-ion-card counter3">
+                <ion-card-header>
+                    <ion-card-subtitle class="report-ion-card-subtitle">
+                        PASSI ATTIVITÀ MODERATA
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="counter-ion-card">
+                    105
+                </ion-card-content>
+            </ion-card>
+            <ion-card class="chart-ion-card counter4">
+                <ion-card-header>
+                    <ion-card-subtitle class="report-ion-card-subtitle">
+                        PASSI ATTIVITÀ INTENSA
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="counter-ion-card">
+                    105
+                </ion-card-content>
+            </ion-card>
+
             <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
@@ -17,10 +58,9 @@
                 </ion-card-header>
                 <div id="chart">
                     <hr />
-                    <div ref="gaussianChart" class="report-pie-chart"></div>
+                    <div ref="gaussianChart3" class="report-pie-chart"></div>
                 </div>
             </ion-card>
-
             <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
@@ -48,17 +88,16 @@ import {
     IonCard,
     IonCardHeader,
     IonCardSubtitle,
+    IonCardContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import ApexCharts from "apexcharts";
 import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp, sad } from "ionicons/icons";
-
 interface Attivita {
     data: any;
     minuti: any;
 }
-
 const minutiSedentaryActivity: number[] = [];
 const dataSedentaryActivity: string[] = [];
 const minutiLightActivity: number[] = [];
@@ -67,7 +106,6 @@ const minutiModerateActivity: number[] = [];
 const dataModerateActivity: string[] = [];
 const minutiIntenseActivity: number[] = [];
 const dataIntenseActivity: string[] = [];
-
 const totaleMinutiSedentaryActivity = 0;
 const totaleMinutiLightActivity = 0;
 const totaleMinutiModerateActivity = 0;
@@ -85,6 +123,7 @@ export default defineComponent({
         IonCard,
         IonCardHeader,
         IonCardSubtitle,
+        IonCardContent,
     },
     data() {
         return {
@@ -96,7 +135,6 @@ export default defineComponent({
             dataModerateActivity,
             minutiIntenseActivity,
             dataIntenseActivity,
-
             totaleMinutiSedentaryActivity,
             totaleMinutiLightActivity,
             totaleMinutiModerateActivity,
@@ -128,75 +166,49 @@ export default defineComponent({
             // });
         },
     },
-
     async mounted() {
         // await this.getReport();
-        const options = {
-            series: [76, 67, 61, 90],
+        const options3 = {
             chart: {
-                height: 390,
                 type: "radialBar",
+                height: 350,
+                // width: 380,
             },
             plotOptions: {
                 radialBar: {
-                    offsetY: 0,
-                    startAngle: 0,
-                    endAngle: 270,
+                    size: undefined,
+                    inverseOrder: true,
                     hollow: {
-                        margin: 5,
+                        margin: 30,
                         size: "30%",
                         background: "transparent",
-                        image: undefined,
                     },
-                    dataLabels: {
-                        name: {
-                            show: false,
-                        },
-                        value: {
-                            show: false,
-                        },
+                    track: {
+                        show: false,
                     },
+                    startAngle: -180,
+                    endAngle: 180,
                 },
             },
-            colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
+            stroke: {
+                lineCap: "round",
+            },
+            series: [71, 63, 77, 75],
             labels: [
-                "Att. sedentaria",
-                "Att. leggera",
-                "Att. moderata",
-                "Att. intensa",
+                "A. sedentaria",
+                "A. leggera",
+                "A. moderata",
+                "A. intensa",
             ],
+            colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             legend: {
                 show: true,
                 floating: true,
-                fontSize: "16px",
-                position: "left",
-                //   offsetX: 10,
-                offsetY: 10,
-                labels: {
-                    useSeriesColors: true,
-                },
-                markers: {
-                    size: 0,
-                },
-                formatter: function (seriesName: any, opts: any) {
-                    return seriesName; // + ":  " + opts.w.globals.series[opts.seriesIndex]
-                },
-                itemMargin: {
-                    vertical: 3,
-                },
+                position: "right",
+                offsetX: -10,
+                offsetY: 190,
             },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        legend: {
-                            // show: false
-                        },
-                    },
-                },
-            ],
         };
-
         const options2 = {
             series: [67],
             chart: {
@@ -241,17 +253,15 @@ export default defineComponent({
             },
             labels: ["ATTIVITA' MODERATA"],
         };
-
-        if (this.$refs.gaussianChart) {
-            const chart = new ApexCharts(this.$refs.gaussianChart, options);
-            chart.render();
-        }
         if (this.$refs.gaussianChart2) {
             const chart = new ApexCharts(this.$refs.gaussianChart2, options2);
             chart.render();
         }
+        if (this.$refs.gaussianChart3) {
+            const chart = new ApexCharts(this.$refs.gaussianChart3, options3);
+            chart.render();
+        }
     },
-
     setup() {
         const customPickerOptions = {
             buttons: [
@@ -269,7 +279,6 @@ export default defineComponent({
                 },
             ],
         };
-
         const slideOpts = {
             initialSlide: 0,
             speed: 400,
