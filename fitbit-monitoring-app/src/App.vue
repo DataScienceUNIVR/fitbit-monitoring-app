@@ -102,7 +102,9 @@ import {
     home,
     speedometerOutline,
     medalOutline,
-    medicalSharp
+    medicalSharp,
+    optionsOutline,
+    options
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
@@ -153,18 +155,6 @@ export default defineComponent({
                 mdIcon: home,
             },
             {
-                title: "GESTIONE DATI",
-                url: "/loadData",
-                iosIcon: ribbonOutline,
-                mdIcon: ribbonSharp,
-            },
-            {
-                title: "STATISTICHE",
-                url: "/statistics",
-                iosIcon: medalOutline,
-                mdIcon: medicalSharp,
-            },
-            {
                 title: "REPORT",
                 url: "/report",
                 iosIcon: fitnessOutline,
@@ -177,6 +167,24 @@ export default defineComponent({
                 mdIcon: speedometerOutline,
             },
             {
+                title: "STATISTICHE",
+                url: "/statistics",
+                iosIcon: medalOutline,
+                mdIcon: medicalSharp,
+            },
+            {
+                title: "OBBIETTIVI",
+                url: "/goals",
+                iosIcon: optionsOutline,
+                mdIcon: options,
+            },
+            {
+                title: "GESTIONE DATI",
+                url: "/loadData",
+                iosIcon: ribbonOutline,
+                mdIcon: ribbonSharp,
+            },
+            {
                 title: "PROFILO",
                 url: "/profile",
                 iosIcon: personCircleOutline,
@@ -184,7 +192,6 @@ export default defineComponent({
             },
             {
                 title: "LOGOUT",
-                // url: '/login',
                 doLogout,
                 iosIcon: logOutOutline,
                 mdIcon: logOutSharp,
@@ -219,6 +226,8 @@ export default defineComponent({
             speedometerOutline,
             medalOutline,
             medicalSharp,
+            optionsOutline,
+            options,
             doLogout,
             user,
             loggedUser,

@@ -43,6 +43,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "ProfilePage",
 		component: () => import("@/views/ProfilePage.vue"),
 	},
+	{
+		path: "/goals",
+		name: "GoalsPage",
+		component: () => import("@/views/GoalsPage.vue"),
+	},
 ];
 
 const router = createRouter({
