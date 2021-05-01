@@ -16,7 +16,7 @@
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    105
+                    {{ totaleMinutiSedentaryActivity }}
                 </ion-card-content>
             </ion-card>
             <ion-card class="chart-ion-card counter2">
@@ -26,7 +26,7 @@
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    105
+                    {{ totaleMinutiLightActivity }}
                 </ion-card-content>
             </ion-card>
             <ion-card class="chart-ion-card counter3">
@@ -36,7 +36,7 @@
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    105
+                    {{ totaleMinutiModerateActivity }}
                 </ion-card-content>
             </ion-card>
             <ion-card class="chart-ion-card counter4">
@@ -46,7 +46,7 @@
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    105
+                    {{ totaleMinutiIntenseActivity }}
                 </ion-card-content>
             </ion-card>
 
@@ -92,26 +92,26 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import ApexCharts from "apexcharts";
-import { getActivityTimeWithRange } from "../controllers/reportCTR";
+import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
-interface Attivita {
-    data: any;
-    minuti: any;
-}
-const minutiSedentaryActivity: number[] = [];
-const dataSedentaryActivity: string[] = [];
-const minutiLightActivity: number[] = [];
-const dataLightActivity: string[] = [];
-const minutiModerateActivity: number[] = [];
-const dataModerateActivity: string[] = [];
-const minutiIntenseActivity: number[] = [];
-const dataIntenseActivity: string[] = [];
+
 const totaleMinutiSedentaryActivity = 0;
 const totaleMinutiLightActivity = 0;
 const totaleMinutiModerateActivity = 0;
 const totaleMinutiIntenseActivity = 0;
+
+const sedentaryActivityGoal = 0;
+const lightActivityGoal = 0;
+const moderateActivityGoal = 0;
+const intenseActivityGoal = 0;
+
+const sedentaryActivityPercentual = 0;
+const lightActivityPercentual = 0;
+const moderateActivityPercentual = 0;
+const intenseActivityPercentual = 0;
+
 export default defineComponent({
-    name: "Report Attività",
+    name: "Homepage",
     components: {
         IonButtons,
         IonContent,
@@ -127,51 +127,48 @@ export default defineComponent({
     },
     data() {
         return {
-            minutiSedentaryActivity,
-            dataSedentaryActivity,
-            minutiLightActivity,
-            dataLightActivity,
-            minutiModerateActivity,
-            dataModerateActivity,
-            minutiIntenseActivity,
-            dataIntenseActivity,
             totaleMinutiSedentaryActivity,
             totaleMinutiLightActivity,
             totaleMinutiModerateActivity,
             totaleMinutiIntenseActivity,
+
+            sedentaryActivityGoal,
+            lightActivityGoal,
+            moderateActivityGoal,
+            intenseActivityGoal,
+
+            sedentaryActivityPercentual,
+            lightActivityPercentual,
+            moderateActivityPercentual,
+            intenseActivityPercentual,
         };
     },
     methods: {
-        async getReport() {
-            // const result = await Promise.resolve(getActivityTimeWithRange());
-            // result[0].forEach((element: Attivita) => {
-            //     minutiSedentaryActivity.push(element.minuti);
-            //     dataSedentaryActivity.push(element.data);
-            //     totaleMinutiSedentaryActivity += parseInt(element.minuti);
-            // });
-            // result[1].forEach((element: Attivita) => {
-            //     minutiLightActivity.push(element.minuti);
-            //     dataLightActivity.push(element.data);
-            //     totaleMinutiLightActivity += parseInt(element.minuti);
-            // });
-            // result[2].forEach((element: Attivita) => {
-            //     minutiModerateActivity.push(element.minuti);
-            //     dataModerateActivity.push(element.data);
-            //     totaleMinutiModerateActivity += parseInt(element.minuti);
-            // });
-            // result[3].forEach((element: Attivita) => {
-            //     minutiIntenseActivity.push(element.minuti);
-            //     dataIntenseActivity.push(element.data);
-            //     totaleMinutiIntenseActivity += parseInt(element.minuti);
-            // });
+        async getDailyReport() {
+            const goals = await Promise.resolve(getDailyActivitiesGoals());
+            this.sedentaryActivityGoal = goals[0] ? goals[0] : 1;
+            this.lightActivityGoal = goals[1] ? goals[1] : 1;
+            this.moderateActivityGoal = goals[2] ? goals[2] : 1;
+            this.intenseActivityGoal = goals[3] ? goals[3] : 1;
+
+            const result = await Promise.resolve(getDailyActivitiesData());
+            this.totaleMinutiSedentaryActivity = result[0] ? result[0] : 0;
+            this.totaleMinutiLightActivity = result[1] ? result[1] : 0;
+            this.totaleMinutiModerateActivity = result[2] ? result[2] : 0;
+            this.totaleMinutiIntenseActivity = result[3] ? result[3] : 0;
+
+            this.sedentaryActivityPercentual = (this.totaleMinutiSedentaryActivity / this.sedentaryActivityGoal) * 100;
+            this.lightActivityPercentual = (this.totaleMinutiLightActivity / this.lightActivityGoal) * 100;
+            this.moderateActivityPercentual = (this.totaleMinutiModerateActivity / this.moderateActivityGoal) * 100;
+            this.intenseActivityPercentual = (this.totaleMinutiIntenseActivity / this.intenseActivityGoal) * 100;
         },
     },
     async mounted() {
-        // await this.getReport();
+        await this.getDailyReport();
         const options3 = {
             chart: {
                 type: "radialBar",
-                height: 350,
+                height: 450,
                 // width: 380,
             },
             plotOptions: {
@@ -186,14 +183,14 @@ export default defineComponent({
                     track: {
                         show: false,
                     },
-                    startAngle: -180,
-                    endAngle: 180,
+                    startAngle: 0,
+                    endAngle: -360,
                 },
             },
             stroke: {
                 lineCap: "round",
             },
-            series: [71, 63, 77, 75],
+            series: [this.sedentaryActivityPercentual, 95, 37.5, 50],
             labels: [
                 "A. sedentaria",
                 "A. leggera",
@@ -203,10 +200,10 @@ export default defineComponent({
             colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             legend: {
                 show: true,
-                floating: true,
-                position: "right",
-                offsetX: -10,
-                offsetY: 190,
+                // floating: true,
+                position: "bottom",
+                // offsetX: -0,
+                // offsetY: -190,
             },
         };
         const options2 = {
