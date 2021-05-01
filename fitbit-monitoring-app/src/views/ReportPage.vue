@@ -155,7 +155,7 @@ import ApexCharts from "apexcharts";
 import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp, sad } from "ionicons/icons";
 
-interface Attivita {
+interface Activity {
     date: any;
     minutes: any;
 }
@@ -221,7 +221,7 @@ export default defineComponent({
 
             // const dates: any = [];
             // let secondDate = new Date();
-            result[0].forEach((element: Attivita) => {
+            result[0].forEach((element: Activity) => {
                 // const firstDate = element?.data;
                 // if (secondDate != null) {
                 //     console.log(firstDate);
@@ -265,17 +265,17 @@ export default defineComponent({
                 totalMinutesSedentaryActivity += parseInt(element.minutes);
             });
 
-            result[1].forEach((element: Attivita) => {
+            result[1].forEach((element: Activity) => {
                 minutesLightActivity.push(element.minutes);
                 dateLightActivity.push(element.date);
                 totalMinutesLightActivity += parseInt(element.minutes);
             });
-            result[2].forEach((element: Attivita) => {
+            result[2].forEach((element: Activity) => {
                 minutesModerateActivity.push(element.minutes);
                 dateModerateActivity.push(element.date);
                 totalMinutesModerateActivity += parseInt(element.minutes);
             });
-            result[3].forEach((element: Attivita) => {
+            result[3].forEach((element: Activity) => {
                 minutesIntenseActivity.push(element.minutes);
                 dateIntenseActivity.push(element.date);
                 totalMinutesIntenseActivity += parseInt(element.minutes);

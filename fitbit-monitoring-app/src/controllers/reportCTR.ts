@@ -10,10 +10,10 @@ import { getBaseUserInfo } from "./userCTR";
 
 /**
  * Get activity values
- * @return weight
+ * @return statistic for each activity
  */
 export const getActivityTimeWithRange = async () => {
-    interface Attivita {
+    interface Activity {
         data: any;
         minutes: string;
     }
@@ -32,7 +32,7 @@ export const getActivityTimeWithRange = async () => {
     const date2 = new Date();
     const endDate = firebase.firestore.Timestamp.fromDate(date2);
 
-    let tmp: Attivita[] = [];
+    let tmp: Activity[] = [];
 
     for (const collection of collections) {
         const snapshot = await collection
