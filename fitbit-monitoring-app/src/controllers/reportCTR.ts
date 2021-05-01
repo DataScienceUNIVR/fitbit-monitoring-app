@@ -9,7 +9,7 @@ const intenseActivityCollection = db.collection("intenseActivity");
 import { getBaseUserInfo } from "./userCTR";
 
 /**
- * Get weight values
+ * Get activity values
  * @return weight
  */
 export const getActivityTimeWithRange = async () => {
