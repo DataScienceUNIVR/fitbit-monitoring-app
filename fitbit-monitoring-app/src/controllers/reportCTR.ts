@@ -15,7 +15,7 @@ import { getBaseUserInfo } from "./userCTR";
 export const getActivityTimeWithRange = async () => {
     interface Attivita {
         data: any;
-        minuti: string;
+        minutes: string;
     }
     const collections = [
         sedentaryActivityCollection,
@@ -60,7 +60,7 @@ export const getActivityTimeWithRange = async () => {
                         .get("dateTime")
                         .toDate()
                         .getFullYear(),
-                minuti: row.get("minutes") + '',
+                minutes: row.get("minutes") + '',
             });
         });
         result.push(tmp);

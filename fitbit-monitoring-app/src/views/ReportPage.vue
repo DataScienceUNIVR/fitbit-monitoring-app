@@ -49,7 +49,7 @@
             </div>
 
             <ion-slides pager="true" :options="slideOpts">
-                <ion-slide v-if="{ minutiSedentaryActivity }">
+                <ion-slide v-if="{ minutesSedentaryActivity }">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
@@ -62,7 +62,7 @@
                         </div>
                     </ion-card>
                 </ion-slide>
-                <ion-slide v-if="!minutiLightActivity.size">
+                <ion-slide v-if="!minutesLightActivity.size">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
@@ -75,7 +75,7 @@
                         </div>
                     </ion-card>
                 </ion-slide>
-                <ion-slide v-if="{ minutiModerateActivity }">
+                <ion-slide v-if="{ minutesModerateActivity }">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
@@ -88,7 +88,7 @@
                         </div>
                     </ion-card>
                 </ion-slide>
-                <ion-slide v-if="{ minutiIntenseActivity }">
+                <ion-slide v-if="{ minutesIntenseActivity }">
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
@@ -103,10 +103,10 @@
                 </ion-slide>
                 <ion-slide
                     v-if="
-                        minutiSedentaryActivity.lenght == 0 &&
-                        minutiLightActivity.lenght == 0 &&
-                        minutiModerateActivity.lenght == 0 &&
-                        minutiIntenseActivity.lenght == 0
+                        minutesSedentaryActivity.lenght == 0 &&
+                        minutesLightActivity.lenght == 0 &&
+                        minutesModerateActivity.lenght == 0 &&
+                        minutesIntenseActivity.lenght == 0
                     "
                 >
                     <ion-card class="report-alert-ion-card">
@@ -156,23 +156,23 @@ import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp, sad } from "ionicons/icons";
 
 interface Attivita {
-    data: any;
-    minuti: any;
+    date: any;
+    minutes: any;
 }
 
-const minutiSedentaryActivity: number[] = [];
-const dataSedentaryActivity: string[] = [];
-const minutiLightActivity: number[] = [];
-const dataLightActivity: string[] = [];
-const minutiModerateActivity: number[] = [];
-const dataModerateActivity: string[] = [];
-const minutiIntenseActivity: number[] = [];
-const dataIntenseActivity: string[] = [];
+const minutesSedentaryActivity: number[] = [];
+const dateSedentaryActivity: string[] = [];
+const minutesLightActivity: number[] = [];
+const dateLightActivity: string[] = [];
+const minutesModerateActivity: number[] = [];
+const dateModerateActivity: string[] = [];
+const minutesIntenseActivity: number[] = [];
+const dateIntenseActivity: string[] = [];
 
-let totaleMinutiSedentaryActivity = 0;
-let totaleMinutiLightActivity = 0;
-let totaleMinutiModerateActivity = 0;
-let totaleMinutiIntenseActivity = 0;
+let totalMinutesSedentaryActivity = 0;
+let totalMinutesLightActivity = 0;
+let totalMinutesModerateActivity = 0;
+let totalMinutesIntenseActivity = 0;
 export default defineComponent({
     name: "Report Attività",
     components: {
@@ -198,19 +198,19 @@ export default defineComponent({
     },
     data() {
         return {
-            minutiSedentaryActivity,
-            dataSedentaryActivity,
-            minutiLightActivity,
-            dataLightActivity,
-            minutiModerateActivity,
-            dataModerateActivity,
-            minutiIntenseActivity,
-            dataIntenseActivity,
+            minutesSedentaryActivity,
+            dateSedentaryActivity,
+            minutesLightActivity,
+            dateLightActivity,
+            minutesModerateActivity,
+            dateModerateActivity,
+            minutesIntenseActivity,
+            dateIntenseActivity,
 
-            totaleMinutiSedentaryActivity,
-            totaleMinutiLightActivity,
-            totaleMinutiModerateActivity,
-            totaleMinutiIntenseActivity,
+            totalMinutesSedentaryActivity,
+            totalMinutesLightActivity,
+            totalMinutesModerateActivity,
+            totalMinutesIntenseActivity,
         };
     },
     methods: {
@@ -260,25 +260,25 @@ export default defineComponent({
                 // console.log(date);
                 // console.log(newDate);
 
-                minutiSedentaryActivity.push(element.minuti);
-                dataSedentaryActivity.push(element.data);
-                totaleMinutiSedentaryActivity += parseInt(element.minuti);
+                minutesSedentaryActivity.push(element.minutes);
+                dateSedentaryActivity.push(element.date);
+                totalMinutesSedentaryActivity += parseInt(element.minutes);
             });
 
             result[1].forEach((element: Attivita) => {
-                minutiLightActivity.push(element.minuti);
-                dataLightActivity.push(element.data);
-                totaleMinutiLightActivity += parseInt(element.minuti);
+                minutesLightActivity.push(element.minutes);
+                dateLightActivity.push(element.date);
+                totalMinutesLightActivity += parseInt(element.minutes);
             });
             result[2].forEach((element: Attivita) => {
-                minutiModerateActivity.push(element.minuti);
-                dataModerateActivity.push(element.data);
-                totaleMinutiModerateActivity += parseInt(element.minuti);
+                minutesModerateActivity.push(element.minutes);
+                dateModerateActivity.push(element.date);
+                totalMinutesModerateActivity += parseInt(element.minutes);
             });
             result[3].forEach((element: Attivita) => {
-                minutiIntenseActivity.push(element.minuti);
-                dataIntenseActivity.push(element.data);
-                totaleMinutiIntenseActivity += parseInt(element.minuti);
+                minutesIntenseActivity.push(element.minutes);
+                dateIntenseActivity.push(element.date);
+                totalMinutesIntenseActivity += parseInt(element.minutes);
             });
         },
     },
@@ -299,7 +299,7 @@ export default defineComponent({
         // console.log(currentDate < tomorrow);
 
         await this.getReport();
-        // console.log(totaleMinutiSedentaryActivity);
+        // console.log(totalMinutesSedentaryActivity);
         const sedentaryChartOptions = {
             chart: {
                 height: "450",
@@ -316,12 +316,12 @@ export default defineComponent({
             series: [
                 {
                     name: "minuti",
-                    data: this.minutiSedentaryActivity,
+                    data: this.minutesSedentaryActivity,
                 },
             ],
             xaxis: {
                 type: "date",
-                categories: this.dataSedentaryActivity,
+                categories: this.dateSedentaryActivity,
             },
             tooltip: {
                 x: {
@@ -346,12 +346,12 @@ export default defineComponent({
             series: [
                 {
                     name: "minuti",
-                    data: this.minutiLightActivity,
+                    data: this.minutesLightActivity,
                 },
             ],
             xaxis: {
                 type: "date",
-                categories: this.dataLightActivity,
+                categories: this.dateLightActivity,
             },
             tooltip: {
                 x: {
@@ -376,12 +376,12 @@ export default defineComponent({
             series: [
                 {
                     name: "minuti",
-                    data: this.minutiModerateActivity,
+                    data: this.minutesModerateActivity,
                 },
             ],
             xaxis: {
                 type: "date",
-                categories: this.dataModerateActivity,
+                categories: this.dateModerateActivity,
             },
             tooltip: {
                 x: {
@@ -406,12 +406,12 @@ export default defineComponent({
             series: [
                 {
                     name: "minuti",
-                    data: this.minutiIntenseActivity,
+                    data: this.minutesIntenseActivity,
                 },
             ],
             xaxis: {
                 type: "date",
-                categories: this.dataIntenseActivity,
+                categories: this.dateIntenseActivity,
             },
             tooltip: {
                 x: {
@@ -430,10 +430,10 @@ export default defineComponent({
                 enabled: false,
             },
             series: [
-                totaleMinutiSedentaryActivity,
-                totaleMinutiLightActivity,
-                totaleMinutiModerateActivity,
-                totaleMinutiIntenseActivity,
+                totalMinutesSedentaryActivity,
+                totalMinutesLightActivity,
+                totalMinutesModerateActivity,
+                totalMinutesIntenseActivity,
             ],
             colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             labels: [
