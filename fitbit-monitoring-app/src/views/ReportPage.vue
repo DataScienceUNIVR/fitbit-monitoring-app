@@ -45,7 +45,7 @@
             </ion-card-header>
             <div id="chart">
                 <hr />
-                <div ref="pieChart" class="report-pie-chart"></div>
+                <div ref="pieChart" class="margin-chart"></div>
             </div>
 
             <ion-slides pager="true" :options="slideOpts">

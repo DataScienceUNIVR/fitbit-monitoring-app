@@ -218,7 +218,7 @@ ion-content.main{
     max-width:      70%;
 }
 
-.report-pie-chart {
+.margin-chart {
     margin-top: -7%;
     margin-bottom: 10%;
 }
@@ -234,16 +234,16 @@ ion-content.main{
     margin-bottom: -3%;
 }
 
-.counter1 {
+.blue-gradient {
     background:linear-gradient(135deg, #4d0179 0%,#1bcedf 100%);
 }
-.counter2 {
+.green-gradient {
     background:linear-gradient(135deg, #184e68 0%,#57ca85 100%);
 }
-.counter3 {
+.red-gradient {
     background:linear-gradient(135deg, #622774 0%,#c53364 100%);
 }
-.counter4 {
+.purple-gradient {
     background:linear-gradient(135deg, #a55ccd 0%,#3425AF 100%);
 }
 

@@ -11,7 +11,7 @@
 
         <ion-content :fullscreen="true" class="main">
             <ion-row>
-                <ion-card class="input-ion-card counter1">
+                <ion-card class="input-ion-card blue-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
                             >ATTIVITA SEDENTARIA:</ion-card-subtitle
@@ -43,7 +43,7 @@
                         </ion-fab-button>
                     </ion-fab>
                 </ion-card>
-                <ion-card class="input-ion-card counter3">
+                <ion-card class="input-ion-card red-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
                             >ATTIVITA LEGGERA:</ion-card-subtitle
@@ -74,7 +74,7 @@
                         </ion-fab-button>
                     </ion-fab>
                 </ion-card>
-                <ion-card class="input-ion-card counter4">
+                <ion-card class="input-ion-card purple-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
                             >ATTIVITA MODERATA:</ion-card-subtitle
@@ -105,7 +105,7 @@
                         </ion-fab-button>
                     </ion-fab>
                 </ion-card>
-                <ion-card class="input-ion-card counter2">
+                <ion-card class="input-ion-card green-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
                             >ATTIVITA INTENSA:</ion-card-subtitle

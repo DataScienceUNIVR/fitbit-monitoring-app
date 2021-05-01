@@ -9,44 +9,44 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-card class="chart-ion-card counter1">
+            <ion-card class="chart-ion-card blue-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        PASSI ATTIVITÀ SEDENTARIA
+                        MINUTI ATTIVITÀ SEDENTARIA
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    {{ totaleMinutiSedentaryActivity }}
+                    {{ totalMinutesSedentaryActivity }}
                 </ion-card-content>
             </ion-card>
-            <ion-card class="chart-ion-card counter2">
+            <ion-card class="chart-ion-card green-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        PASSI ATTIVITÀ LEGGERA
+                        MINUTI ATTIVITÀ LEGGERA
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    {{ totaleMinutiLightActivity }}
+                    {{ totalMinutesLightActivity }}
                 </ion-card-content>
             </ion-card>
-            <ion-card class="chart-ion-card counter3">
+            <ion-card class="chart-ion-card red-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        PASSI ATTIVITÀ MODERATA
+                        MINUTI ATTIVITÀ MODERATA
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    {{ totaleMinutiModerateActivity }}
+                    {{ totalMinutesModerateActivity }}
                 </ion-card-content>
             </ion-card>
-            <ion-card class="chart-ion-card counter4">
+            <ion-card class="chart-ion-card purple-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        PASSI ATTIVITÀ INTENSA
+                        MINUTI ATTIVITÀ INTENSA
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
-                    {{ totaleMinutiIntenseActivity }}
+                    {{ totalMinutesIntenseActivity }}
                 </ion-card-content>
             </ion-card>
 
@@ -58,18 +58,7 @@
                 </ion-card-header>
                 <div id="chart">
                     <hr />
-                    <div ref="gaussianChart3" class="report-pie-chart"></div>
-                </div>
-            </ion-card>
-            <ion-card class="chart-ion-card">
-                <ion-card-header>
-                    <ion-card-subtitle class="report-ion-card-subtitle">
-                        GAUSSIAN
-                    </ion-card-subtitle>
-                </ion-card-header>
-                <div id="chart">
-                    <hr />
-                    <div ref="gaussianChart2" class="report-pie-chart"></div>
+                    <div ref="dailyReportChart" class="margin-chart"></div>
                 </div>
             </ion-card>
         </ion-content>
@@ -95,10 +84,10 @@ import ApexCharts from "apexcharts";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
 
-const totaleMinutiSedentaryActivity = 0;
-const totaleMinutiLightActivity = 0;
-const totaleMinutiModerateActivity = 0;
-const totaleMinutiIntenseActivity = 0;
+const totalMinutesSedentaryActivity = 0;
+const totalMinutesLightActivity = 0;
+const totalMinutesModerateActivity = 0;
+const totalMinutesIntenseActivity = 0;
 
 const sedentaryActivityGoal = 0;
 const lightActivityGoal = 0;
@@ -127,10 +116,10 @@ export default defineComponent({
     },
     data() {
         return {
-            totaleMinutiSedentaryActivity,
-            totaleMinutiLightActivity,
-            totaleMinutiModerateActivity,
-            totaleMinutiIntenseActivity,
+            totalMinutesSedentaryActivity,
+            totalMinutesLightActivity,
+            totalMinutesModerateActivity,
+            totalMinutesIntenseActivity,
 
             sedentaryActivityGoal,
             lightActivityGoal,
@@ -152,20 +141,20 @@ export default defineComponent({
             this.intenseActivityGoal = goals[3] ? goals[3] : 1;
 
             const result = await Promise.resolve(getDailyActivitiesData());
-            this.totaleMinutiSedentaryActivity = result[0] ? result[0] : 0;
-            this.totaleMinutiLightActivity = result[1] ? result[1] : 0;
-            this.totaleMinutiModerateActivity = result[2] ? result[2] : 0;
-            this.totaleMinutiIntenseActivity = result[3] ? result[3] : 0;
+            this.totalMinutesSedentaryActivity = result[0] ? result[0] : 0;
+            this.totalMinutesLightActivity = result[1] ? result[1] : 0;
+            this.totalMinutesModerateActivity = result[2] ? result[2] : 0;
+            this.totalMinutesIntenseActivity = result[3] ? result[3] : 0;
 
-            this.sedentaryActivityPercentual = (this.totaleMinutiSedentaryActivity / this.sedentaryActivityGoal) * 100;
-            this.lightActivityPercentual = (this.totaleMinutiLightActivity / this.lightActivityGoal) * 100;
-            this.moderateActivityPercentual = (this.totaleMinutiModerateActivity / this.moderateActivityGoal) * 100;
-            this.intenseActivityPercentual = (this.totaleMinutiIntenseActivity / this.intenseActivityGoal) * 100;
+            this.sedentaryActivityPercentual = (this.totalMinutesSedentaryActivity / this.sedentaryActivityGoal) * 100;
+            this.lightActivityPercentual = (this.totalMinutesLightActivity / this.lightActivityGoal) * 100;
+            this.moderateActivityPercentual = (this.totalMinutesModerateActivity / this.moderateActivityGoal) * 100;
+            this.intenseActivityPercentual = (this.totalMinutesIntenseActivity / this.intenseActivityGoal) * 100;
         },
     },
     async mounted() {
         await this.getDailyReport();
-        const options3 = {
+        const dailyReportChartOptions = {
             chart: {
                 type: "radialBar",
                 height: 450,
@@ -190,7 +179,7 @@ export default defineComponent({
             stroke: {
                 lineCap: "round",
             },
-            series: [this.sedentaryActivityPercentual, 95, 37.5, 50],
+            series: [this.sedentaryActivityPercentual, this.lightActivityPercentual, this.moderateActivityPercentual, this.intenseActivityPercentual],
             labels: [
                 "A. sedentaria",
                 "A. leggera",
@@ -200,90 +189,16 @@ export default defineComponent({
             colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             legend: {
                 show: true,
-                // floating: true,
                 position: "bottom",
-                // offsetX: -0,
-                // offsetY: -190,
             },
         };
-        const options2 = {
-            series: [67],
-            chart: {
-                height: 350,
-                type: "radialBar",
-                offsetY: -10,
-            },
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    dataLabels: {
-                        name: {
-                            fontSize: "16px",
-                            color: undefined,
-                            offsetY: 120,
-                        },
-                        value: {
-                            offsetY: 76,
-                            fontSize: "22px",
-                            color: undefined,
-                            formatter: function (val: any) {
-                                return val + "%";
-                            },
-                        },
-                    },
-                },
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    shade: "dark",
-                    shadeIntensity: 0.15,
-                    inverseColors: false,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [0, 50, 65, 91],
-                },
-            },
-            stroke: {
-                dashArray: 4,
-            },
-            labels: ["ATTIVITA' MODERATA"],
-        };
-        if (this.$refs.gaussianChart2) {
-            const chart = new ApexCharts(this.$refs.gaussianChart2, options2);
-            chart.render();
-        }
-        if (this.$refs.gaussianChart3) {
-            const chart = new ApexCharts(this.$refs.gaussianChart3, options3);
+        if (this.$refs.dailyReportChart) {
+            const chart = new ApexCharts(this.$refs.dailyReportChart, dailyReportChartOptions);
             chart.render();
         }
     },
     setup() {
-        const customPickerOptions = {
-            buttons: [
-                {
-                    text: "Cancel",
-                    handler: () => {
-                        console.log("Annullato");
-                    },
-                },
-                {
-                    text: "Seleziona",
-                    handler: () => {
-                        console.log("Selezionato");
-                    },
-                },
-            ],
-        };
-        const slideOpts = {
-            initialSlide: 0,
-            speed: 400,
-            autoplay: true,
-        };
         return {
-            customPickerOptions,
-            slideOpts,
             filterSharp,
             sad,
         };
