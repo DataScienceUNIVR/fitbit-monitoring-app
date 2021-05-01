@@ -73,14 +73,14 @@
                     </ion-card-content>
                     <input
                         type="file"
-                        ref="moderatelyFile"
-                        id="uploadModeratelyFile"
+                        ref="moderateFile"
+                        id="uploadmoderateFile"
                         hidden
-                        @change="uploadData('moderately')"
+                        @change="uploadData('moderate')"
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-moderately-ion-fab-button" @click="$refs.moderatelyFile.click()">
+                    <ion-fab-button class="dati-moderate-ion-fab-button" @click="$refs.moderateFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
@@ -188,8 +188,8 @@ export default defineComponent({
             } else if (this.$el.querySelector("#uploadLightFile").files[0]) {
                 src = this.$el.querySelector("#uploadLightFile");
                 file = src.files[0];
-            } else if (this.$el.querySelector("#uploadModeratelyFile").files[0]) {
-                src = this.$el.querySelector("#uploadModeratelyFile");
+            } else if (this.$el.querySelector("#uploadmoderateFile").files[0]) {
+                src = this.$el.querySelector("#uploadmoderateFile");
                 file = src.files[0];
             } else if (this.$el.querySelector("#uploadIntenseFile").files[0]) {
                 src = this.$el.querySelector("#uploadIntenseFile");

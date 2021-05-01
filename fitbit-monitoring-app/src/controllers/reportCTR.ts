@@ -4,7 +4,7 @@ import "firebase/firestore";
 const db = firebase.firestore();
 const sedentaryActivityCollection = db.collection("sedentaryActivity");
 const lightActivityCollection = db.collection("lightActivity");
-const moderatelyActivityCollection = db.collection("moderatelyActivity");
+const moderateActivityCollection = db.collection("moderateActivity");
 const intenseActivityCollection = db.collection("intenseActivity");
 import { getBaseUserInfo } from "./userCTR";
 
@@ -20,7 +20,7 @@ export const getActivityTimeWithRange = async () => {
     const collections = [
         sedentaryActivityCollection,
         lightActivityCollection,
-        moderatelyActivityCollection,
+        moderateActivityCollection,
         intenseActivityCollection,
     ];
     const result: any = [];

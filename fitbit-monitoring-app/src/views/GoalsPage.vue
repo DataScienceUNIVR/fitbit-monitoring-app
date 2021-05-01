@@ -84,9 +84,9 @@
                         <ion-item class="text-input">
                             <ion-label>Valore: </ion-label>
                             <ion-input
-                                ref="moderatelyActivity"
-                                id="moderatelyActivity"
-                                v-model="moderatelyActivity"
+                                ref="moderateActivity"
+                                id="moderateActivity"
+                                v-model="moderateActivity"
                                 class="goal-input"
                                 inputmode="decimal"
                                 type="number"
@@ -100,7 +100,7 @@
                         <br />
                     </ion-card-content>
                     <ion-fab horizontal="center" vertical="bottom">
-                        <ion-fab-button @click="updateGoal('moderatelyActivity')" color="light">
+                        <ion-fab-button @click="updateGoal('moderateActivity')" color="light">
                             <ion-icon :icon="add"></ion-icon>
                         </ion-fab-button>
                     </ion-fab>
@@ -168,7 +168,7 @@ import { getDailyActivitiesGoals, updateDailyActivityGoal } from "../controllers
 
 const sedentaryActivityGoal = 0;
 const lightActivityGoal = 0;
-const moderatelyActivityGoal = 0;
+const moderateActivityGoal = 0;
 const intenseActivityGoal = 0;
 
 export default defineComponent({
@@ -197,7 +197,7 @@ export default defineComponent({
         return {
             sedentaryActivityGoal,
             lightActivityGoal,
-            moderatelyActivityGoal,
+            moderateActivityGoal,
             intenseActivityGoal,
         };
     },
@@ -206,12 +206,12 @@ export default defineComponent({
             const goals = await Promise.resolve(getDailyActivitiesGoals());
             this.sedentaryActivityGoal = goals[0] ? goals[0] : 0;
             this.lightActivityGoal = goals[1] ? goals[1] : 0;
-            this.moderatelyActivityGoal = goals[2] ? goals[2] : 0;
+            this.moderateActivityGoal = goals[2] ? goals[2] : 0;
             this.intenseActivityGoal = goals[3] ? goals[3] : 0;
             
             (document.getElementById("sedentaryActivity") as HTMLInputElement).value = this.sedentaryActivityGoal.toString();
             (document.getElementById("lightActivity") as HTMLInputElement).value = this.lightActivityGoal.toString();
-            (document.getElementById("moderatelyActivity") as HTMLInputElement).value = this.moderatelyActivityGoal.toString();
+            (document.getElementById("moderateActivity") as HTMLInputElement).value = this.moderateActivityGoal.toString();
             (document.getElementById("intenseActivity") as HTMLInputElement).value = this.intenseActivityGoal.toString();
         },
 
@@ -224,8 +224,8 @@ export default defineComponent({
                 case "lightActivity":
                     minutes = this.$refs.lightActivity as any;
                     break;
-                case "moderatelyActivity":
-                    minutes = this.$refs.moderatelyActivity as any;
+                case "moderateActivity":
+                    minutes = this.$refs.moderateActivity as any;
                     break;
                 case "intenseActivity":
                     minutes = this.$refs.intenseActivity as any;

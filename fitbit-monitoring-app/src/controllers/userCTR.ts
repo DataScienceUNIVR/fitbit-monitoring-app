@@ -8,7 +8,7 @@ const usersCollection = db.collection("users");
 const pesoCollection = db.collection("peso");
 const sedentaryActivityCollection = db.collection("sedentaryActivity");
 const lightActivityCollection = db.collection("lightActivity");
-const moderatelyActivityCollection = db.collection("moderatelyActivity");
+const moderateActivityCollection = db.collection("moderateActivity");
 const intenseActivityCollection = db.collection("intenseActivity");
 import AppVue from "@/App.vue";
 import { reactive } from "vue";
@@ -141,7 +141,7 @@ export const deleteAccountInfo = async () => {
         });
 
     // Delete all data from collections
-    const collections = [pesoCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderatelyActivityCollection, intenseActivityCollection];
+    const collections = [pesoCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection];
     collections.forEach(async (collection) => {
         const snapshot = await collection
             .where("uid", "==", getBaseUserInfo()?.uid)

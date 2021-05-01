@@ -21,8 +21,8 @@ export const saveUserActivity = async (args: any[], type: string) => {
         case "light":
             activityCollection = db.collection("lightActivity");
             break;
-        case "moderately":
-            activityCollection = db.collection("moderatelyActivity");
+        case "moderate":
+            activityCollection = db.collection("moderateActivity");
             break;
         case "intense":
             activityCollection = db.collection("intenseActivity");

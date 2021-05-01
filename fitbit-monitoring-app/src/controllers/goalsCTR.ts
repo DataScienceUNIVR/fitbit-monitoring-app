@@ -5,7 +5,7 @@ import AppVue from "@/App.vue";
 const db = firebase.firestore();
 const sedentaryActivityCollection = db.collection("sedentaryActivity");
 const lightActivityCollection = db.collection("lightActivity");
-const moderatelyActivityCollection = db.collection("moderatelyActivity");
+const moderateActivityCollection = db.collection("moderateActivity");
 const intenseActivityCollection = db.collection("intenseActivity");
 const activityGoalsCollection = db.collection("activityGoals");
 import { getBaseUserInfo } from "./userCTR";
@@ -13,7 +13,7 @@ import { getBaseUserInfo } from "./userCTR";
 const collections = [
     sedentaryActivityCollection,
     lightActivityCollection,
-    moderatelyActivityCollection,
+    moderateActivityCollection,
     intenseActivityCollection,
 ];
 
@@ -46,7 +46,6 @@ export const getDailyActivitiesData = async () => {
         });
         result.push(count);
     }
-    console.log(result);
     return result;
 };
 
@@ -57,7 +56,6 @@ export const getDailyActivitiesData = async () => {
 export const getDailyActivitiesGoals = async () => {
     const result: any = [];
     for (const collection of collections) {
-        // console.log(collection.id)
         const snapshot = await activityGoalsCollection
             .where("uid", "==", getBaseUserInfo()?.uid)
             .where("activityType", "==", collection.id)
@@ -69,7 +67,6 @@ export const getDailyActivitiesGoals = async () => {
             result.push(0);
         } 
     }
-console.log(result);
     return result;
 };
 
@@ -86,13 +83,13 @@ export const updateDailyActivityGoal = async (
     console.log(activityType);
     console.log(minutes);
     // First delete previous goal
-    // const snapshot = await activityGoalsCollection
-    //     .where("uid", "==", getBaseUserInfo()?.uid)
-    //     .where("activityType", "==", activityType)
-    //     .get();
-    // snapshot.forEach((row) => {
-    //     row.ref.delete();
-    // });
+    const snapshot = await activityGoalsCollection
+        .where("uid", "==", getBaseUserInfo()?.uid)
+        .where("activityType", "==", activityType)
+        .get();
+    snapshot.forEach((row) => {
+        row.ref.delete();
+    });
 
     activityGoalsCollection
         .add({

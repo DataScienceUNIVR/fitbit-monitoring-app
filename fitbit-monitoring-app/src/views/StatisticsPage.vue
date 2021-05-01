@@ -311,7 +311,7 @@ export default {
                                 lightActivityStatistics.distance =
                                     item.distance;
                                 break;
-                            case "moderatelyActivity":
+                            case "moderateActivity":
                                 moderateActivityStatistics.tipology =
                                     item.tipology;
                                 moderateActivityStatistics.minutes =

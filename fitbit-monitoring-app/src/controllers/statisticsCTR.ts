@@ -5,7 +5,7 @@ import { getBaseUserInfo } from "./userCTR";
 const db = firebase.firestore();
 const sedentaryActivityCollection = db.collection("sedentaryActivity");
 const lightActivityCollection = db.collection("lightActivity");
-const moderatelyActivityCollection = db.collection("moderatelyActivity");
+const moderateActivityCollection = db.collection("moderateActivity");
 const intenseActivityCollection = db.collection("intenseActivity");
 
 /**
@@ -40,7 +40,7 @@ export const getStatistics = async (period: any) => {
     const dateTime = firebase.firestore.Timestamp.fromDate(dateDiff);
     let sedentaryActivityMinutes = 0;
     let lightActivityMinutes = 0;
-    let moderatelyActivityMinutes = 0;
+    let moderateActivityMinutes = 0;
     let intenseActivityMinutes = 0;
 
     /**
@@ -69,14 +69,14 @@ export const getStatistics = async (period: any) => {
         distance: ((lightActivityMinutes/60)*4).toFixed(1),
     });
 
-    snapshot = moderatelyActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
+    snapshot = moderateActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
     (await snapshot).forEach(element => {
-        moderatelyActivityMinutes += element.get("minutes");
+        moderateActivityMinutes += element.get("minutes");
     });
     listaStatistiche.push({
-        tipology: "moderatelyActivity",
-        minutes: moderatelyActivityMinutes,
-        distance: ((moderatelyActivityMinutes/60)*5).toFixed(1),
+        tipology: "moderateActivity",
+        minutes: moderateActivityMinutes,
+        distance: ((moderateActivityMinutes/60)*5).toFixed(1),
     });
 
     snapshot = intenseActivityCollection.where('uid', '==', uid).orderBy('dateTime').startAfter(dateTime).get();
