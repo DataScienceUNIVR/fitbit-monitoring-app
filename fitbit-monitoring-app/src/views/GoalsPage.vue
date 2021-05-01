@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>OBBIETTIVI</ion-title>
+                <ion-title>OBIETTIVI</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -233,8 +233,6 @@ export default defineComponent({
                 default:
                     break;
             }    
-            // console.log(activityType);
-            // console.log(parseInt(minutes.value));
             updateDailyActivityGoal(activityType, parseInt(minutes.value));
         }
         

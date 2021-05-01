@@ -173,7 +173,7 @@ export default defineComponent({
                 mdIcon: medicalSharp,
             },
             {
-                title: "OBBIETTIVI",
+                title: "OBIETTIVI",
                 url: "/goals",
                 iosIcon: optionsOutline,
                 mdIcon: options,

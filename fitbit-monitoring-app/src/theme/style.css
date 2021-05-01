@@ -56,26 +56,26 @@ ion-content.main{
 }
 
 /* loadData page cards */
-.dati-row {
+.data-row {
     margin-top:     0px;
 }
 
-.dati-ion-card-title {
+.data-ion-card-title {
     font-size:      26px;
 }
 .dati-sedentary-ion-fab-button {
     /* background-color: red; */
 }
-.dati-light-ion-fab-button {
+.data-light-ion-fab-button {
     /* background-color: red; */
 }
-.dati-moderate-ion-fab-button {
+.data-moderate-ion-fab-button {
     /* background-color: red; */
 }
-.dati-intense-ion-fab-button {
+.data-intense-ion-fab-button {
     /* background-color: red; */
 }
-.dati-upload-ion-fab-button {
+.data-upload-ion-fab-button {
     /* background-color: #5c2763; */
 }
 
@@ -409,7 +409,7 @@ ion-title {
     margin-top:         -4%;
     margin-right:       -1%;
 }
-.md .dati-row {
+.md .data-row {
     margin-top:     30px;
 }
 /* ################################################################ */

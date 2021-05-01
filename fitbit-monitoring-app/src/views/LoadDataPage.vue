@@ -10,11 +10,11 @@
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <br>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ SEDENTARIA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ SEDENTARIA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica sedentaria in formato JSON del dispositivo fitbit.
@@ -35,11 +35,11 @@
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ LEGGERA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ LEGGERA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati delle tua attività fisica leggera in formato JSON del dispositivo fitbit.
@@ -55,16 +55,16 @@
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-light-ion-fab-button" @click="$refs.lightFile.click()">
+                    <ion-fab-button class="data-light-ion-fab-button" @click="$refs.lightFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ MODERATA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ MODERATA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica moderata in formato JSON del dispositivo fitbit.
@@ -80,16 +80,16 @@
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-moderate-ion-fab-button" @click="$refs.moderateFile.click()">
+                    <ion-fab-button class="data-moderate-ion-fab-button" @click="$refs.moderateFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ INTENSA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ INTENSA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica intensa in formato JSON del dispositivo fitbit.
@@ -105,16 +105,16 @@
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-intense-ion-fab-button" @click="$refs.intenseFile.click()">
+                    <ion-fab-button class="data-intense-ion-fab-button" @click="$refs.intenseFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">SCARICA TUTTI I DATI</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">SCARICA TUTTI I DATI</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Scaricare i dati in formato JSON del dispositivo fitbit.
@@ -123,7 +123,7 @@
                     </ion-card-content>
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-upload-ion-fab-button" @click="downloadData">
+                    <ion-fab-button class="data-upload-ion-fab-button" @click="downloadData">
                         <ion-icon :icon="cloudDownloadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
@@ -152,7 +152,7 @@ import {
     IonRow,
 } from "@ionic/vue";
 
-import { saveUserActivity, getStepsFirebase } from "../controllers/dataCTR";
+import { saveUserActivity } from "../controllers/dataCTR";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
 import { defineComponent } from "vue";
 import AppVue from "@/App.vue";

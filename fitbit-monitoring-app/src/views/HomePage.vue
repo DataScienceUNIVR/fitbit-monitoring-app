@@ -53,7 +53,7 @@
             <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        OBBIETTIVI GIORNALIERI:
+                        OBIETTIVI GIORNALIERI:
                     </ion-card-subtitle>
                 </ion-card-header>
                 <div id="chart">
