@@ -11,19 +11,21 @@
 
         <ion-content :fullscreen="true" class="main">
             <ion-row>
-                <ion-card class="peso-input-ion-card">
+                <ion-card class="input-ion-card counter1">
                     <ion-card-header>
-                        <ion-card-subtitle class="peso-ion-card-subtitle"
-                            >OBBIETTIVO 1:</ion-card-subtitle
+                        <ion-card-subtitle class="input-ion-card-subtitle"
+                            >ATTIVITA SEDENTARIA:</ion-card-subtitle
                         >
                     </ion-card-header>
-                    <ion-card-title class="peso-ion-card-title">
-                        <ion-item class="peso-text-input">
+                    
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
                             <ion-label>Valore: </ion-label>
                             <ion-input
-                                ref="newWeight"
-                                v-model="newWeight"
-                                class="peso-input"
+                                ref="sedentaryActivity"
+                                id="sedentaryActivity"
+                                v-model="sedentaryActivity"
+                                class="goal-input"
                                 inputmode="decimal"
                                 type="number"
                                 min="0"
@@ -32,11 +34,104 @@
                             >KG
                         </ion-item>
                     </ion-card-title>
-                    <ion-card-content class="peso-ion-card-content">
+                    <ion-card-content class="input-ion-card-content">
                         <br />
                     </ion-card-content>
                     <ion-fab horizontal="center" vertical="bottom">
-                        <ion-fab-button @click="presentAlert">
+                        <ion-fab-button @click="updateGoal('sedentaryActivity')" color="light">
+                            <ion-icon :icon="add"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-card>
+                <ion-card class="input-ion-card counter3">
+                    <ion-card-header>
+                        <ion-card-subtitle class="input-ion-card-subtitle"
+                            >ATTIVITA LEGGERA:</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
+                            <ion-label>Valore: </ion-label>
+                            <ion-input
+                                ref="lightActivity"
+                                id="lightActivity"
+                                v-model="lightActivity"
+                                class="goal-input"
+                                inputmode="decimal"
+                                type="number"
+                                min="0"
+                                :readonly="false"
+                            ></ion-input
+                            >KG
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-card-content class="input-ion-card-content">
+                        <br />
+                    </ion-card-content>
+                    <ion-fab horizontal="center" vertical="bottom">
+                        <ion-fab-button @click="updateGoal('lightActivity')" color="light">
+                            <ion-icon :icon="add"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-card>
+                <ion-card class="input-ion-card counter4">
+                    <ion-card-header>
+                        <ion-card-subtitle class="input-ion-card-subtitle"
+                            >ATTIVITA MODERATA:</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
+                            <ion-label>Valore: </ion-label>
+                            <ion-input
+                                ref="moderatelyActivity"
+                                id="moderatelyActivity"
+                                v-model="moderatelyActivity"
+                                class="goal-input"
+                                inputmode="decimal"
+                                type="number"
+                                min="0"
+                                :readonly="false"
+                            ></ion-input
+                            >KG
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-card-content class="input-ion-card-content">
+                        <br />
+                    </ion-card-content>
+                    <ion-fab horizontal="center" vertical="bottom">
+                        <ion-fab-button @click="updateGoal('moderatelyActivity')" color="light">
+                            <ion-icon :icon="add"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-card>
+                <ion-card class="input-ion-card counter2">
+                    <ion-card-header>
+                        <ion-card-subtitle class="input-ion-card-subtitle"
+                            >ATTIVITA INTENSA:</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
+                            <ion-label>Valore: </ion-label>
+                            <ion-input
+                                ref="intenseActivity"
+                                id="intenseActivity"
+                                v-model="intenseActivity"
+                                class="goal-input"
+                                inputmode="decimal"
+                                type="number"
+                                min="0"
+                                :readonly="false"
+                            ></ion-input
+                            >KG
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-card-content class="input-ion-card-content">
+                        <br />
+                    </ion-card-content>
+                    <ion-fab horizontal="center" vertical="bottom">
+                        <ion-fab-button @click="updateGoal('intenseActivity')" color="light">
                             <ion-icon :icon="add"></ion-icon>
                         </ion-fab-button>
                     </ion-fab>
@@ -69,12 +164,15 @@ import {
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { add } from "ionicons/icons";
-import moment from "moment";
+import { getDailyActivitiesGoals, updateDailyActivityGoal } from "../controllers/goalsCTR";
 
-const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
+const sedentaryActivityGoal = 0;
+const lightActivityGoal = 0;
+const moderatelyActivityGoal = 0;
+const intenseActivityGoal = 0;
 
 export default defineComponent({
-    name: "Weight",
+    name: "Goals",
     components: {
         IonButtons,
         IonContent,
@@ -97,15 +195,53 @@ export default defineComponent({
     },
     data() {
         return {
-            dataCorrente,
+            sedentaryActivityGoal,
+            lightActivityGoal,
+            moderatelyActivityGoal,
+            intenseActivityGoal,
         };
     },
     methods: {
+        async getDailyReport() {
+            const goals = await Promise.resolve(getDailyActivitiesGoals());
+            this.sedentaryActivityGoal = goals[0] ? goals[0] : 0;
+            this.lightActivityGoal = goals[1] ? goals[1] : 0;
+            this.moderatelyActivityGoal = goals[2] ? goals[2] : 0;
+            this.intenseActivityGoal = goals[3] ? goals[3] : 0;
+            
+            (document.getElementById("sedentaryActivity") as HTMLInputElement).value = this.sedentaryActivityGoal.toString();
+            (document.getElementById("lightActivity") as HTMLInputElement).value = this.lightActivityGoal.toString();
+            (document.getElementById("moderatelyActivity") as HTMLInputElement).value = this.moderatelyActivityGoal.toString();
+            (document.getElementById("intenseActivity") as HTMLInputElement).value = this.intenseActivityGoal.toString();
+        },
+
+        updateGoal(activityType: any) {
+            let minutes = null;
+            switch (activityType) {
+                case "sedentaryActivity":
+                    minutes = this.$refs.sedentaryActivity as any;
+                    break;
+                case "lightActivity":
+                    minutes = this.$refs.lightActivity as any;
+                    break;
+                case "moderatelyActivity":
+                    minutes = this.$refs.moderatelyActivity as any;
+                    break;
+                case "intenseActivity":
+                    minutes = this.$refs.intenseActivity as any;
+                    break;
+                default:
+                    break;
+            }    
+            // console.log(activityType);
+            // console.log(parseInt(minutes.value));
+            updateDailyActivityGoal(activityType, parseInt(minutes.value));
+        }
         
     },
 
-    mounted() {
-        console.log("GoalsPage");
+    async mounted() {
+        await this.getDailyReport();
     },
 
     setup() {
