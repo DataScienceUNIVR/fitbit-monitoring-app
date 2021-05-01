@@ -160,21 +160,21 @@ ion-content.main{
     margin-bottom: 10% !important;
 }
 
-.peso-ion-card-title {
+.input-on-card-title {
     font-size:      50px;
     text-align:     center;
     font-weight:    bold;
     color:        #ffffff;
 }
 
-.peso-ion-card-subtitle {
+.input-ion-card-subtitle {
     font-size:      15px;
     font-weight:    bold;
     text-align:     center;
     color:        #c6c7ca;
 }
 
-.peso-ion-card-content {
+.input-ion-card-content {
     font-size:      20px;
     font-weight:    bold;
     text-align:     center;
@@ -186,7 +186,7 @@ ion-content.main{
     margin-left: 3%;
 }
 
-.peso-input-ion-card {
+.input-ion-card {
     height: 200px;
 }
 
@@ -253,6 +253,12 @@ ion-content.main{
     font-size: 17px !important;
 }
 
+/* Goal Page */
+.goal-input {
+    font-size: 40px;
+    text-align: center;
+    margin-left: -13%;
+}
 
 .pulse {
     position: relative;
@@ -317,7 +323,7 @@ ion-title {
 }
 
 /* Pagina di peso */
-.md .peso-input-ion-card {
+.md .input-ion-card {
     background-color: #1C1C1D;
 }
 
@@ -325,7 +331,7 @@ ion-title {
     background-color: #1C1C1D;
 }
 
-.md .peso-text-input {
+.md .text-input {
     color: black !important;
 }
 

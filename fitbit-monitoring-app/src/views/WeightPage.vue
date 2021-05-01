@@ -12,27 +12,27 @@
         <ion-content :fullscreen="true" class="main">
             <ion-card class="pulse" v-if="peso">
                 <ion-card-header>
-                    <ion-card-subtitle class="peso-ion-card-subtitle"
+                    <ion-card-subtitle class="input-ion-card-subtitle"
                         >IL TUO ULTIMO PESO REGISTRATO:</ion-card-subtitle
                     >
                 </ion-card-header>
-                <ion-card-title class="peso-ion-card-title"
+                <ion-card-title class="input-on-card-title"
                     >{{ peso }} KG</ion-card-title
                 >
 
-                <ion-card-content class="peso-ion-card-content">
+                <ion-card-content class="input-ion-card-content">
                     {{ data }}
                 </ion-card-content>
             </ion-card>
             <ion-row>
-                <ion-card class="peso-input-ion-card">
+                <ion-card class="input-ion-card">
                     <ion-card-header>
-                        <ion-card-subtitle class="peso-ion-card-subtitle"
+                        <ion-card-subtitle class="input-ion-card-subtitle"
                             >AGGIORNA IL TUO PESO:</ion-card-subtitle
                         >
                     </ion-card-header>
-                    <ion-card-title class="peso-ion-card-title">
-                        <ion-item class="peso-text-input">
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
                             <ion-label>Valore: </ion-label>
                             <ion-input
                                 ref="newWeight"
@@ -46,7 +46,7 @@
                             >KG
                         </ion-item>
                     </ion-card-title>
-                    <ion-card-content class="peso-ion-card-content">
+                    <ion-card-content class="input-ion-card-content">
                         <br />
                     </ion-card-content>
                     <ion-fab horizontal="center" vertical="bottom">
@@ -58,7 +58,7 @@
             </ion-row>
             <ion-card class="chart-ion-card">
                 <ion-card-header>
-                    <ion-card-subtitle class="peso-ion-card-subtitle"
+                    <ion-card-subtitle class="input-ion-card-subtitle"
                         >TRACKING DEI TUOI UTLIMI PESI
                         REGISTRATI</ion-card-subtitle
                     >
