@@ -299,7 +299,7 @@ export default defineComponent({
         // console.log(currentDate < tomorrow);
 
         await this.getReport();
-        // console.log(totalMinutesSedentaryActivity);
+
         const sedentaryChartOptions = {
             chart: {
                 height: "450",
