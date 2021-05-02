@@ -149,11 +149,13 @@ import {
     IonFabButton,
     IonFab,
     IonIcon,
+    alertController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import ApexCharts from "apexcharts";
 import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp, sad } from "ionicons/icons";
+import AppVue from "../App.vue";
 
 interface Activity {
     date: any;
@@ -173,6 +175,8 @@ let totalMinutesSedentaryActivity = 0;
 let totalMinutesLightActivity = 0;
 let totalMinutesModerateActivity = 0;
 let totalMinutesIntenseActivity = 0;
+
+const isEmpty = true;
 export default defineComponent({
     name: "Report Attività",
     components: {
@@ -211,6 +215,7 @@ export default defineComponent({
             totalMinutesLightActivity,
             totalMinutesModerateActivity,
             totalMinutesIntenseActivity,
+            isEmpty
         };
     },
     methods: {
@@ -263,23 +268,41 @@ export default defineComponent({
                 minutesSedentaryActivity.push(element.minutes);
                 dateSedentaryActivity.push(element.date);
                 totalMinutesSedentaryActivity += parseInt(element.minutes);
+                this.isEmpty = false;
             });
 
             result[1].forEach((element: Activity) => {
                 minutesLightActivity.push(element.minutes);
                 dateLightActivity.push(element.date);
                 totalMinutesLightActivity += parseInt(element.minutes);
+                this.isEmpty = false;
             });
             result[2].forEach((element: Activity) => {
                 minutesModerateActivity.push(element.minutes);
                 dateModerateActivity.push(element.date);
                 totalMinutesModerateActivity += parseInt(element.minutes);
+                this.isEmpty = false;
             });
             result[3].forEach((element: Activity) => {
                 minutesIntenseActivity.push(element.minutes);
                 dateIntenseActivity.push(element.date);
                 totalMinutesIntenseActivity += parseInt(element.minutes);
+                this.isEmpty = false;
             });
+        },
+        
+        async presentAlert() {
+            const alert = await alertController.create({
+                header: "Nessun dato trovato!",
+                message:
+                    "Attenzione: impossibile visualizzare i report. Sembrano non esserci dati caricati per nessun tipo di attività relativi a questo utente.",
+                buttons: [
+                    {
+                        text: "Ok",
+                    },
+                ],
+            });
+            return alert.present();
         },
     },
 
@@ -300,6 +323,9 @@ export default defineComponent({
 
         await this.getReport();
 
+        if (this.isEmpty) {
+            this.presentAlert();
+        }
         const sedentaryChartOptions = {
             chart: {
                 height: "450",
