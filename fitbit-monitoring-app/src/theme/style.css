@@ -80,22 +80,22 @@ ion-content.main{
 }
 
 /* Statistiche page */
-.statistiche-row {
+.statistics-row {
     margin-bottom:  45%;
     justify-content: center;
 }
 
-.statistiche-ion-card {
+.statistics-ion-card {
     width: 330px !important;
 }
 
-.statistiche-ion-card-title {
+.statistics-ion-card-title {
     font-size:      60px;
     text-align:     center;
     color:          white;
 }
 
-.statistiche-ion-card-subtitle {
+.statistics-ion-card-subtitle {
     font-size:      18px;
     font-weight:    bold;
     text-align:     center;
@@ -398,7 +398,7 @@ ion-title {
 /* ################################################################ */
 
 /* Pagina statistiche */
-.md .statistiche-ion-card {
+.md .statistics-ion-card {
     width:              80% !important;
     margin-bottom:      45%;
 }
@@ -431,7 +431,7 @@ ion-title {
     animation:          pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
 
-.md .statistiche-row {
+.md .statistics-row {
     margin-bottom:      45%;
     justify-content:    center;
     margin-left:        15%;

@@ -29,7 +29,7 @@
                 </ion-item>
             </ion-toolbar>
 
-            <ion-row class="statistiche-row">
+            <ion-row class="statistics-row">
                 <vue-flip
                     ref="sedentaryFlip"
                     active-click=true
@@ -39,17 +39,17 @@
                 >
                     <template v-slot:front class="front">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #4a0f81"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >TEMPO DI ATTIVITÀ'<br />
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ sedentaryActivityStatistics.minutes }}
                                     min
@@ -59,17 +59,17 @@
                     </template>
                     <template v-slot:back class="back">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #8848b4"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >DISTANZA PERCORSA IN ATTIVITÀ
                                     SEDENTARIA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ sedentaryActivityStatistics.distance }}
                                     km
@@ -79,7 +79,7 @@
                     </template>
                 </vue-flip>
             </ion-row>
-            <ion-row class="statistiche-row">
+            <ion-row class="statistics-row">
                 <vue-flip
                     ref="lightFlip"
                     active-click=true
@@ -89,17 +89,17 @@
                 >
                     <template v-slot:front class="front">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #7f3c2f"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >TEMPO DI ATTIVITÀ<br />
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ lightActivityStatistics.minutes }} min
                                 </ion-card-title>
@@ -108,17 +108,17 @@
                     </template>
                     <template v-slot:back class="back">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #b46354"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >DISTANZA PERCORSA IN ATTIVITÀ
                                     LEGGERA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ lightActivityStatistics.distance }} km
                                 </ion-card-title>
@@ -127,7 +127,7 @@
                     </template>
                 </vue-flip>
             </ion-row>
-            <ion-row class="statistiche-row">
+            <ion-row class="statistics-row">
                 <vue-flip
                     ref="moderateFlip"
                     active-click=true
@@ -137,17 +137,17 @@
                 >
                     <template v-slot:front class="front">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #8d912f"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >TEMPO DI ATTIVITÀ<br />
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ moderateActivityStatistics.minutes }} min
                                 </ion-card-title>
@@ -156,17 +156,17 @@
                     </template>
                     <template v-slot:back class="back">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #a6aa43"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >DISTANZA PERCORSA IN ATTIVITÀ
                                     MODERATA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ moderateActivityStatistics.distance }} km
                                 </ion-card-title>
@@ -175,7 +175,7 @@
                     </template>
                 </vue-flip>
             </ion-row>
-            <ion-row class="statistiche-row">
+            <ion-row class="statistics-row">
                 <vue-flip
                     ref="intenseFlip"
                     active-click=true
@@ -185,17 +185,17 @@
                 >
                     <template v-slot:front class="front">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #3092a6"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >TEMPO DI ATTIVITÀ'<br />
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ intenseActivityStatistics.minutes }} min
                                 </ion-card-title>
@@ -204,17 +204,17 @@
                     </template>
                     <template v-slot:back class="back">
                         <ion-card
-                            class="statistiche-ion-card"
+                            class="statistics-ion-card"
                             style="background-color: #43acc3"
                         >
                             <ion-card-header>
                                 <ion-card-subtitle
-                                    class="statistiche-ion-card-subtitle"
+                                    class="statistics-ion-card-subtitle"
                                     >DISTANZA PERCORSA IN ATTIVITÀ
                                     INTESA</ion-card-subtitle
                                 >
                                 <ion-card-title
-                                    class="statistiche-ion-card-title"
+                                    class="statistics-ion-card-title"
                                 >
                                     {{ intenseActivityStatistics.minutes }} km
                                 </ion-card-title>
@@ -292,7 +292,6 @@ export default {
     async mounted() {
         await Promise.resolve(getStatistics(localStorage.period))
             .then((element) => {
-                // console.log(element);
                 if (element) {
                     element.forEach((item) => {
                         switch (item.tipology) {
