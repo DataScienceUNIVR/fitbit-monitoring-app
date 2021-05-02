@@ -181,7 +181,7 @@ ion-content.main{
     color:        #c6c7ca;
 }
 
-.peso-input {
+.weight-input {
     font-size: 40px;
     margin-left: 3%;
 }
@@ -335,7 +335,7 @@ ion-title {
     color: black !important;
 }
 
-.md .peso-input > .native-input {
+.md .weight-input > .native-input {
     color: black;
 }
 .md .sc-ion-input-md {

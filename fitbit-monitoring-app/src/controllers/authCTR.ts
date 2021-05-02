@@ -12,7 +12,7 @@ if (firebase.apps.length === 0) {
 
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
-const pesoCollection = db.collection("peso");
+const pesoCollection = db.collection("weight");
 const state = reactive<{ user: any; initialized: boolean; error: any }>({
     user: null,
     initialized: false,

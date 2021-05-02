@@ -10,18 +10,18 @@
         </ion-header>
 
         <ion-content :fullscreen="true" class="main">
-            <ion-card class="pulse" v-if="peso">
+            <ion-card class="pulse" v-if="valueLastWeight">
                 <ion-card-header>
                     <ion-card-subtitle class="input-ion-card-subtitle"
                         >IL TUO ULTIMO PESO REGISTRATO:</ion-card-subtitle
                     >
                 </ion-card-header>
                 <ion-card-title class="input-on-card-title"
-                    >{{ peso }} KG</ion-card-title
+                    >{{ valueLastWeight }} KG</ion-card-title
                 >
 
                 <ion-card-content class="input-ion-card-content">
-                    {{ data }}
+                    {{ dateLastWeight }}
                 </ion-card-content>
             </ion-card>
             <ion-row>
@@ -37,7 +37,7 @@
                             <ion-input
                                 ref="newWeight"
                                 v-model="newWeight"
-                                class="peso-input"
+                                class="weight-input"
                                 inputmode="decimal"
                                 type="number"
                                 min="0"
@@ -94,19 +94,19 @@ import {
     IonIcon,
     alertController,
 } from "@ionic/vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { getLastWeight, addWeight, getWeights } from "../controllers/weightCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
 import ApexCharts from "apexcharts";
 import AppVue from "@/App.vue";
 
-const peso = null;
-const data = "";
-const dataCorrente = moment(new Date()).format("DD/MM/YYYY HH:mm");
+const valueLastWeight = null;
+const dateLastWeight = "";
+const currentDate = moment(new Date()).format("DD/MM/YYYY HH:mm");
 
-const valoriPesiChart: number[] = [];
-const datePesiChart: string[] = [];
+const weightValuesChart: number[] = [];
+const weightDateChart: string[] = [];
 
 export default defineComponent({
     name: "Weight",
@@ -132,17 +132,17 @@ export default defineComponent({
     },
     data() {
         return {
-            peso,
-            data,
-            dataCorrente,
-            valoriPesiChart,
-            datePesiChart,
+            valueLastWeight,
+            dateLastWeight,
+            currentDate,
+            weightValuesChart,
+            weightDateChart,
         };
     },
     methods: {
         saveWeight() {
-            const peso = this.$refs.newWeight as any;
-            addWeight(peso.value);
+            const weight = this.$refs.newWeight as any;
+            addWeight(weight.value);
         },
 
         async presentAlert() {
@@ -177,30 +177,29 @@ export default defineComponent({
         await Promise.resolve(getLastWeight())
             .then((value) => {
                 if (value) {
-                    this.peso = value.peso;
-                    // const tmp = moment(value.dateTime.toDate()).format(
-                    //     "DD/MM/YYYY HH:mm");
-                    this.data = moment(value.dateTime.toDate()).format(
+                    console.log(value);
+                    this.valueLastWeight = value.weight;
+                    this.dateLastWeight = moment(value.dateTime.toDate()).format(
                         "DD/MM/YYYY HH:mm"
                     );
                 }
             })
             .catch((e) => {
-                this.peso = null;
-                this.data = "";
+                this.valueLastWeight = null;
+                this.dateLastWeight = "";
             });
 
         await Promise.resolve(getWeights())
             .then((element) => {
                 if (element) {
                     element.forEach((item) => {
-                        valoriPesiChart.unshift(item.valore);
-                        datePesiChart.unshift(item.data);
+                        weightValuesChart.unshift(item.value);
+                        weightDateChart.unshift(item.date);
                     });
                 }
             })
             .catch((e) => {
-                console.log("Errore");
+                console.log(e);
             });
 
         const options = {
@@ -218,17 +217,13 @@ export default defineComponent({
             series: [
                 {
                     name: "series1",
-                    data: this.valoriPesiChart,
+                    data: this.weightValuesChart,
                 },
-                // {
-                //     name: "series2",
-                //     data: [11, 32, 45, 32, 34, 52, 41],
-                // },
             ],
 
             xaxis: {
                 type: "date",
-                categories: this.datePesiChart,
+                categories: this.weightDateChart,
             },
             tooltip: {
                 x: {
