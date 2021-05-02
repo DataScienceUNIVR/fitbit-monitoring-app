@@ -65,7 +65,7 @@ export const getDailyActivitiesGoals = async () => {
         });
         if (snapshot.empty) {
             result.push(0);
-        } 
+        }
     }
     return result;
 };
@@ -79,9 +79,6 @@ export const updateDailyActivityGoal = async (
     activityType: string,
     minutes: number
 ) => {
-
-    console.log(activityType);
-    console.log(minutes);
     // First delete previous goal
     const snapshot = await activityGoalsCollection
         .where("uid", "==", getBaseUserInfo()?.uid)
@@ -104,5 +101,5 @@ export const updateDailyActivityGoal = async (
             throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
         });
 
-    return "ok";
+    return AppVue.methods?.openToast("Obiettivi aggiornati");
 };
