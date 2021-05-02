@@ -41,12 +41,12 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: {{ user.nome }} <br />
-                    <b>COGNOME</b>: {{ user.cognome }} <br />
-                    <b>C.F</b>: {{ user.cf }} <br />
+                    <b>NOME</b>: {{ user.name }} <br />
+                    <b>COGNOME</b>: {{ user.surname }} <br />
+                    <b>C.F</b>: {{ user.fiscalCode }} <br />
                     <b>EMAIL</b>: {{ user.email }} <br />
-                    <b>PESO</b>: {{ user.peso }} Kg <br />
-                    <b>ALTEZZA</b>: {{ user.altezza }} cm
+                    <b>PESO</b>: {{ user.weight }} Kg <br />
+                    <b>ALTEZZA</b>: {{ user.height }} cm
                 </ion-card-content>
 
                 <ion-button
@@ -92,17 +92,17 @@ import {
     deleteAccountInfo,
 } from "../controllers/userCTR";
 
-interface Utente {
-    nome?: any;
-    cognome?: any;
-    cf?: any;
+interface User {
+    name?: any;
+    surname?: any;
+    fiscalCode?: any;
     email?: any;
     imageURL?: any;
-    altezza?: any;
-    peso?: any;
+    height?: any;
+    weight?: any;
     uid?: any;
 }
-const user: Utente = {};
+const user: User = {};
 let deleteConfirmation = 0;
 export default defineComponent({
     name: "Profile",
@@ -150,12 +150,12 @@ export default defineComponent({
         async getUser() {
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
-                    this.user.nome = user.nome;
-                    this.user.cognome = user.cognome;
-                    this.user.cf = user.cf;
+                    this.user.name = user.name;
+                    this.user.surname = user.surname;
+                    this.user.fiscalCode = user.fiscalCode;
                     this.user.imageURL = user.imageURL;
-                    this.user.altezza = user.altezza ? user.altezza : "---";
-                    this.user.peso = user.peso ? user.peso : "---";
+                    this.user.height = user.height ? user.height : "---";
+                    this.user.weight = user.weight ? user.weight : "---";
                     this.user.email = user.email;
                     this.user.uid = user.uid;
                 }

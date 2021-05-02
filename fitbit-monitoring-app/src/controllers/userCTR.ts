@@ -5,7 +5,7 @@ const storage = firebase.storage();
 const storageRef = storage.ref();
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
-const pesoCollection = db.collection("weight");
+const weightCollection = db.collection("weight");
 const sedentaryActivityCollection = db.collection("sedentaryActivity");
 const lightActivityCollection = db.collection("lightActivity");
 const moderateActivityCollection = db.collection("moderateActivity");
@@ -48,27 +48,27 @@ export const getProfileImage = async () => {
 };
 
 /**
- * Get all information of the logged user (nome, cognome, email, cf, pwd, uid, img)
+ * Get all information of the logged user (name, surname, email, fiscalCode, pwd, uid, img)
  * @returns currentUser
  */
 export const getAllUserInfo = async () => {
     const user = reactive<{
-        nome: any;
-        cognome: any;
-        cf: any;
+        name: any;
+        surname: any;
+        fiscalCode: any;
         email: any;
         imageURL: any;
-        altezza: any;
-        peso: any;
+        height: any;
+        weight: any;
         uid: any;
     }>({
-        nome: null,
-        cognome: null,
-        cf: null,
+        name: null,
+        surname: null,
+        fiscalCode: null,
         email: null,
         imageURL: null,
-        altezza: null,
-        peso: null,
+        height: null,
+        weight: null,
         uid: null,
     });
 
@@ -82,11 +82,11 @@ export const getAllUserInfo = async () => {
     }
 
     snapshot.forEach((doc) => {
-        user.nome = doc.get("nome");
-        user.cognome = doc.get("cognome");
-        user.cf = doc.get("cf");
+        user.name = doc.get("name");
+        user.surname = doc.get("surname");
+        user.fiscalCode = doc.get("fiscalCode");
         user.email = doc.get("email");
-        user.altezza = doc.get("altezza");
+        user.height = doc.get("height");
     });
 
     await Promise.resolve(getProfileImage()).then(function (value) {
@@ -97,7 +97,7 @@ export const getAllUserInfo = async () => {
 
     await Promise.resolve(getLastWeight()).then(function (value) {
         if (value != null) {
-            user.peso = value["peso"];
+            user.weight = value["weight"];
         }
     });
 
@@ -141,7 +141,7 @@ export const deleteAccountInfo = async () => {
         });
 
     // Delete all data from collections
-    const collections = [pesoCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection];
+    const collections = [weightCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection];
     collections.forEach(async (collection) => {
         const snapshot = await collection
             .where("uid", "==", getBaseUserInfo()?.uid)
