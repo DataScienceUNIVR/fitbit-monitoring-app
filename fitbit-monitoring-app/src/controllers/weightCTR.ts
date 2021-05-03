@@ -1,9 +1,4 @@
-import firebase from "firebase";
-import "firebase/firestore";
-
-const db = firebase.firestore();
-const weightCollection = db.collection("weight");
-import AppVue from "@/App.vue";
+import { firebase, weightCollection, AppVue } from "../config/export";
 import { getBaseUserInfo } from "./userCTR";
 
 /**

@@ -1,12 +1,5 @@
-import firebase from "firebase";
-import "firebase/firestore";
+import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection } from "../config/export";
 import { getBaseUserInfo } from "./userCTR";
-
-const db = firebase.firestore();
-const sedentaryActivityCollection = db.collection("sedentaryActivity");
-const lightActivityCollection = db.collection("lightActivity");
-const moderateActivityCollection = db.collection("moderateActivity");
-const intenseActivityCollection = db.collection("intenseActivity");
 
 /**
  * Get statistics of the logged user

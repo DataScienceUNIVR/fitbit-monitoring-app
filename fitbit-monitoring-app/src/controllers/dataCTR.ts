@@ -1,11 +1,8 @@
-import firebase from "firebase";
-import "firebase/firestore";
+import { firebase, AppVue, db } from "../config/export";
 import { getBaseUserInfo } from "./userCTR";
-import AppVue from "@/App.vue";
 
-const db = firebase.firestore();
+let activityCollection = db.collection("sedentaryActivity");
 let message = "";
-let activityCollection = db.collection("steps");
 
 /**
  * Save local steps saved into JSON file on firebase

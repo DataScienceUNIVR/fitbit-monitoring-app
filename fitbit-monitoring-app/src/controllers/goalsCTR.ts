@@ -1,13 +1,5 @@
-import firebase from "firebase";
-import "firebase/firestore";
-import AppVue from "@/App.vue";
-
-const db = firebase.firestore();
-const sedentaryActivityCollection = db.collection("sedentaryActivity");
-const lightActivityCollection = db.collection("lightActivity");
-const moderateActivityCollection = db.collection("moderateActivity");
-const intenseActivityCollection = db.collection("intenseActivity");
-const activityGoalsCollection = db.collection("activityGoals");
+import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection, activityGoalsCollection, AppVue } from "../config/export";
 import { getBaseUserInfo } from "./userCTR";
 
 const collections = [

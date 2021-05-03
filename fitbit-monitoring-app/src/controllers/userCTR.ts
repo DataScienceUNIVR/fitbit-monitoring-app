@@ -1,17 +1,5 @@
-import firebase from "firebase";
-import "firebase/firestore";
-
-const storage = firebase.storage();
-const storageRef = storage.ref();
-const db = firebase.firestore();
-const usersCollection = db.collection("users");
-const weightCollection = db.collection("weight");
-const sedentaryActivityCollection = db.collection("sedentaryActivity");
-const lightActivityCollection = db.collection("lightActivity");
-const moderateActivityCollection = db.collection("moderateActivity");
-const intenseActivityCollection = db.collection("intenseActivity");
-import AppVue from "@/App.vue";
-import { reactive } from "vue";
+import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection, activityGoalsCollection, reactive, AppVue } from "../config/export";
 import { getLastWeight } from "./weightCTR";
 
 /**
@@ -81,7 +69,7 @@ export const getAllUserInfo = async () => {
         );
     }
 
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
         user.name = doc.get("name");
         user.surname = doc.get("surname");
         user.fiscalCode = doc.get("fiscalCode");
@@ -125,6 +113,7 @@ export const setProfileImage = async (file: File) => {
 /**
  * Delete account with all user informations
  * @param file
+ * @returns msg
  */
 export const deleteAccountInfo = async () => {
     const uid = getBaseUserInfo()?.uid;
@@ -136,17 +125,17 @@ export const deleteAccountInfo = async () => {
         .then(() => {
             console.log("User profile img deleted");
         })
-        .catch((error) => {
+        .catch((error: any) => {
             console.log(error);
         });
 
     // Delete all data from collections
-    const collections = [weightCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection];
+    const collections = [weightCollection, usersCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection, activityGoalsCollection];
     collections.forEach(async (collection) => {
         const snapshot = await collection
             .where("uid", "==", getBaseUserInfo()?.uid)
             .get();
-        snapshot.forEach((row) => {
+        snapshot.forEach((row: any) => {
             row.ref.delete();
         });
     });
@@ -155,7 +144,7 @@ export const deleteAccountInfo = async () => {
     const user = firebase.auth().currentUser;
     user?.delete().then(function () {
         return document.location.href="/login";
-    }).catch(function (error) {
+    }).catch(function (error: string) {
         return AppVue.methods?.openToast("Errore nella cancellazione dell'utente auth: " + error);
     });
 
