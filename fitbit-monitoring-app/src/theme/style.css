@@ -386,6 +386,10 @@ ion-title {
 .md ion-list {
     background-color:   #1E1E1E !important;
 }
+.md .logo-menu {
+    content:        url("../../public/assets/img/logo_app_black.png");
+    max-width:      100%;
+}
 /* ################################################################ */
 
 /* Pagina profili */
