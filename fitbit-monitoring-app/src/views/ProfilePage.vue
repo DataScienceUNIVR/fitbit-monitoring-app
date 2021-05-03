@@ -147,16 +147,24 @@ export default defineComponent({
         },
 
         async getUser() {
+            this.user.name = localStorage.getItem("name")
+            this.user.surname = localStorage.getItem("surname")
+            this.user.fiscalCode = localStorage.getItem("fiscalCode")
+            this.user.imageURL = localStorage.getItem("imageURL")
+            this.user.height = localStorage.getItem("height")
+            this.user.weight = localStorage.getItem("weight")
+            this.user.email = localStorage.getItem("email")
+
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
-                    this.user.name = user.name;
-                    this.user.surname = user.surname;
-                    this.user.fiscalCode = user.fiscalCode;
-                    this.user.imageURL = user.imageURL;
-                    this.user.height = user.height ? user.height : "---";
-                    this.user.weight = user.weight ? user.weight : "---";
-                    this.user.email = user.email;
-                    this.user.uid = user.uid;
+                    localStorage.setItem("name", user.name);
+                    localStorage.setItem("surname", user.surname);
+                    localStorage.setItem("fiscalCode", user.fiscalCode);
+                    localStorage.setItem("imageURL", user.imageURL);
+                    localStorage.setItem("height", user.height ? user.height : "---");
+                    localStorage.setItem("weight", user.weight ? user.weight : "---");
+                    localStorage.setItem("email", user.email);
+                    localStorage.setItem("uid", user.uid);
                 }
             });
         },
@@ -194,7 +202,6 @@ export default defineComponent({
 
         async deleteAccount() {
             this.confirmDelete();
-            console.log("cancellazione");
         },
     },
 
