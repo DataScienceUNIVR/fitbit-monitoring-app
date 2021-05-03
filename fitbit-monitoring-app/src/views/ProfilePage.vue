@@ -147,13 +147,13 @@ export default defineComponent({
         },
 
         async getUser() {
-            this.user.name = localStorage.getItem("name")
-            this.user.surname = localStorage.getItem("surname")
-            this.user.fiscalCode = localStorage.getItem("fiscalCode")
-            this.user.imageURL = localStorage.getItem("imageURL")
-            this.user.height = localStorage.getItem("height")
-            this.user.weight = localStorage.getItem("weight")
-            this.user.email = localStorage.getItem("email")
+            this.user.name = localStorage.getItem("name");
+            this.user.surname = localStorage.getItem("surname");
+            this.user.fiscalCode = localStorage.getItem("fiscalCode");
+            this.user.imageURL = localStorage.getItem("imageURL");
+            this.user.height = localStorage.getItem("height");
+            this.user.weight = localStorage.getItem("weight");
+            this.user.email = localStorage.getItem("email");
 
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {

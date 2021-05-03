@@ -102,7 +102,12 @@ export const setProfileImage = async (file: File) => {
     );
     // There is no need to delete the previous one because it is overwritten
     try {
-        imagesRef.put(file).then(() => {
+        imagesRef.put(file).then(async () => {
+            await Promise.resolve(getProfileImage()).then(function (value) {
+                if (value) {
+                    localStorage.setItem("imageURL", value);
+                }
+            });
             location.reload(true);
         });
     } catch (error) {
