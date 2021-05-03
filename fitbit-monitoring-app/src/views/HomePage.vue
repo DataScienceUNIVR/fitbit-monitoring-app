@@ -79,8 +79,7 @@ import {
     IonCardSubtitle,
     IonCardContent,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
-import ApexCharts from "apexcharts";
+import { defineComponent, ApexCharts } from "../config/export";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
 

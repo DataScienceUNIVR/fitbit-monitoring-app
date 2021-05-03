@@ -163,11 +163,8 @@ import {
     IonButton,
     IonImg,
 } from "@ionic/vue";
-// import { app } from "node_modules/firebase";
-import AppVue from "@/App.vue";
-import { reactive, ref, toRefs } from "vue";
-import { useRouter } from "vue-router";
 import useFirebaseAuth from "../controllers/authCTR";
+import { reactive, ref, toRefs, AppVue, useRouter } from "../config/export";
 
 enum AuthMode {
     SignIn,

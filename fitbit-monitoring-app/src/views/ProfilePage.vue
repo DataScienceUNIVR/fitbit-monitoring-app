@@ -84,8 +84,7 @@ import {
     actionSheetController,
 } from "@ionic/vue";
 import { cameraSharp, trash } from "ionicons/icons";
-import { defineComponent } from "vue";
-import AppVue from "@/App.vue";
+import { defineComponent, AppVue } from "../config/export";
 import {
     getAllUserInfo,
     setProfileImage,

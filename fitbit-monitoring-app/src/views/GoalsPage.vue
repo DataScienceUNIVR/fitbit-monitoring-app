@@ -162,9 +162,9 @@ import {
     IonLabel,
     IonIcon,
 } from "@ionic/vue";
-import { defineComponent, ref } from "vue";
 import { add } from "ionicons/icons";
 import { getDailyActivitiesGoals, updateDailyActivityGoal } from "../controllers/goalsCTR";
+import { defineComponent } from "../config/export";
 
 const sedentaryActivityGoal = 0;
 const lightActivityGoal = 0;

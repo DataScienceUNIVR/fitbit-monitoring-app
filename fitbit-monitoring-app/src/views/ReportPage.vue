@@ -151,11 +151,9 @@ import {
     IonIcon,
     alertController,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
-import ApexCharts from "apexcharts";
 import { getActivityTimeWithRange } from "../controllers/reportCTR";
 import { filterSharp, sad } from "ionicons/icons";
-import AppVue from "../App.vue";
+import { ApexCharts, defineComponent } from "../config/export";
 
 interface Activity {
     date: any;

@@ -154,8 +154,7 @@ import {
 
 import { saveUserActivity } from "../controllers/dataCTR";
 import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
-import { defineComponent } from "vue";
-import AppVue from "@/App.vue";
+import { defineComponent, AppVue } from "../config/export";
 
 export default defineComponent({
     name: "Main",

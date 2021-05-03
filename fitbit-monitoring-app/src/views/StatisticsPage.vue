@@ -246,9 +246,8 @@ import {
     IonItem,
     IonToolbar,
 } from "@ionic/vue";
-import VueFlip from "vue-flip";
 import { getStatistics } from "../controllers/statisticsCTR";
-import AppVue from "../App.vue";
+import { AppVue, VueFlip } from "../config/export";
 
 interface Statistic {
     tipology?: any;
