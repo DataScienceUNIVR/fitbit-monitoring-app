@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "GoalsPage",
 		component: () => import("@/views/GoalsPage.vue"),
 	},
+	{
+		path: "/sleep",
+		name: "SleepPage",
+		component: () => import("@/views/SleepPage.vue"),
+	},
 ];
 
 const router = createRouter({

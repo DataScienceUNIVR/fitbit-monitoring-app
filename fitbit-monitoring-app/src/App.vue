@@ -94,7 +94,9 @@ import {
     medalOutline,
     medicalSharp,
     optionsOutline,
-    options
+    options,
+    moonOutline,
+    moonSharp
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
@@ -151,10 +153,16 @@ export default defineComponent({
                 mdIcon: fitnessSharp,
             },
             {
-                title: "TRACKING PESO",
+                title: "PESO",
                 url: "/weight",
                 iosIcon: speedometerOutline,
                 mdIcon: speedometerOutline,
+            },
+            {
+                title: "SONNO",
+                url: "/sleep",
+                iosIcon: moonOutline,
+                mdIcon: moonSharp,
             },
             {
                 title: "STATISTICHE",
@@ -218,6 +226,8 @@ export default defineComponent({
             medicalSharp,
             optionsOutline,
             options,
+            moonOutline,
+            moonSharp,
             doLogout,
             user,
             loggedUser,
