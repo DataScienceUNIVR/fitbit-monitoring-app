@@ -62,7 +62,6 @@ const router = createRouter({
 
 // If there are no info about user, there is a redirect to login page
 router.beforeEach((to, from, next) => {
-	// console.log(state.user.value)
 	if (state.user.value && (to.name === 'login')) {
 		next({ name: 'home', replace: true })
 	} else if (!state.user.value && (to.name !== 'login')) {

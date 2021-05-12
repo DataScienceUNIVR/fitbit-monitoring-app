@@ -117,7 +117,6 @@ export const setProfileImage = async (file: File) => {
 
 /**
  * Delete account with all user informations
- * @param file
  * @returns msg
  */
 export const deleteAccountInfo = async () => {

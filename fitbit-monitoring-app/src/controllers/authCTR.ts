@@ -47,7 +47,7 @@ export default function () {
     };
 
     /**
-     * Register with firebase auth and delete from users if already exist a doc with same uid, after 
+     * Register with firebase auth and after delete from users if already exist a doc with same uid
      * @param name 
      * @param surname 
      * @param fiscalCode 

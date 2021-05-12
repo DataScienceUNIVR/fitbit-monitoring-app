@@ -229,9 +229,9 @@ export default defineComponent({
 
         // Upload file function
         downloadData() {
-            // const doc = JSON.stringify(getStepsFirebase());
+            // const doc = JSON.stringify(getUserActivity());
             // // console.log(doc);
-            // const blob = new Blob([JSON.stringify(getStepsFirebase())], {
+            // const blob = new Blob([JSON.stringify(getUserActivity())], {
             //     type: "application/json",
             // });
             // if (navigator.msSaveBlob) {

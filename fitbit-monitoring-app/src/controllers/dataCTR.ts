@@ -70,7 +70,7 @@ export const saveUserActivity = async (args: any[], type: string) => {
 /**
  * Get all steps of the logged user
  */
-export const getStepsFirebase = async () => {
+export const getUserActivity = async () => {
     // const doc =  usersCollection.get();
     // const snapshot = await usersCollection.get();
     //     snapshot.forEach(doc => {
