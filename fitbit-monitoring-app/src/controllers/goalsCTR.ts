@@ -1,6 +1,5 @@
 import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection, activityGoalsCollection, AppVue } from "../config/export";
-import { getBaseUserInfo } from "./userCTR";
+    intenseActivityCollection, activityGoalsCollection, AppVue, getBaseUserInfo } from "../config/export";
 
 const collections = [
     sedentaryActivityCollection,

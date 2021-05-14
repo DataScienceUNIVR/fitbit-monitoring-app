@@ -1,5 +1,4 @@
-import { firebase, AppVue, db } from "../config/export";
-import { getBaseUserInfo } from "./userCTR";
+import { firebase, AppVue, db, getBaseUserInfo } from "../config/export";
 
 let activityCollection = db.collection("sedentaryActivity");
 let message = "";

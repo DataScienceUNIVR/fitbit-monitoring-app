@@ -1,5 +1,4 @@
-import { firebase, weightCollection, AppVue } from "../config/export";
-import { getBaseUserInfo } from "./userCTR";
+import { firebase, weightCollection, AppVue, getBaseUserInfo } from "../config/export";
 
 /**
  * Get last weight value loaded

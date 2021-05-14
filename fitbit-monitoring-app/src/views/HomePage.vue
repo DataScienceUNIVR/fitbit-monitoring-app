@@ -145,10 +145,10 @@ export default defineComponent({
             this.totalMinutesModerateActivity = result[2] ? result[2] : 0;
             this.totalMinutesIntenseActivity = result[3] ? result[3] : 0;
 
-            this.sedentaryActivityPercentual = (this.totalMinutesSedentaryActivity / this.sedentaryActivityGoal) * 100;
-            this.lightActivityPercentual = (this.totalMinutesLightActivity / this.lightActivityGoal) * 100;
-            this.moderateActivityPercentual = (this.totalMinutesModerateActivity / this.moderateActivityGoal) * 100;
-            this.intenseActivityPercentual = (this.totalMinutesIntenseActivity / this.intenseActivityGoal) * 100;
+            this.sedentaryActivityPercentual = parseInt(((this.totalMinutesSedentaryActivity / this.sedentaryActivityGoal) * 100).toFixed(2));
+            this.lightActivityPercentual =  parseInt(((this.totalMinutesLightActivity / this.lightActivityGoal) * 100).toFixed(2));
+            this.moderateActivityPercentual =  parseInt(((this.totalMinutesModerateActivity / this.moderateActivityGoal) * 100).toFixed(2));
+            this.intenseActivityPercentual =  parseInt(((this.totalMinutesIntenseActivity / this.intenseActivityGoal) * 100).toFixed(2));
         },
     },
     async mounted() {

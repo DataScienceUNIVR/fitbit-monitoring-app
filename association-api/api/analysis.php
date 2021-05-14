@@ -1,9 +1,5 @@
 <?php
 require_once "headers.php";
-// require("../config/db_conf.php");
-
-// $db = Database::getInstance();
-// $mysqli = $db->getConnection(); 
 
 /** Return all rules from input JSON file  */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -12,6 +8,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         exit(json_encode(array("error" => 1)));
     }
-    // exit(json_decode($result, true));
     exit($result);
 }

@@ -1,5 +1,4 @@
-import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection } from "../config/export";
-import { getBaseUserInfo } from "./userCTR";
+import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, intenseActivityCollection, getBaseUserInfo } from "../config/export";
 
 /**
  * Get statistics of the logged user

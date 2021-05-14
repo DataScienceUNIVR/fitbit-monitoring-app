@@ -6,6 +6,8 @@ import { Md5 } from "md5-typescript";
 import ApexCharts from "apexcharts";
 import { useRouter } from "vue-router";
 import VueFlip from "vue-flip";
+import { getBaseUserInfo } from "../controllers/userCTR";
+import axios from 'axios';
 
 export const storage = firebase.storage();
 export const storageRef = storage.ref();
@@ -19,4 +21,4 @@ export const moderateActivityCollection = db.collection("moderateActivity");
 export const intenseActivityCollection = db.collection("intenseActivity");
 export const activityGoalsCollection = db.collection("activityGoals");
 
-export {firebase, AppVue, reactive, toRefs, ref, defineComponent, Md5, ApexCharts, useRouter, VueFlip}
+export {firebase, AppVue, reactive, toRefs, ref, defineComponent, Md5, ApexCharts, useRouter, VueFlip, axios, getBaseUserInfo}

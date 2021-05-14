@@ -1,6 +1,5 @@
 import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection } from "../config/export";
-import { getBaseUserInfo } from "./userCTR";
+    intenseActivityCollection, getBaseUserInfo } from "../config/export";
 
 /**
  * Get activity values
