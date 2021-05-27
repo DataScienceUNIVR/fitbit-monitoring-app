@@ -177,7 +177,6 @@ export default defineComponent({
         await Promise.resolve(getLastWeight())
             .then((value) => {
                 if (value) {
-                    console.log(value);
                     this.valueLastWeight = value.weight;
                     this.dateLastWeight = moment(value.dateTime.toDate()).format(
                         "DD/MM/YYYY HH:mm"

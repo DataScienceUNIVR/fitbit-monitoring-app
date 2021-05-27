@@ -123,7 +123,7 @@
                     </ion-card-content>
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="data-upload-ion-fab-button" @click="downloadData">
+                    <ion-fab-button class="data-upload-ion-fab-button" @click="deleteAccount">
                         <ion-icon :icon="cloudDownloadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
@@ -150,10 +150,11 @@ import {
     IonFab,
     IonFabButton,
     IonRow,
+    actionSheetController,
 } from "@ionic/vue";
 
-import { saveUserActivity } from "../controllers/dataCTR";
-import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
+import { saveUserActivity, getUserActivity } from "../controllers/dataCTR";
+import { cloudUploadSharp, cloudDownloadSharp, trash, sendSharp } from "ionicons/icons";
 import { defineComponent, AppVue } from "../config/export";
 
 export default defineComponent({
@@ -249,10 +250,62 @@ export default defineComponent({
             //     }
             // }
         },
+         async chooseActivityType() {
+            const actionSheet = await actionSheetController.create({
+                header: "Cancellare Account?",
+                cssClass: "my-custom-class",
+                buttons: [
+                    {
+                        text: "Attività Sedentaria",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("sedentary");
+                            // $('<a href="data:' + data + '" download="data.json">download JSON</a>').appendTo('#container');
+                        },
+                    },
+                    {
+                        text: "Attività Leggera",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("light");
+                        },
+                    },
+                    {
+                        text: "Attività Moderata",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("moderate");
+                        },
+                    },
+                    {
+                        text: "Attività Intensa",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("intese");
+                        },
+                    },
+                    {
+                        text: "Annulla",
+                        role: "cancel",
+                        handler: () => {
+                            console.log("Cancel clicked");
+                        },
+                    },
+                ],
+            });
+            await actionSheet.present();
+        },
+        async deleteAccount() {
+            this.chooseActivityType();
+        },
     },
 
     setup() {
-        return { cloudUploadSharp, cloudDownloadSharp };
+        return { cloudUploadSharp, cloudDownloadSharp, trash, sendSharp };
     },
 });
 </script>

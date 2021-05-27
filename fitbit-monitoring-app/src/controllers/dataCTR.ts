@@ -1,4 +1,5 @@
-import { firebase, AppVue, db, getBaseUserInfo } from "../config/export";
+import { firebase, AppVue, db, getBaseUserInfo, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection } from "../config/export";
 
 let activityCollection = db.collection("sedentaryActivity");
 let message = "";
@@ -69,13 +70,35 @@ export const saveUserActivity = async (args: any[], type: string) => {
 /**
  * Get all steps of the logged user
  */
-export const getUserActivity = async () => {
-    // const doc =  usersCollection.get();
-    // const snapshot = await usersCollection.get();
-    //     snapshot.forEach(doc => {
-    //         return doc;
-    //         // console.log(doc.id, '=>', doc.data());
-    //     });
+export const getUserActivity = async (type: string) => {
+    let result: any = [];    
+    activityCollection = sedentaryActivityCollection;
+    switch (type) {
+        case "sedentary":
+            activityCollection = sedentaryActivityCollection;
+            break;
+        case "light":
+            activityCollection = lightActivityCollection;
+            break;
+        case "moderate":
+            activityCollection = moderateActivityCollection;
+            break;
+        case "intense":
+            activityCollection = intenseActivityCollection;
+            break;
+        default:
+            break;
+    }
+    const snapshot = await activityCollection.where("uid", "==", getBaseUserInfo()?.uid).get();
+    snapshot.forEach(doc => {
+        result.push(doc.data());
+        // return doc;
+        // console.log(doc.id, '=>', doc.data());
+    });
+
+    result = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+    
+    return result;
     // if (!doc) {
     // console.log('No such document!');
     // } else {

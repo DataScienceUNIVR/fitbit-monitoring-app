@@ -9,38 +9,19 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-card class="input-ion-card blue-gradient">
-                    <ion-card-header>
-                        <ion-card-subtitle class="input-ion-card-subtitle"
-                            >SCORE SEDENTARIA:</ion-card-subtitle
-                        >
-                    </ion-card-header>
-                    
-                    <ion-card-title class="input-on-card-title">
-                        <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
-                            <ion-input
-                                ref="sedentaryActivity"
-                                id="sedentaryActivity"
-                                v-model="sedentaryActivity"
-                                class="goal-input"
-                                inputmode="decimal"
-                                type="number"
-                                min="0"
-                                :readonly="false"
-                            ></ion-input
-                            >KG
-                        </ion-item>
-                    </ion-card-title>
-                    <ion-card-content class="input-ion-card-content">
-                        <br />
-                    </ion-card-content>
-                    <ion-fab horizontal="center" vertical="bottom">
-                        <ion-fab-button @click="updateGoal('sedentaryActivity')" color="light">
-                            <ion-icon :icon="add"></ion-icon>
-                        </ion-fab-button>
-                    </ion-fab>
-                </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-subtitle class="input-ion-card-subtitle">CONFIDENZA:</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    Valore sonno previsto per stasera:
+                    <ion-badge color="primary"> {{sleepScore}} </ion-badge>
+                    <div id="chart">
+                        <hr />
+                        <div ref="confidenceChart" class="margin-chart"></div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
         </ion-content>
     </ion-page>
 </template>
@@ -54,13 +35,14 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
+    IonBadge
 } from "@ionic/vue";
-import { defineComponent } from "../config/export";
+import { defineComponent, ApexCharts } from "../config/export";
 import { getSleepAssociationRules } from "../controllers/sleepCTR";
 
-const sleepScore = null;
-const support = null;
-const confidence = null;
+const support = 0;
+const sleepScore: any = null;
+const confidence: any = null;
 
 export default defineComponent({
     name: "Report Sonno",
@@ -72,21 +54,73 @@ export default defineComponent({
         IonPage,
         IonTitle,
         IonToolbar,
+        IonBadge
     },
     data() {
         return {
-            
+            confidence,
+            sleepScore
         };
     },
-    methods: {
-    },
+    methods: {},
 
     async mounted() {
         await Promise.resolve(getSleepAssociationRules()).then((result) => {
             if (result) {
-                console.log(result);
+                this.confidence = (result!['confidenza'] * 100).toFixed(0);
+                this.sleepScore = (result!['sonno']);
             }
         });
+
+        const confidenceOptions = {
+            chart: {
+                height: 400,
+                type: "radialBar",
+            },
+            series: [this.confidence],
+            colors: ["#A04000"],
+            plotOptions: {
+                radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+                    track: {
+                        background: "#333",
+                        startAngle: -90,
+                        endAngle: 90,
+                    },
+                    dataLabels: {
+                        name: {
+                            show: false,
+                        },
+                        value: {
+                            fontSize: "40px",
+                            show: true,
+                        },
+                    },
+                },
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shade: "dark",
+                    type: "horizontal",
+                    gradientToColors: ["#F5B041"],
+                    stops: [0, 100],
+                },
+            },
+            stroke: {
+                lineCap: "butt",
+            },
+            labels: ["Progress"],
+        };
+
+        if (this.$refs.confidenceChart) {
+            const chart = new ApexCharts(
+                this.$refs.confidenceChart,
+                confidenceOptions
+            );
+            chart.render();
+        }
     },
 
     // setup() {
