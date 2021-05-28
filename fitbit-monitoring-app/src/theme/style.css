@@ -401,6 +401,22 @@ ion-title {
 }
 /* ################################################################ */
 
+/* Pagina Sonno */
+.sleep-ion-card-content {
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;   
+}
+.sleep-score {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.sleep-score-alert {
+    font-size: 45px;
+    margin-top: 10px;
+}
+/* ################################################################ */
+
 /* Pagina statistiche */
 .md .statistics-ion-card {
     width:              80% !important;

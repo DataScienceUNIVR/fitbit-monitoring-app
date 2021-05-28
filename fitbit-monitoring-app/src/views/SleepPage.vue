@@ -9,17 +9,32 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
-            <ion-card>
+            <ion-card v-if="confidence">
                 <ion-card-header>
                     <ion-card-subtitle class="input-ion-card-subtitle">CONFIDENZA:</ion-card-subtitle>
                 </ion-card-header>
-                <ion-card-content>
+                <ion-card-content class="sleep-ion-card-content">
                     Valore sonno previsto per stasera:
-                    <ion-badge color="primary"> {{sleepScore}} </ion-badge>
+                    <br>
+                    <ion-badge color="medium" class="sleep-score"> {{sleepScore}} </ion-badge>
                     <div id="chart">
                         <hr />
                         <div ref="confidenceChart" class="margin-chart"></div>
                     </div>
+                    <br>
+                    Supporto:
+                    <br>
+                    <ion-badge color="medium" class="sleep-score"> {{support}} </ion-badge>
+                </ion-card-content>
+            </ion-card>
+
+            <ion-card v-if="!confidence">
+                <ion-card-content class="sleep-ion-card-content">
+                    Sembrano non esserci dati relativi al tuo sonno!
+                    <br>
+                    <ion-badge color="danger" class="sleep-score-alert">
+                        <ion-icon :icon="alertCircleOutline"></ion-icon>
+                    </ion-badge>
                 </ion-card-content>
             </ion-card>
         </ion-content>
@@ -35,12 +50,18 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
-    IonBadge
+    IonBadge,
+    IonCard,
+    IonCardHeader,
+    IonCardContent,
+    IonCardSubtitle,
+    IonIcon
 } from "@ionic/vue";
 import { defineComponent, ApexCharts } from "../config/export";
 import { getSleepAssociationRules } from "../controllers/sleepCTR";
+import { alertCircleOutline } from "ionicons/icons";
 
-const support = 0;
+const support: any = null;
 const sleepScore: any = null;
 const confidence: any = null;
 
@@ -54,12 +75,18 @@ export default defineComponent({
         IonPage,
         IonTitle,
         IonToolbar,
-        IonBadge
+        IonBadge,
+        IonCard,
+        IonCardHeader,
+        IonCardContent,
+        IonCardSubtitle,
+        IonIcon
     },
     data() {
         return {
             confidence,
-            sleepScore
+            sleepScore,
+            support
         };
     },
     methods: {},
@@ -69,6 +96,7 @@ export default defineComponent({
             if (result) {
                 this.confidence = (result!['confidenza'] * 100).toFixed(0);
                 this.sleepScore = (result!['sonno']);
+                this.support = (result!['supporto'] * 1).toFixed(6);
             }
         });
 
@@ -123,7 +151,8 @@ export default defineComponent({
         }
     },
 
-    // setup() {
-    // },
+    setup() {
+        return { alertCircleOutline };
+    },
 });
 </script>
