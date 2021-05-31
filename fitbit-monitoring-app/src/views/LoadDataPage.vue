@@ -252,7 +252,7 @@ export default defineComponent({
         },
          async chooseActivityType() {
             const actionSheet = await actionSheetController.create({
-                header: "Cancellare Account?",
+                header: "Quali dati scariare?",
                 cssClass: "my-custom-class",
                 buttons: [
                     {

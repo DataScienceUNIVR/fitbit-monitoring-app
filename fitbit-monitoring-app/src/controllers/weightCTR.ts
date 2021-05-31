@@ -77,3 +77,10 @@ export const addWeight = async (value: number) => {
             throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
         });
 };
+
+/**
+ * Sedentary Activity:  ~ 2 Km/h    ->  ~  3 kcal / min
+ * Light Activity:      ~ 4 Km/h    ->  ~  5 kcal / min
+ * Moderate Activity:   ~ 8 Km/h    ->  ~  11 kcal / min
+ * Intense Activity:    ~ 13 Km/h   ->  ~  19 kcal / min
+ */
