@@ -19,7 +19,6 @@
                         >
                     </ion-chip>
 
-                    <!-- <ion-note></ion-note> -->
                     <ion-menu-toggle
                         auto-hide="false"
                         v-for="(p, i) in appPages"
@@ -51,15 +50,6 @@
                         </ion-item>
                     </ion-menu-toggle>
                 </ion-list>
-
-                <!-- <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-  
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          </ion-list> -->
             </ion-content>
         </ion-menu>
         <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -85,10 +75,9 @@ import {
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
-
 import {
-    pulseOutline,
-    pulseSharp,
+    fitnessOutline,
+    fitnessSharp,
     bookmarkOutline,
     bookmarkSharp,
     ribbonOutline,
@@ -103,11 +92,15 @@ import {
     home,
     speedometerOutline,
     medalOutline,
+    medicalSharp,
+    optionsOutline,
+    options,
+    moonOutline,
+    moonSharp
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
 import getLoggedUserData from "./controllers/authCTR";
-
 export default defineComponent({
     name: "App",
     components: {
@@ -141,14 +134,11 @@ export default defineComponent({
         const selectedIndex = ref(0);
         const { logout, user } = useFirebaseAuth();
         const router = useRouter();
-
         const doLogout = async () => {
             await logout();
             router.replace({ path: "/login" });
         };
-
         const loggedUser = getLoggedUserData().user;
-
         const appPages = [
             {
                 title: "HOME",
@@ -157,28 +147,40 @@ export default defineComponent({
                 mdIcon: home,
             },
             {
-                title: "GESTIONE DATI",
-                url: "/loadData",
-                iosIcon: ribbonOutline,
-                mdIcon: ribbonSharp,
+                title: "REPORT",
+                url: "/report",
+                iosIcon: fitnessOutline,
+                mdIcon: fitnessSharp,
+            },
+            {
+                title: "PESO",
+                url: "/weight",
+                iosIcon: speedometerOutline,
+                mdIcon: speedometerOutline,
+            },
+            {
+                title: "SONNO",
+                url: "/sleep",
+                iosIcon: moonOutline,
+                mdIcon: moonSharp,
             },
             {
                 title: "STATISTICHE",
                 url: "/statistics",
                 iosIcon: medalOutline,
-                mdIcon: pulseSharp,
+                mdIcon: medicalSharp,
             },
             {
-                title: "REPORT",
-                url: "/report",
-                iosIcon: pulseOutline,
-                mdIcon: pulseSharp,
+                title: "OBIETTIVI",
+                url: "/goals",
+                iosIcon: optionsOutline,
+                mdIcon: options,
             },
             {
-                title: "TRACKING PESO",
-                url: "/weight",
-                iosIcon: speedometerOutline,
-                mdIcon: speedometerOutline,
+                title: "GESTIONE DATI",
+                url: "/loadData",
+                iosIcon: ribbonOutline,
+                mdIcon: ribbonSharp,
             },
             {
                 title: "PROFILO",
@@ -188,30 +190,25 @@ export default defineComponent({
             },
             {
                 title: "LOGOUT",
-                // url: '/login',
                 doLogout,
                 iosIcon: logOutOutline,
                 mdIcon: logOutSharp,
             },
         ];
-
         const path = window.location.pathname.split("/")[1];
         if (path !== undefined) {
             selectedIndex.value = appPages.findIndex(
                 (page) => page.title.toLowerCase() === path.toLowerCase()
             );
         }
-
         // const labels = ['Other'];
-
         const route = useRoute();
-
         return {
             // labels,
             selectedIndex,
             appPages,
-            pulseOutline,
-            pulseSharp,
+            fitnessOutline,
+            fitnessSharp,
             bookmarkOutline,
             bookmarkSharp,
             ribbonOutline,
@@ -225,6 +222,12 @@ export default defineComponent({
             logOutOutline,
             logOutSharp,
             speedometerOutline,
+            medalOutline,
+            medicalSharp,
+            optionsOutline,
+            options,
+            moonOutline,
+            moonSharp,
             doLogout,
             user,
             loggedUser,

@@ -10,11 +10,11 @@
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <br>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ SEDENTARIA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ SEDENTARIA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica sedentaria in formato JSON del dispositivo fitbit.
@@ -35,11 +35,11 @@
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ LEGGERA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ LEGGERA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati delle tua attività fisica leggera in formato JSON del dispositivo fitbit.
@@ -55,16 +55,16 @@
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-light-ion-fab-button" @click="$refs.lightFile.click()">
+                    <ion-fab-button class="data-light-ion-fab-button" @click="$refs.lightFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ MODERATA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ MODERATA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica moderata in formato JSON del dispositivo fitbit.
@@ -73,23 +73,23 @@
                     </ion-card-content>
                     <input
                         type="file"
-                        ref="moderatelyFile"
-                        id="uploadModeratelyFile"
+                        ref="moderateFile"
+                        id="uploadmoderateFile"
                         hidden
-                        @change="uploadData('moderately')"
+                        @change="uploadData('moderate')"
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-moderately-ion-fab-button" @click="$refs.moderatelyFile.click()">
+                    <ion-fab-button class="data-moderate-ion-fab-button" @click="$refs.moderateFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">ATTIVITÀ INTENSA</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">ATTIVITÀ INTENSA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Caricare i dati della tua attività fisica intensa in formato JSON del dispositivo fitbit.
@@ -105,16 +105,16 @@
                     />
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-intense-ion-fab-button" @click="$refs.intenseFile.click()">
+                    <ion-fab-button class="data-intense-ion-fab-button" @click="$refs.intenseFile.click()">
                         <ion-icon :icon="cloudUploadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
             </ion-row>
-            <ion-row class="dati-row">
+            <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
                         <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="dati-ion-card-title">SCARICA TUTTI I DATI</ion-card-title>
+                        <ion-card-title class="data-ion-card-title">SCARICA TUTTI I DATI</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         Scaricare i dati in formato JSON del dispositivo fitbit.
@@ -123,7 +123,7 @@
                     </ion-card-content>
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
-                    <ion-fab-button class="dati-upload-ion-fab-button" @click="downloadData">
+                    <ion-fab-button class="data-upload-ion-fab-button" @click="deleteAccount">
                         <ion-icon :icon="cloudDownloadSharp"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
@@ -150,12 +150,12 @@ import {
     IonFab,
     IonFabButton,
     IonRow,
+    actionSheetController,
 } from "@ionic/vue";
 
-import { saveUserActivity, getStepsFirebase } from "../controllers/dataCTR";
-import { cloudUploadSharp, cloudDownloadSharp } from "ionicons/icons";
-import { defineComponent } from "vue";
-import AppVue from "@/App.vue";
+import { saveUserActivity, getUserActivity } from "../controllers/dataCTR";
+import { cloudUploadSharp, cloudDownloadSharp, trash, sendSharp } from "ionicons/icons";
+import { defineComponent, AppVue } from "../config/export";
 
 export default defineComponent({
     name: "Main",
@@ -188,8 +188,8 @@ export default defineComponent({
             } else if (this.$el.querySelector("#uploadLightFile").files[0]) {
                 src = this.$el.querySelector("#uploadLightFile");
                 file = src.files[0];
-            } else if (this.$el.querySelector("#uploadModeratelyFile").files[0]) {
-                src = this.$el.querySelector("#uploadModeratelyFile");
+            } else if (this.$el.querySelector("#uploadmoderateFile").files[0]) {
+                src = this.$el.querySelector("#uploadmoderateFile");
                 file = src.files[0];
             } else if (this.$el.querySelector("#uploadIntenseFile").files[0]) {
                 src = this.$el.querySelector("#uploadIntenseFile");
@@ -230,9 +230,9 @@ export default defineComponent({
 
         // Upload file function
         downloadData() {
-            // const doc = JSON.stringify(getStepsFirebase());
+            // const doc = JSON.stringify(getUserActivity());
             // // console.log(doc);
-            // const blob = new Blob([JSON.stringify(getStepsFirebase())], {
+            // const blob = new Blob([JSON.stringify(getUserActivity())], {
             //     type: "application/json",
             // });
             // if (navigator.msSaveBlob) {
@@ -250,10 +250,62 @@ export default defineComponent({
             //     }
             // }
         },
+         async chooseActivityType() {
+            const actionSheet = await actionSheetController.create({
+                header: "Quali dati scariare?",
+                cssClass: "my-custom-class",
+                buttons: [
+                    {
+                        text: "Attività Sedentaria",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("sedentary");
+                            // $('<a href="data:' + data + '" download="data.json">download JSON</a>').appendTo('#container');
+                        },
+                    },
+                    {
+                        text: "Attività Leggera",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("light");
+                        },
+                    },
+                    {
+                        text: "Attività Moderata",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("moderate");
+                        },
+                    },
+                    {
+                        text: "Attività Intensa",
+                        role: "destructive",
+                        icon: sendSharp,
+                        handler: () => {
+                            getUserActivity("intese");
+                        },
+                    },
+                    {
+                        text: "Annulla",
+                        role: "cancel",
+                        handler: () => {
+                            console.log("Cancel clicked");
+                        },
+                    },
+                ],
+            });
+            await actionSheet.present();
+        },
+        async deleteAccount() {
+            this.chooseActivityType();
+        },
     },
 
     setup() {
-        return { cloudUploadSharp, cloudDownloadSharp };
+        return { cloudUploadSharp, cloudDownloadSharp, trash, sendSharp };
     },
 });
 </script>

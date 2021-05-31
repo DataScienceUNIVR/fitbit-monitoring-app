@@ -56,46 +56,46 @@ ion-content.main{
 }
 
 /* loadData page cards */
-.dati-row {
+.data-row {
     margin-top:     0px;
 }
 
-.dati-ion-card-title {
+.data-ion-card-title {
     font-size:      26px;
 }
 .dati-sedentary-ion-fab-button {
     /* background-color: red; */
 }
-.dati-light-ion-fab-button {
+.data-light-ion-fab-button {
     /* background-color: red; */
 }
-.dati-moderately-ion-fab-button {
+.data-moderate-ion-fab-button {
     /* background-color: red; */
 }
-.dati-intense-ion-fab-button {
+.data-intense-ion-fab-button {
     /* background-color: red; */
 }
-.dati-upload-ion-fab-button {
+.data-upload-ion-fab-button {
     /* background-color: #5c2763; */
 }
 
 /* Statistiche page */
-.statistiche-row {
+.statistics-row {
     margin-bottom:  45%;
     justify-content: center;
 }
 
-.statistiche-ion-card {
+.statistics-ion-card {
     width: 330px !important;
 }
 
-.statistiche-ion-card-title {
+.statistics-ion-card-title {
     font-size:      60px;
     text-align:     center;
     color:          white;
 }
 
-.statistiche-ion-card-subtitle {
+.statistics-ion-card-subtitle {
     font-size:      18px;
     font-weight:    bold;
     text-align:     center;
@@ -160,33 +160,33 @@ ion-content.main{
     margin-bottom: 10% !important;
 }
 
-.peso-ion-card-title {
+.input-on-card-title {
     font-size:      50px;
     text-align:     center;
     font-weight:    bold;
     color:        #ffffff;
 }
 
-.peso-ion-card-subtitle {
+.input-ion-card-subtitle {
     font-size:      15px;
     font-weight:    bold;
     text-align:     center;
     color:        #c6c7ca;
 }
 
-.peso-ion-card-content {
+.input-ion-card-content {
     font-size:      20px;
     font-weight:    bold;
     text-align:     center;
     color:        #c6c7ca;
 }
 
-.peso-input {
+.weight-input {
     font-size: 40px;
     margin-left: 3%;
 }
 
-.peso-input-ion-card {
+.input-ion-card {
     height: 200px;
 }
 
@@ -218,11 +218,47 @@ ion-content.main{
     max-width:      70%;
 }
 
-.report-pie-chart {
+.margin-chart {
     margin-top: -7%;
     margin-bottom: 10%;
 }
 
+
+/* Home Page */
+.counter-ion-card {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 800;
+    color: #c6c7ca;
+    margin-top: -4%;
+    margin-bottom: -3%;
+}
+
+.blue-gradient {
+    background:linear-gradient(135deg, #4d0179 0%,#1bcedf 100%);
+}
+.green-gradient {
+    background:linear-gradient(135deg, #184e68 0%,#57ca85 100%);
+}
+.red-gradient {
+    background:linear-gradient(135deg, #622774 0%,#c53364 100%);
+}
+.purple-gradient {
+    background:linear-gradient(135deg, #a55ccd 0%,#3425AF 100%);
+}
+
+.apexcharts-legend-text {
+    position: relative;
+    color: darkgrey !important;
+    font-size: 17px !important;
+}
+
+/* Goal Page */
+.goal-input {
+    font-size: 40px;
+    text-align: center;
+    margin-left: -13%;
+}
 
 .pulse {
     position: relative;
@@ -287,7 +323,7 @@ ion-title {
 }
 
 /* Pagina di peso */
-.md .peso-input-ion-card {
+.md .input-ion-card {
     background-color: #1C1C1D;
 }
 
@@ -295,11 +331,11 @@ ion-title {
     background-color: #1C1C1D;
 }
 
-.md .peso-text-input {
+.md .text-input {
     color: black !important;
 }
 
-.md .peso-input > .native-input {
+.md .weight-input > .native-input {
     color: black;
 }
 .md .sc-ion-input-md {
@@ -350,6 +386,10 @@ ion-title {
 .md ion-list {
     background-color:   #1E1E1E !important;
 }
+.md .logo-menu {
+    content:        url("../../public/assets/img/logo_app_black.png");
+    max-width:      100%;
+}
 /* ################################################################ */
 
 /* Pagina profili */
@@ -361,8 +401,24 @@ ion-title {
 }
 /* ################################################################ */
 
+/* Pagina Sonno */
+.sleep-ion-card-content {
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;   
+}
+.sleep-score {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.sleep-score-alert {
+    font-size: 45px;
+    margin-top: 10px;
+}
+/* ################################################################ */
+
 /* Pagina statistiche */
-.md .statistiche-ion-card {
+.md .statistics-ion-card {
     width:              80% !important;
     margin-bottom:      45%;
 }
@@ -373,7 +429,7 @@ ion-title {
     margin-top:         -4%;
     margin-right:       -1%;
 }
-.md .dati-row {
+.md .data-row {
     margin-top:     30px;
 }
 /* ################################################################ */
@@ -395,7 +451,7 @@ ion-title {
     animation:          pulse 3.25s infinite cubic-bezier(0, 0, 0, 1);
 }
 
-.md .statistiche-row {
+.md .statistics-row {
     margin-bottom:      45%;
     justify-content:    center;
     margin-left:        15%;

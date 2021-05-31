@@ -1,26 +1,19 @@
-import firebase from "firebase";
-import "firebase/firestore";
-
-const db = firebase.firestore();
-const sedentaryActivityCollection = db.collection("sedentaryActivity");
-const lightActivityCollection = db.collection("lightActivity");
-const moderatelyActivityCollection = db.collection("moderatelyActivity");
-const intenseActivityCollection = db.collection("intenseActivity");
-import { getBaseUserInfo } from "./userCTR";
+import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection, getBaseUserInfo } from "../config/export";
 
 /**
- * Get weight values
- * @return weight
+ * Get activity values
+ * @return statistic for each activity
  */
 export const getActivityTimeWithRange = async () => {
-    interface Attivita {
+    interface Activity {
         data: any;
-        minuti: string;
+        minutes: string;
     }
     const collections = [
         sedentaryActivityCollection,
         lightActivityCollection,
-        moderatelyActivityCollection,
+        moderateActivityCollection,
         intenseActivityCollection,
     ];
     const result: any = [];
@@ -32,7 +25,7 @@ export const getActivityTimeWithRange = async () => {
     const date2 = new Date();
     const endDate = firebase.firestore.Timestamp.fromDate(date2);
 
-    let tmp: Attivita[] = [];
+    let tmp: Activity[] = [];
 
     for (const collection of collections) {
         const snapshot = await collection
@@ -60,7 +53,7 @@ export const getActivityTimeWithRange = async () => {
                         .get("dateTime")
                         .toDate()
                         .getFullYear(),
-                minuti: row.get("minutes") + '',
+                minutes: row.get("minutes") + '',
             });
         });
         result.push(tmp);

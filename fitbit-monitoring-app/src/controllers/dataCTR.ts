@@ -1,11 +1,8 @@
-import firebase from "firebase";
-import "firebase/firestore";
-import { getBaseUserInfo } from "./userCTR";
-import AppVue from "@/App.vue";
+import { firebase, AppVue, db, getBaseUserInfo, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection } from "../config/export";
 
-const db = firebase.firestore();
+let activityCollection = db.collection("sedentaryActivity");
 let message = "";
-let activityCollection = db.collection("steps");
 
 /**
  * Save local steps saved into JSON file on firebase
@@ -21,8 +18,8 @@ export const saveUserActivity = async (args: any[], type: string) => {
         case "light":
             activityCollection = db.collection("lightActivity");
             break;
-        case "moderately":
-            activityCollection = db.collection("moderatelyActivity");
+        case "moderate":
+            activityCollection = db.collection("moderateActivity");
             break;
         case "intense":
             activityCollection = db.collection("intenseActivity");
@@ -73,13 +70,35 @@ export const saveUserActivity = async (args: any[], type: string) => {
 /**
  * Get all steps of the logged user
  */
-export const getStepsFirebase = async () => {
-    // const doc =  usersCollection.get();
-    // const snapshot = await usersCollection.get();
-    //     snapshot.forEach(doc => {
-    //         return doc;
-    //         // console.log(doc.id, '=>', doc.data());
-    //     });
+export const getUserActivity = async (type: string) => {
+    let result: any = [];    
+    activityCollection = sedentaryActivityCollection;
+    switch (type) {
+        case "sedentary":
+            activityCollection = sedentaryActivityCollection;
+            break;
+        case "light":
+            activityCollection = lightActivityCollection;
+            break;
+        case "moderate":
+            activityCollection = moderateActivityCollection;
+            break;
+        case "intense":
+            activityCollection = intenseActivityCollection;
+            break;
+        default:
+            break;
+    }
+    const snapshot = await activityCollection.where("uid", "==", getBaseUserInfo()?.uid).get();
+    snapshot.forEach(doc => {
+        result.push(doc.data());
+        // return doc;
+        // console.log(doc.id, '=>', doc.data());
+    });
+
+    result = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+    
+    return result;
     // if (!doc) {
     // console.log('No such document!');
     // } else {

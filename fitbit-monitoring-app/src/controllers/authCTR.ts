@@ -1,7 +1,10 @@
+// import { storageRef, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+//     intenseActivityCollection, activityGoalsCollection} from "../config/export";
+import FIREBASE_CONFIG from "../config/.env.firebase";    
+
 import { toRefs, reactive } from "vue";
 import firebase from "firebase";
 import "firebase/firestore";
-import FIREBASE_CONFIG from "../config/.env.firebase";
 import { Md5 } from "md5-typescript";
 import AppVue from "@/App.vue";
 
@@ -12,7 +15,7 @@ if (firebase.apps.length === 0) {
 
 const db = firebase.firestore();
 const usersCollection = db.collection("users");
-const pesoCollection = db.collection("peso");
+const weightCollection = db.collection("weight");
 const state = reactive<{ user: any; initialized: boolean; error: any }>({
     user: null,
     initialized: false,
@@ -44,19 +47,19 @@ export default function () {
     };
 
     /**
-     * Register with firebase auth and delete from users if already exist a doc with same uid, after 
-     * @param nome 
-     * @param cognome 
-     * @param cf 
-     * @param peso
-     * @param altezza
+     * Register with firebase auth and after delete from users if already exist a doc with same uid
+     * @param name 
+     * @param surname 
+     * @param fiscalCode 
+     * @param weight
+     * @param height
      * @param email 
      * @param password 
      * @returns user
      */
-    const register = (nome: string, cognome: string, cf: string, peso: number, altezza: number, email: string, password: string) => {
+    const register = (name: string, surname: string, fiscalCode: string, weight: number, height: number, email: string, password: string) => {
        
-        if (nome != null && cognome != null && email != null && password != null) {
+        if (name != null && surname != null && email != null && password != null) {
             return firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
@@ -70,10 +73,10 @@ export default function () {
                             usersCollection
                                 .add({
                                     uid: uid,
-                                    nome: nome,
-                                    cognome: cognome,
-                                    cf: cf,
-                                    altezza: parseInt(altezza.toString()),
+                                    name: name,
+                                    surname: surname,
+                                    fiscalCode: fiscalCode,
+                                    height: parseInt(height.toString()),
                                     email: email,
                                     password: Md5.init(password),
                                 })
@@ -85,12 +88,12 @@ export default function () {
                                     throw AppVue.methods?.openToast("Errore nella registrazione: " + error);
                                 });
 
-                                // Now add user weight to peso table (trace history)
+                                // Now add user weight to weight table (trace history)
                                 const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
-                                pesoCollection
+                                weightCollection
                                 .add({
                                     uid: uid,
-                                    peso: parseFloat(peso.toString()),
+                                    weight: parseFloat(weight.toString()),
                                     dateTime: currenteDateTime
                                 })
                                 .then(() => {

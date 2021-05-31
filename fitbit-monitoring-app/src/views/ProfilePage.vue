@@ -41,12 +41,12 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: {{ user.nome }} <br />
-                    <b>COGNOME</b>: {{ user.cognome }} <br />
-                    <b>C.F</b>: {{ user.cf }} <br />
+                    <b>NOME</b>: {{ user.name }} <br />
+                    <b>COGNOME</b>: {{ user.surname }} <br />
+                    <b>C.F</b>: {{ user.fiscalCode }} <br />
                     <b>EMAIL</b>: {{ user.email }} <br />
-                    <b>PESO</b>: {{ user.peso }} Kg <br />
-                    <b>ALTEZZA</b>: {{ user.altezza }} cm
+                    <b>PESO</b>: {{ user.weight }} Kg <br />
+                    <b>ALTEZZA</b>: {{ user.height }} cm
                 </ion-card-content>
 
                 <ion-button
@@ -84,25 +84,24 @@ import {
     actionSheetController,
 } from "@ionic/vue";
 import { cameraSharp, trash } from "ionicons/icons";
-import { defineComponent } from "vue";
-import AppVue from "@/App.vue";
+import { defineComponent, AppVue } from "../config/export";
 import {
     getAllUserInfo,
     setProfileImage,
     deleteAccountInfo,
 } from "../controllers/userCTR";
 
-interface Utente {
-    nome?: any;
-    cognome?: any;
-    cf?: any;
+interface User {
+    name?: any;
+    surname?: any;
+    fiscalCode?: any;
     email?: any;
     imageURL?: any;
-    altezza?: any;
-    peso?: any;
+    height?: any;
+    weight?: any;
     uid?: any;
 }
-const user: Utente = {};
+const user: User = {};
 let deleteConfirmation = 0;
 export default defineComponent({
     name: "Profile",
@@ -148,16 +147,24 @@ export default defineComponent({
         },
 
         async getUser() {
+            this.user.name = localStorage.getItem("name");
+            this.user.surname = localStorage.getItem("surname");
+            this.user.fiscalCode = localStorage.getItem("fiscalCode");
+            this.user.imageURL = localStorage.getItem("imageURL");
+            this.user.height = localStorage.getItem("height");
+            this.user.weight = localStorage.getItem("weight");
+            this.user.email = localStorage.getItem("email");
+
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
-                    this.user.nome = user.nome;
-                    this.user.cognome = user.cognome;
-                    this.user.cf = user.cf;
-                    this.user.imageURL = user.imageURL;
-                    this.user.altezza = user.altezza ? user.altezza : "---";
-                    this.user.peso = user.peso ? user.peso : "---";
-                    this.user.email = user.email;
-                    this.user.uid = user.uid;
+                    localStorage.setItem("name", user.name);
+                    localStorage.setItem("surname", user.surname);
+                    localStorage.setItem("fiscalCode", user.fiscalCode);
+                    localStorage.setItem("imageURL", user.imageURL);
+                    localStorage.setItem("height", user.height ? user.height : "---");
+                    localStorage.setItem("weight", user.weight ? user.weight : "---");
+                    localStorage.setItem("email", user.email);
+                    localStorage.setItem("uid", user.uid);
                 }
             });
         },
@@ -195,7 +202,6 @@ export default defineComponent({
 
         async deleteAccount() {
             this.confirmDelete();
-            console.log("cancellazione");
         },
     },
 

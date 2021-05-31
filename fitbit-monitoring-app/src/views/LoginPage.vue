@@ -34,11 +34,11 @@
                         <ion-label position="floating">Nome</ion-label>
                         <ion-input
                             class="login-input-text"
-                            v-model="nome"
+                            v-model="name"
                             required="true"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.nome = $event.detail.value)
+                                    (credentials.name = $event.detail.value)
                             "
                         ></ion-input>
                     </ion-item>
@@ -46,11 +46,11 @@
                         <ion-label position="floating">Cognome</ion-label>
                         <ion-input
                             class="login-input-text"
-                            v-model="cognome"
+                            v-model="surname"
                             required="true"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.cognome = $event.detail.value)
+                                    (credentials.surname = $event.detail.value)
                             "
                         ></ion-input>
                     </ion-item>
@@ -60,10 +60,10 @@
                         >
                         <ion-input
                             class="login-input-text"
-                            v-model="cf"
+                            v-model="fiscalCode"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.cf = $event.detail.value)
+                                    (credentials.fiscalCode = $event.detail.value)
                             "
                         ></ion-input>
                     </ion-item>
@@ -71,12 +71,12 @@
                         <ion-label position="floating">Peso (KG)</ion-label>
                         <ion-input
                             class="login-input-text"
-                            v-model="peso"
+                            v-model="weight"
                             inputmode="decimal"
                             type="number"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.peso = $event.detail.value)
+                                    (credentials.weight = $event.detail.value)
                             "
                         ></ion-input>
                     </ion-item>
@@ -84,10 +84,10 @@
                         <ion-label position="floating">Altezza (cm)</ion-label>
                         <ion-input
                             class="login-input-text"
-                            v-model="altezza"
+                            v-model="height"
                             @ionChange="
                                 ($event) =>
-                                    (credentials.altezza = $event.detail.value)
+                                    (credentials.height = $event.detail.value)
                             "
                         ></ion-input>
                     </ion-item>
@@ -163,11 +163,8 @@ import {
     IonButton,
     IonImg,
 } from "@ionic/vue";
-import { app } from "node_modules/firebase";
-import AppVue from "@/App.vue";
-import { reactive, ref, toRefs } from "vue";
-import { useRouter } from "vue-router";
 import useFirebaseAuth from "../controllers/authCTR";
+import { reactive, ref, toRefs, AppVue, useRouter } from "../config/export";
 
 enum AuthMode {
     SignIn,
@@ -196,19 +193,19 @@ export default {
 
     setup() {
         const credentials = ref<{
-            nome: string;
-            cognome: string;
-            cf: string;
-            peso: number;
-            altezza: number;
+            name: string;
+            surname: string;
+            fiscalCode: string;
+            weight: number;
+            height: number;
             email: string;
             password: string;
         }>({
-            nome: "",
-            cognome: "",
-            cf: "",
-            peso: 0,
-            altezza: 0,
+            name: "",
+            surname: "",
+            fiscalCode: "",
+            weight: 0,
+            height: 0,
             email: "",
             password: "",
         });
@@ -233,8 +230,8 @@ export default {
 
         const doSignUp = async () => {
             if (
-                !credentials.value.nome ||
-                !credentials.value.cognome ||
+                !credentials.value.name ||
+                !credentials.value.surname ||
                 !credentials.value.email
             ) {
                 return AppVue.methods?.openToast(
@@ -258,10 +255,10 @@ export default {
                 return AppVue.methods?.openToast("Email non conforme");
             }
 
-            // Regular CF sintax check
-            if (credentials.value.cf) {
+            // Regular fiscalCode sintax check
+            if (credentials.value.fiscalCode) {
                 if (
-                    !credentials.value.cf.match(
+                    !credentials.value.fiscalCode.match(
                         /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i
                     )
                 ) {
@@ -271,18 +268,18 @@ export default {
                 }
             }
 
-            // Check peso value
-            if (credentials.value.peso) {
-                if (credentials.value.peso <= 0) {
+            // Check weight value
+            if (credentials.value.weight) {
+                if (credentials.value.weight <= 0) {
                     return AppVue.methods?.openToast(
                         "Il peso deve essere un valore positivo"
                     );
                 }
             }
 
-            // Check altezza value
-            if (credentials.value.altezza) {
-                if (credentials.value.altezza <= 0) {
+            // Check height value
+            if (credentials.value.height) {
+                if (credentials.value.height <= 0) {
                     return AppVue.methods?.openToast(
                         "L'altezza deve essere un valore positivo"
                     );
@@ -290,11 +287,11 @@ export default {
             }
 
             await register(
-                credentials.value.nome,
-                credentials.value.cognome,
-                credentials.value.cf,
-                credentials.value.peso,
-                credentials.value.altezza,
+                credentials.value.name,
+                credentials.value.surname,
+                credentials.value.fiscalCode,
+                credentials.value.weight,
+                credentials.value.height,
                 credentials.value.email,
                 credentials.value.password
             );

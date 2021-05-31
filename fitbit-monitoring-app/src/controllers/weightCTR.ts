@@ -1,47 +1,41 @@
-import firebase from "firebase";
-import "firebase/firestore";
-
-const db = firebase.firestore();
-const pesoCollection = db.collection("peso");
-import AppVue from "@/App.vue";
-import { getBaseUserInfo } from "./userCTR";
+import { firebase, weightCollection, AppVue, getBaseUserInfo } from "../config/export";
 
 /**
  * Get last weight value loaded
  * @return weight
  */
 export const getLastWeight = async () => {
-    let datiPeso: any = null;
-    const snapshot = await pesoCollection
+    let weightData: any = null;
+    const snapshot = await weightCollection
         .orderBy("dateTime", "desc")
         .limit(1)
         .where("uid", "==", getBaseUserInfo()?.uid)
         .get();
     snapshot.forEach((element) => {
-        datiPeso = element.data();
+        weightData = element.data();
     });
-    return datiPeso;
+    return weightData;
 };
 
 /**
- * Get weight values
+ * Get last 10 weight values
  * @return weight
  */
 export const getWeights = async () => {
-    interface Peso {
-        data: any;
-        valore: any;
+    interface Weight {
+        date: any;
+        value: any;
     }
-    const listaPesi: Peso[] = [];
+    const weightsList: Weight[] = [];
 
-    const snapshot = await pesoCollection
+    const snapshot = await weightCollection
         .orderBy("dateTime", "desc")
         .limit(10)
         .where("uid", "==", getBaseUserInfo()?.uid)
         .get();
     snapshot.forEach((row) => {
-        listaPesi.push({
-            data:
+        weightsList.push({
+            date:
                 row
                     .get("dateTime")
                     .toDate()
@@ -57,24 +51,23 @@ export const getWeights = async () => {
                     .get("dateTime")
                     .toDate()
                     .getFullYear(),
-            valore: row.get("peso"),
+            value: row.get("weight"),
         });
     });
 
-    return listaPesi;
+    return weightsList;
 };
 
 /**
- * Get last weight value loaded
- * @return weight
+ * Add a new weight value
  */
 export const addWeight = async (value: number) => {
     // Now add user weight to peso table (trace history)
     const currenteDateTime = firebase.firestore.Timestamp.fromDate(new Date());
-    pesoCollection
+    weightCollection
         .add({
             uid: getBaseUserInfo()?.uid,
-            peso: value,
+            weight: value,
             dateTime: currenteDateTime,
         })
         .then(() => {
@@ -84,3 +77,10 @@ export const addWeight = async (value: number) => {
             throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
         });
 };
+
+/**
+ * Sedentary Activity:  ~ 2 Km/h    ->  ~  3 kcal / min
+ * Light Activity:      ~ 4 Km/h    ->  ~  5 kcal / min
+ * Moderate Activity:   ~ 8 Km/h    ->  ~  11 kcal / min
+ * Intense Activity:    ~ 13 Km/h   ->  ~  19 kcal / min
+ */
