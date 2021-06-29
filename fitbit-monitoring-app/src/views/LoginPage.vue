@@ -11,10 +11,10 @@
             <ion-card class="translucent-login">
                 <ion-card-header>
                     <ion-card-title class="login-ion-card-title">
-                        Benvenuto!
+                        Welcome!
                     </ion-card-title>
                     <ion-card-subtitle class="login-ion-card-subtitle"
-                        >Accedi o registrati</ion-card-subtitle
+                        >Sign in or Sign up</ion-card-subtitle
                     >
                 </ion-card-header>
                 <ion-card-content>
@@ -31,7 +31,7 @@
                         ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating">Nome</ion-label>
+                        <ion-label position="floating">Name</ion-label>
                         <ion-input
                             class="login-input-text"
                             v-model="name"
@@ -43,7 +43,7 @@
                         ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating">Cognome</ion-label>
+                        <ion-label position="floating">Surname</ion-label>
                         <ion-input
                             class="login-input-text"
                             v-model="surname"
@@ -56,7 +56,7 @@
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
                         <ion-label position="floating"
-                            >Codice Fiscale</ion-label
+                            >Fiscal Code</ion-label
                         >
                         <ion-input
                             class="login-input-text"
@@ -68,7 +68,7 @@
                         ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating">Peso (KG)</ion-label>
+                        <ion-label position="floating">Weight (KG)</ion-label>
                         <ion-input
                             class="login-input-text"
                             v-model="weight"
@@ -81,7 +81,7 @@
                         ></ion-input>
                     </ion-item>
                     <ion-item v-if="mode === AuthMode.SignUp">
-                        <ion-label position="floating">Altezza (cm)</ion-label>
+                        <ion-label position="floating">Height (cm)</ion-label>
                         <ion-input
                             class="login-input-text"
                             v-model="height"
@@ -218,7 +218,7 @@ export default {
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )
             ) {
-                return AppVue.methods?.openToast("Email non conforme");
+                return AppVue.methods?.openToast("Non-compliant email");
             } else {
                 await login(
                     credentials.value.email,
@@ -235,14 +235,14 @@ export default {
                 !credentials.value.email
             ) {
                 return AppVue.methods?.openToast(
-                    "Sembra che le informazioni non siano complete"
+                    "The information appears to be incomplete"
                 );
             }
 
             // Regular password length check
             if (!credentials.value.password.match(/^.{6,}$/i)) {
                 return AppVue.methods?.openToast(
-                    "La password deve contenere almeno 6 caratteri"
+                    "The password must contain at least 6 characters"
                 );
             }
 
@@ -252,7 +252,7 @@ export default {
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )
             ) {
-                return AppVue.methods?.openToast("Email non conforme");
+                return AppVue.methods?.openToast("Non-compliant email");
             }
 
             // Regular fiscalCode sintax check
@@ -263,7 +263,7 @@ export default {
                     )
                 ) {
                     return AppVue.methods?.openToast(
-                        "Il codice fiscale immesso non è corretto"
+                        "The fiscal code entered is incorrect"
                     );
                 }
             }
@@ -272,7 +272,7 @@ export default {
             if (credentials.value.weight) {
                 if (credentials.value.weight <= 0) {
                     return AppVue.methods?.openToast(
-                        "Il peso deve essere un valore positivo"
+                        "The weight must be a positive valueo"
                     );
                 }
             }
@@ -281,7 +281,7 @@ export default {
             if (credentials.value.height) {
                 if (credentials.value.height <= 0) {
                     return AppVue.methods?.openToast(
-                        "L'altezza deve essere un valore positivo"
+                        "Height must be a positive value"
                     );
                 }
             }

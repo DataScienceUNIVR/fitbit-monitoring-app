@@ -5,16 +5,16 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>REPORT SONNO</ion-title>
+                <ion-title>SLEEP REPORT</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-card v-if="confidence">
                 <ion-card-header>
-                    <ion-card-subtitle class="input-ion-card-subtitle">CONFIDENZA:</ion-card-subtitle>
+                    <ion-card-subtitle class="input-ion-card-subtitle">CONFIDENCE:</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="sleep-ion-card-content">
-                    Valore sonno previsto per stasera:
+                    Sleep value expected for tonight:
                     <br>
                     <ion-badge color="medium" class="sleep-score"> {{sleepScore}} </ion-badge>
                     <div id="chart">
@@ -22,7 +22,7 @@
                         <div ref="confidenceChart" class="margin-chart"></div>
                     </div>
                     <br>
-                    Supporto:
+                    Support:
                     <br>
                     <ion-badge color="medium" class="sleep-score"> {{support}} </ion-badge>
                 </ion-card-content>
@@ -30,7 +30,7 @@
 
             <ion-card v-if="!confidence">
                 <ion-card-content class="sleep-ion-card-content">
-                    Sembrano non esserci dati relativi al tuo sonno!
+                    There seems to be no data on your sleep!
                     <br>
                     <ion-badge color="danger" class="sleep-score-alert">
                         <ion-icon :icon="alertCircleOutline"></ion-icon>
@@ -66,7 +66,7 @@ const sleepScore: any = null;
 const confidence: any = null;
 
 export default defineComponent({
-    name: "Report Sonno",
+    name: "Sleep Report",
     components: {
         IonButtons,
         IonContent,

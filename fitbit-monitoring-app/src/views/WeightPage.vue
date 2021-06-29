@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>TRACKING PESO</ion-title>
+                <ion-title>WEIGHT TRACKING</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -13,7 +13,7 @@
             <ion-card class="pulse" v-if="valueLastWeight">
                 <ion-card-header>
                     <ion-card-subtitle class="input-ion-card-subtitle"
-                        >IL TUO ULTIMO PESO REGISTRATO:</ion-card-subtitle
+                        >YOUR LAST REGISTERED WEIGHT:</ion-card-subtitle
                     >
                 </ion-card-header>
                 <ion-card-title class="input-on-card-title"
@@ -28,12 +28,12 @@
                 <ion-card class="input-ion-card">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >AGGIORNA IL TUO PESO:</ion-card-subtitle
+                            >UPDATE YOUR WEIGHT:</ion-card-subtitle
                         >
                     </ion-card-header>
                     <ion-card-title class="input-on-card-title">
                         <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
+                            <ion-label>Value: </ion-label>
                             <ion-input
                                 ref="newWeight"
                                 v-model="newWeight"
@@ -59,8 +59,7 @@
             <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="input-ion-card-subtitle"
-                        >TRACKING DEI TUOI UTLIMI PESI
-                        REGISTRATI</ion-card-subtitle
+                        >TRACKING YOUR LAST REGISTERED WEIGHTS</ion-card-subtitle
                     >
                 </ion-card-header>
                 <div id="chart">
@@ -147,22 +146,22 @@ export default defineComponent({
 
         async presentAlert() {
             const alert = await alertController.create({
-                header: "Immissione di un nuovo peso",
+                header: "Entering a new weight",
                 message:
-                    "Sei sicuro di voler inserire questo tuo nuovo peso con data odierna?",
+                    "Are you sure you want to enter your new weight with today's date?",
                 buttons: [
                     {
-                        text: "Cancella",
+                        text: "Cancel",
                         role: "cancel",
                         cssClass: "secondary",
                         handler: () => {
                             return AppVue.methods?.openToast(
-                                "Peso non salvato."
+                                "Weight not saved."
                             );
                         },
                     },
                     {
-                        text: "Inserisci",
+                        text: "Insert",
                         handler: () => {
                             this.saveWeight();
                         },

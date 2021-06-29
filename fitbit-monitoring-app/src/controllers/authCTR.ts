@@ -84,8 +84,8 @@ export default function () {
                                     state.error = null;
                                 })
                                 .catch((error) => {
-                                    state.error = "Errore nella registrazione: " + error;
-                                    throw AppVue.methods?.openToast("Errore nella registrazione: " + error);
+                                    state.error = "Registration error: " + error;
+                                    throw AppVue.methods?.openToast("Registration error: " + error);
                                 });
 
                                 // Now add user weight to weight table (trace history)
@@ -101,8 +101,8 @@ export default function () {
                                     return user;
                                 })
                                 .catch((error) => {
-                                    state.error = "Errore nella registrazione: " + error;
-                                    throw AppVue.methods?.openToast("Errore nella registrazione: " + error);
+                                    state.error = "Registration error: " + error;
+                                    throw AppVue.methods?.openToast("Registration error: " + error);
                                 });
                         } else {
                             state.error = "Dati non conformi, registrazione annullata";

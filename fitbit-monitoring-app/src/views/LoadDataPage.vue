@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>CARICAMENTO DATI</ion-title>
+                <ion-title>DATA UPLOAD</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
@@ -13,13 +13,13 @@
             <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="data-ion-card-title">ATTIVITÀ SEDENTARIA</ion-card-title>
+                        <ion-card-subtitle>FITBIT DATA UPLOAD</ion-card-subtitle>
+                        <ion-card-title class="data-ion-card-title">SEDENTARY ACTIVITY</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Caricare i dati della tua attività fisica sedentaria in formato JSON del dispositivo fitbit.
-                        <br />Attenzione: il caricamento sovrascriverà tutti gli
-                        attuali dati!
+                        Upload your sedentary physical activity data in JSON format from your fitbit device.
+                        <br />Warning: uploading will overwrite all
+                         current data!
                     </ion-card-content>
                     <input
                         type="file"
@@ -38,13 +38,13 @@
             <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="data-ion-card-title">ATTIVITÀ LEGGERA</ion-card-title>
+                        <ion-card-subtitle>FITBIT DATA UPLOAD</ion-card-subtitle>
+                        <ion-card-title class="data-ion-card-title">LIGHT ACTIVITY</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Caricare i dati delle tua attività fisica leggera in formato JSON del dispositivo fitbit.
-                        <br />Attenzione: il caricamento sovrascriverà tutti gli
-                        attuali dati!
+                        Upload your light physical activity data in JSON format from your fitbit device.
+                        <br />Warning: uploading will overwrite all
+                         current data!
                     </ion-card-content>
                     <input
                         type="file"
@@ -63,13 +63,13 @@
             <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="data-ion-card-title">ATTIVITÀ MODERATA</ion-card-title>
+                        <ion-card-subtitle>FITBIT DATA UPLOAD</ion-card-subtitle>
+                        <ion-card-title class="data-ion-card-title">MODERATE ACTIVITY</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Caricare i dati della tua attività fisica moderata in formato JSON del dispositivo fitbit.
-                        <br />Attenzione: il caricamento sovrascriverà tutti gli
-                        attuali dati!
+                        Upload your moderate physical activity data in JSON format from your fitbit device.
+                        <br />Warning: uploading will overwrite all
+                        current data!
                     </ion-card-content>
                     <input
                         type="file"
@@ -88,13 +88,13 @@
             <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>UPLOAD DATI FITBIT</ion-card-subtitle>
-                        <ion-card-title class="data-ion-card-title">ATTIVITÀ INTENSA</ion-card-title>
+                        <ion-card-subtitle>FITBIT DATA UPLOAD</ion-card-subtitle>
+                        <ion-card-title class="data-ion-card-title">INTENSE ACTIVITY</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Caricare i dati della tua attività fisica intensa in formato JSON del dispositivo fitbit.
-                        <br />Attenzione: il caricamento sovrascriverà tutti gli
-                        attuali dati!
+                        Upload your strenuous exercise data in JSON format from your fitbit device.
+                        <br />Warning: uploading will overwrite all
+                         current data!
                     </ion-card-content>
                     <input
                         type="file"
@@ -113,13 +113,13 @@
             <ion-row class="data-row">
                 <ion-card>
                     <ion-card-header>
-                        <ion-card-subtitle>DOWNLOAD DATI</ion-card-subtitle>
-                        <ion-card-title class="data-ion-card-title">SCARICA TUTTI I DATI</ion-card-title>
+                        <ion-card-subtitle>DATA DOWNLOAD</ion-card-subtitle>
+                        <ion-card-title class="data-ion-card-title">DOWNLOAD ALL FITBIT DATA</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        Scaricare i dati in formato JSON del dispositivo fitbit.
-                        <br />I dati contengono tutta la storia dei passi
-                        giornalieri registrati.
+                        Download the fitbit device JSON data.
+                        <br />The data contains the entire history of the steps
+                        recorded daily.
                     </ion-card-content>
                 </ion-card>
                 <ion-fab class="load-fab" horizontal="end">
@@ -198,13 +198,13 @@ export default defineComponent({
 
             if (!type || !src) {
                 return AppVue.methods?.openToast(
-                    "Si è verificato un errore, ripetere la procedura"
+                    "An error has occurred, repeat the procedure"
                 );
             }
             // If it's not JSON file return
             if (!file || file.type !== "application/json") {
                 return AppVue.methods?.openToast(
-                    "Il file deve essere di tipo JSON!"
+                    "The file must be a JSON type!"
                 );
             }
             const reader = new FileReader();
@@ -218,7 +218,7 @@ export default defineComponent({
                     const tmp = JSON.parse(text);
 
                     await saveUserActivity(tmp, type);
-                    return AppVue.methods?.openToast("Dati caricati correttamente!");
+                    return AppVue.methods?.openToast("Data loaded successfully!");
                 } catch (e) {
                     return AppVue.methods?.openToast(e);
                 }
@@ -252,11 +252,11 @@ export default defineComponent({
         },
          async chooseActivityType() {
             const actionSheet = await actionSheetController.create({
-                header: "Quali dati scariare?",
+                header: "What data do you want to download?",
                 cssClass: "my-custom-class",
                 buttons: [
                     {
-                        text: "Attività Sedentaria",
+                        text: "Activity Sedentary",
                         role: "destructive",
                         icon: sendSharp,
                         handler: () => {
@@ -265,7 +265,7 @@ export default defineComponent({
                         },
                     },
                     {
-                        text: "Attività Leggera",
+                        text: "Activity Light",
                         role: "destructive",
                         icon: sendSharp,
                         handler: () => {
@@ -273,7 +273,7 @@ export default defineComponent({
                         },
                     },
                     {
-                        text: "Attività Moderata",
+                        text: "Activity Moderate",
                         role: "destructive",
                         icon: sendSharp,
                         handler: () => {
@@ -281,7 +281,7 @@ export default defineComponent({
                         },
                     },
                     {
-                        text: "Attività Intensa",
+                        text: "Activity Intense",
                         role: "destructive",
                         icon: sendSharp,
                         handler: () => {
@@ -289,7 +289,7 @@ export default defineComponent({
                         },
                     },
                     {
-                        text: "Annulla",
+                        text: "Cancel",
                         role: "cancel",
                         handler: () => {
                             console.log("Cancel clicked");
