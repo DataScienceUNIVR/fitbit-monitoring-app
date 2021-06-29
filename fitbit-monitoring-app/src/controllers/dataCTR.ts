@@ -25,7 +25,7 @@ export const saveUserActivity = async (args: any[], type: string) => {
             activityCollection = db.collection("intenseActivity");
             break;
         default:
-            message = "Si è verificato un errore, ripetere la procedura";
+            message = "An error has occurred, repeat the procedure";
             throw AppVue.methods?.openToast(message);
     }
     activityCollection.where('uid', '==', uid).get()
@@ -52,14 +52,14 @@ export const saveUserActivity = async (args: any[], type: string) => {
                             minutes: number,
                         })
                         .then(() => {
-                            message = "Dati caricati correttamente";
+                            message = "Data loaded successfully ";
                         })
                         .catch((error) => {
-                            message = "Errore nel caricamento dei dati: " + error;
+                            message = "Error loading data: " + error;
                             throw AppVue.methods?.openToast(message);
                         });
                 } else {
-                    message = "Dati non conformi, caricamento annullato";
+                    message = "Data not compliant, upload canceled";
                     throw AppVue.methods?.openToast(message);
                 }
             });

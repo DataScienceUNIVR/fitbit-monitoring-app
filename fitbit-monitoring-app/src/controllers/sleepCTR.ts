@@ -15,7 +15,7 @@ export const getSleepAssociationRules = async () => {
         if(!response.data.error) {
             result = response.data;
         } else {
-            throw AppVue.methods?.openToast("Errore nella gestione delle richiesta. Perfavore riprovare");
+            throw AppVue.methods?.openToast("Error in handling requests. Please try again");
         }
     })
     .catch(e => {

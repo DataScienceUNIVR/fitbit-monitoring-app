@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>PROFILO</ion-title>
+                <ion-title>PROFILE</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -13,7 +13,7 @@
             <ion-card class="profile-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="profile-ion-card-subtitle"
-                        >PROFILO DATI</ion-card-subtitle
+                        >DATA PROFILE</ion-card-subtitle
                     >
                     <ion-card-title
                         ><ion-fab vertical="bottom" horizontal="end">
@@ -31,7 +31,7 @@
                                     ? user.imageURL
                                     : './assets/img/avatar.jpg'
                             "
-                            :alt="user.nome" />
+                            :alt="user.name" />
                         <input
                             type="file"
                             ref="file"
@@ -41,12 +41,12 @@
                     /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
-                    <b>NOME</b>: {{ user.name }} <br />
-                    <b>COGNOME</b>: {{ user.surname }} <br />
-                    <b>C.F</b>: {{ user.fiscalCode }} <br />
+                    <b>NAME</b>: {{ user.name }} <br />
+                    <b>SURNAME</b>: {{ user.surname }} <br />
+                    <b>F.C</b>: {{ user.fiscalCode }} <br />
                     <b>EMAIL</b>: {{ user.email }} <br />
-                    <b>PESO</b>: {{ user.weight }} Kg <br />
-                    <b>ALTEZZA</b>: {{ user.height }} cm
+                    <b>WEIGHT</b>: {{ user.weight }} Kg <br />
+                    <b>HEIGHT</b>: {{ user.height }} cm
                 </ion-card-content>
 
                 <ion-button
@@ -56,7 +56,7 @@
                     size="small"
                     class="profile-delete-account-button"
                     @click="deleteAccount"
-                    >Cancella Account</ion-button
+                    >Delete Account</ion-button
                 >
             </ion-card>
         </ion-content>
@@ -171,11 +171,11 @@ export default defineComponent({
 
         async confirmDelete() {
             const actionSheet = await actionSheetController.create({
-                header: (deleteConfirmation != 1) ? "Cancellare Account?" : "Conferma cancellazione",
+                header: (deleteConfirmation != 1) ? "Delete Account?" : "Confirm delete",
                 cssClass: "my-custom-class",
                 buttons: [
                     {
-                        text: (deleteConfirmation != 1) ? "Cancella Account" : "Cancella definitivamente",
+                        text: (deleteConfirmation != 1) ? "Delete Account" : "Delete definitely",
                         role: "destructive",
                         icon: trash,
                         handler: () => {
@@ -188,7 +188,7 @@ export default defineComponent({
                         },
                     },
                     {
-                        text: "Annulla",
+                        text: "Undo",
                         role: "cancel",
                         handler: () => {
                             console.log("Cancel clicked");

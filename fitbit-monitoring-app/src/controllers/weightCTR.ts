@@ -74,7 +74,7 @@ export const addWeight = async (value: number) => {
             location.reload(true);
         })
         .catch((error) => {
-            throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
+            throw AppVue.methods?.openToast("Error in saving: " + error);
         });
 };
 

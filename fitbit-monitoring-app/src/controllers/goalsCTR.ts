@@ -89,8 +89,8 @@ export const updateDailyActivityGoal = async (
             location.reload(true);
         })
         .catch((error) => {
-            throw AppVue.methods?.openToast("Errore nel salvataggio: " + error);
+            throw AppVue.methods?.openToast("Error in saving: " + error);
         });
 
-    return AppVue.methods?.openToast("Obiettivo aggiornato");
+    return AppVue.methods?.openToast("Updated goals");
 };

@@ -5,13 +5,13 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>REPORT ATTIVITA'</ion-title>
+                <ion-title>ACTIVITY REPORT</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-toolbar>
                 <ion-item>
-                    DATA INIZIO:
+                    START DATE:
                     <ion-datetime
                         :picker-options="customPickerOptions"
                         display-format="YYYY/MM/DD"
@@ -20,7 +20,7 @@
                     ></ion-datetime>
                 </ion-item>
                 <ion-item>
-                    DATA FINE:&nbsp;&nbsp;
+                    END DATE:&nbsp;&nbsp;
                     <ion-datetime
                         :picker-options="customPickerOptions"
                         display-format="DD/MM/YYYY"
@@ -40,7 +40,7 @@
             </ion-toolbar>
             <ion-card-header>
                 <ion-card-subtitle class="report-ion-card-subtitle">
-                    RIPARTIZIONE TOTALE IN MINUTI
+                    TOTAL BREAKDOWN IN MINUTES
                 </ion-card-subtitle>
             </ion-card-header>
             <div id="chart">
@@ -53,7 +53,7 @@
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
-                                MINUTI / GIORNO ATTIVITÀ SEDENTARIA
+                                MINUTES / DAY SEDENTARY ACTIVITY
                             </ion-card-subtitle>
                         </ion-card-header>
                         <div id="chart">
@@ -66,7 +66,7 @@
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
-                                MINUTI / GIORNO ATTIVITÀ LEGGERA
+                                MINUTES / DAY LIGHT ACTIVITY
                             </ion-card-subtitle>
                         </ion-card-header>
                         <div id="chart">
@@ -79,7 +79,7 @@
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
-                                MINUTI / GIORNO ATTIVITÀ MODERATA
+                                MINUTES / DAY MODERATE ACTIVITY
                             </ion-card-subtitle>
                         </ion-card-header>
                         <div id="chart">
@@ -92,7 +92,7 @@
                     <ion-card class="chart-ion-card">
                         <ion-card-header>
                             <ion-card-subtitle class="report-ion-card-subtitle">
-                                MINUTI / GIORNO ATTIVITÀ INTENSA
+                                MINUTES / DAY INTENSE ACTIVITY 
                             </ion-card-subtitle>
                         </ion-card-header>
                         <div id="chart">
@@ -111,11 +111,11 @@
                 >
                     <ion-card class="report-alert-ion-card">
                         <ion-card-header>
-                            <ion-card-title> MI DISPIACE, </ion-card-title>
+                            <ion-card-title> SORRY, </ion-card-title>
                         </ion-card-header>
                         <ion-card-content class="report-ion-card-content">
-                            PURTROPPO NON SEMBRANO ESSERCI DATI CARICATI PER
-                            NESSUNA ATTIVITÀ!
+                            UNFORTUNATELY THERE DOES NOT APPEAR TO BE UPLOADED FOR
+                            NO ACTIVITY!
                             <br /><br /><ion-icon
                                 :icon="sad"
                                 class="report-no-data-ion-icon"
@@ -176,7 +176,7 @@ let totalMinutesIntenseActivity = 0;
 
 const isEmpty = true;
 export default defineComponent({
-    name: "Report Attività",
+    name: "Activity Report",
     components: {
         IonButtons,
         IonContent,
@@ -291,9 +291,9 @@ export default defineComponent({
         
         async presentAlert() {
             const alert = await alertController.create({
-                header: "Nessun dato trovato!",
+                header: "No data found!",
                 message:
-                    "Attenzione: impossibile visualizzare i report. Sembrano non esserci dati caricati per nessun tipo di attività relativi a questo utente.",
+                    "Warning: Reports cannot be viewed. There appears to be no data uploaded for any type of activity related to this user.",
                 buttons: [
                     {
                         text: "Ok",
@@ -461,10 +461,10 @@ export default defineComponent({
             ],
             colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             labels: [
-                "Attività sedentaria",
-                "Attività leggera",
-                "Attività moderata",
-                "Attività intensa",
+                "Sedentary Activity",
+                "Light Activity",
+                "Moderate Activity",
+                "Intense Activity",
             ],
 
             responsive: [
@@ -519,13 +519,13 @@ export default defineComponent({
                 {
                     text: "Cancel",
                     handler: () => {
-                        console.log("Annullato");
+                        console.log("Canceled");
                     },
                 },
                 {
                     text: "Seleziona",
                     handler: () => {
-                        console.log("Selezionato");
+                        console.log("Selected");
                     },
                 },
             ],

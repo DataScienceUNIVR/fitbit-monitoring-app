@@ -5,25 +5,25 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>STATISTICHE</ion-title>
+                <ion-title>STATISTICS</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-toolbar collapse="condense">
                 <ion-item>
-                    <ion-label>PERIODO STATISTICHE</ion-label>
+                    <ion-label>STATISTICS PERIOD</ion-label>
                     <ion-select
-                        placeholder="SELEZIONA"
+                        placeholder="SELECT"
                         @ionchange="changePeriod"
                     >
                         <ion-select-option value="d" selected="true"
-                            >Ultimo giorno</ion-select-option
+                            >Last Day</ion-select-option
                         >
                         <ion-select-option value="w"
-                            >Ultima settimana</ion-select-option
+                            >Last Week</ion-select-option
                         >
                         <ion-select-option value="m"
-                            >Ultimo mese</ion-select-option
+                            >Last Month</ion-select-option
                         >
                     </ion-select>
                 </ion-item>
@@ -45,8 +45,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >TEMPO DI ATTIVITÀ'<br />
-                                    SEDENTARIA</ion-card-subtitle
+                                    >SEDENTARY<br />
+                                    ACTIVITY TIME</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -65,8 +65,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >DISTANZA PERCORSA IN ATTIVITÀ
-                                    SEDENTARIA</ion-card-subtitle
+                                    >DISTANCE TRAVELED<br />
+                                    SEDENTARY ACTIVITY</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -95,8 +95,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >TEMPO DI ATTIVITÀ<br />
-                                    LEGGERA</ion-card-subtitle
+                                    >LIGHT<br />
+                                    ACTIVITY TIME</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -114,8 +114,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >DISTANZA PERCORSA IN ATTIVITÀ
-                                    LEGGERA</ion-card-subtitle
+                                    >DISTANCE TRAVELED<br />
+                                    LIGHT ACTIVITY</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -143,8 +143,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >TEMPO DI ATTIVITÀ<br />
-                                    MODERATA</ion-card-subtitle
+                                    >MODERATE<br />
+                                    ACTIVITY TIME</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -162,8 +162,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >DISTANZA PERCORSA IN ATTIVITÀ
-                                    MODERATA</ion-card-subtitle
+                                    >DISTANCE TRAVELED<br />
+                                    MODERATE ACTIVITY</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -191,8 +191,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >TEMPO DI ATTIVITÀ'<br />
-                                    INTESA</ion-card-subtitle
+                                    >INTENSE<br />
+                                    ACTIVITY TIME</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -210,8 +210,8 @@
                             <ion-card-header>
                                 <ion-card-subtitle
                                     class="statistics-ion-card-subtitle"
-                                    >DISTANZA PERCORSA IN ATTIVITÀ
-                                    INTESA</ion-card-subtitle
+                                    >DISTANCE TRAVELED<br />
+                                    INTENSE ACTIVITY</ion-card-subtitle
                                 >
                                 <ion-card-title
                                     class="statistics-ion-card-title"
@@ -334,7 +334,7 @@ export default {
                 }
             })
             .catch((e) => {
-                console.log("Errore");
+                console.log("Error");
             });
 
         for (let i = 1; i <= 4; i++) {

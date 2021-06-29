@@ -65,7 +65,7 @@ export const getAllUserInfo = async () => {
     const snapshot = await usersCollection.where("uid", "==", user.uid).get();
     if (snapshot.empty) {
         return AppVue.methods?.openToast(
-            "Errore: eseguire il logout e riautenticarsi"
+            "Error: Please log out and re-authenticate"
         );
     }
 
@@ -149,7 +149,7 @@ export const deleteAccountInfo = async () => {
     user?.delete().then(function () {
         return document.location.href="/login";
     }).catch(function (error: string) {
-        return AppVue.methods?.openToast("Errore nella cancellazione dell'utente auth: " + error);
+        return AppVue.methods?.openToast("Error deleting user auth: " + error);
     });
 
 };

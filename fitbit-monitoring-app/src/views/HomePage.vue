@@ -12,7 +12,7 @@
             <ion-card class="chart-ion-card blue-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        MINUTI ATTIVITÀ SEDENTARIA
+                        MINUTES SEDENTARY ACTIVITY
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
@@ -22,7 +22,7 @@
             <ion-card class="chart-ion-card green-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        MINUTI ATTIVITÀ LEGGERA
+                        MINUTES LIGHT ACTIVITY
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
@@ -32,7 +32,7 @@
             <ion-card class="chart-ion-card red-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        MINUTI ATTIVITÀ MODERATA
+                        MINUTES MODERATE ACTIVITY
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
@@ -42,7 +42,7 @@
             <ion-card class="chart-ion-card purple-gradient">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        MINUTI ATTIVITÀ INTENSA
+                        MINUTES INTENSE ACTIVITY
                     </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content class="counter-ion-card">
@@ -53,7 +53,7 @@
             <ion-card class="chart-ion-card">
                 <ion-card-header>
                     <ion-card-subtitle class="report-ion-card-subtitle">
-                        OBIETTIVI GIORNALIERI:
+                        DAILY GOALS:
                     </ion-card-subtitle>
                 </ion-card-header>
                 <div id="chart">
@@ -180,10 +180,10 @@ export default defineComponent({
             },
             series: [this.sedentaryActivityPercentual, this.lightActivityPercentual, this.moderateActivityPercentual, this.intenseActivityPercentual],
             labels: [
-                "A. sedentaria",
-                "A. leggera",
-                "A. moderata",
-                "A. intensa",
+                "Sedentary A.",
+                "Light A.",
+                "Moderate A.",
+                "Intense A.",
             ],
             colors: ["#008ffb", "#00e396", "#feb019", "#a62fd8"],
             legend: {

@@ -5,7 +5,7 @@
                 <ion-buttons slot="start">
                     <ion-menu-button color="primary"></ion-menu-button>
                 </ion-buttons>
-                <ion-title>OBIETTIVI</ion-title>
+                <ion-title>GOALS</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -14,13 +14,13 @@
                 <ion-card class="input-ion-card blue-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >ATTIVITA SEDENTARIA:</ion-card-subtitle
+                            >SEDENTARY ACTIVITY:</ion-card-subtitle
                         >
                     </ion-card-header>
                     
                     <ion-card-title class="input-on-card-title">
                         <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
+                            <ion-label>Value: </ion-label>
                             <ion-input
                                 ref="sedentaryActivity"
                                 id="sedentaryActivity"
@@ -31,7 +31,7 @@
                                 min="0"
                                 :readonly="false"
                             ></ion-input
-                            >KG
+                            >min
                         </ion-item>
                     </ion-card-title>
                     <ion-card-content class="input-ion-card-content">
@@ -46,12 +46,12 @@
                 <ion-card class="input-ion-card red-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >ATTIVITA LEGGERA:</ion-card-subtitle
+                            >LIGHT ACTIVITY:</ion-card-subtitle
                         >
                     </ion-card-header>
                     <ion-card-title class="input-on-card-title">
                         <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
+                            <ion-label>Value: </ion-label>
                             <ion-input
                                 ref="lightActivity"
                                 id="lightActivity"
@@ -62,7 +62,7 @@
                                 min="0"
                                 :readonly="false"
                             ></ion-input
-                            >KG
+                            >min
                         </ion-item>
                     </ion-card-title>
                     <ion-card-content class="input-ion-card-content">
@@ -77,12 +77,12 @@
                 <ion-card class="input-ion-card purple-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >ATTIVITA MODERATA:</ion-card-subtitle
+                            >MODERATE ACTIVITY:</ion-card-subtitle
                         >
                     </ion-card-header>
                     <ion-card-title class="input-on-card-title">
                         <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
+                            <ion-label>Value: </ion-label>
                             <ion-input
                                 ref="moderateActivity"
                                 id="moderateActivity"
@@ -93,7 +93,7 @@
                                 min="0"
                                 :readonly="false"
                             ></ion-input
-                            >KG
+                            >min
                         </ion-item>
                     </ion-card-title>
                     <ion-card-content class="input-ion-card-content">
@@ -108,12 +108,12 @@
                 <ion-card class="input-ion-card green-gradient">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >ATTIVITA INTENSA:</ion-card-subtitle
+                            >INTENSE ACTIVITY:</ion-card-subtitle
                         >
                     </ion-card-header>
                     <ion-card-title class="input-on-card-title">
                         <ion-item class="text-input">
-                            <ion-label>Valore: </ion-label>
+                            <ion-label>Value: </ion-label>
                             <ion-input
                                 ref="intenseActivity"
                                 id="intenseActivity"
@@ -124,7 +124,7 @@
                                 min="0"
                                 :readonly="false"
                             ></ion-input
-                            >KG
+                            >min
                         </ion-item>
                     </ion-card-title>
                     <ion-card-content class="input-ion-card-content">
