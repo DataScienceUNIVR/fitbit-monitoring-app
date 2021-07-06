@@ -415,6 +415,17 @@ ion-title {
     font-size: 45px;
     margin-top: 10px;
 }
+.sleep-select {
+    vertical-align: middle;
+    width: 100%;
+    margin-left: 10%;
+}
+.sleep-input-ion-card {
+    height: 176px;
+}
+.sleep-legend-table {
+    margin-left: 18%;
+}
 /* ################################################################ */
 
 /* Pagina statistiche */
