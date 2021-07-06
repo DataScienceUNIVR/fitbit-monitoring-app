@@ -47,8 +47,7 @@ fitbit-monitoring-app
 	│   package.json
 ```
 ### Main Folder
-- **association-api**: contiene delle semplici API in PHP che chiamano le api per l'associazione delle regole.
-	TODO: aggiungere spiegazione
+- **association-api**: contiene delle semplici API in PHP che chiamano le api per l'associazione delle regole (statiche per ora).
 -  **fitbit-monitoring-app**: contiene tutti i sorgenti del programma. 
 
 
@@ -142,8 +141,6 @@ Quindi la pagina LoginPage.vue chiama le funzioni all'interno di questo file.
 				> NOTA: Dopo aver fatto l'upload dell'immagine ho salvato l'URL di quella nuova nel localstorage: `localStorage.setItem("imageURL", value);`
 				così facendo non ho problemi di cache e dopo che l'utente ha fatto l'upload e viene aggiornata la pagina, c'è già la nuova foto salvata.
 
-				TODO: aggiungere img dashboard
-
 
 	- *getProfileImage ()*
 					Funzione simile alla precedente ma che ritorna solo l'URL dell'immagine.
@@ -175,7 +172,6 @@ Quindi la pagina LoginPage.vue chiama le funzioni all'interno di questo file.
 		
 	- *getUserActivity ()*
 	Funzione che serve per esportare gli attuali dati: l'utente seleziona la tipologia di attività che vuole esportare e viene ritornato un file JSON.
-	TODO: funzione che bisogna finire da implementare
 	
 
 - #### statisticsCTR.ts:
