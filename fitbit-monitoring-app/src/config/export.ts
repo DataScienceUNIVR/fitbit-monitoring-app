@@ -20,5 +20,6 @@ export const lightActivityCollection = db.collection("lightActivity");
 export const moderateActivityCollection = db.collection("moderateActivity");
 export const intenseActivityCollection = db.collection("intenseActivity");
 export const activityGoalsCollection = db.collection("activityGoals");
+export const sleepQualityCollection = db.collection("sleepQuality");
 
 export {firebase, AppVue, reactive, toRefs, ref, defineComponent, Md5, ApexCharts, useRouter, VueFlip, axios, getBaseUserInfo}

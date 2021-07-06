@@ -145,30 +145,35 @@ export default defineComponent({
         },
 
         async presentAlert() {
-            const alert = await alertController.create({
-                header: "Entering a new weight",
-                message:
-                    "Are you sure you want to enter your new weight with today's date?",
-                buttons: [
-                    {
-                        text: "Cancel",
-                        role: "cancel",
-                        cssClass: "secondary",
-                        handler: () => {
-                            return AppVue.methods?.openToast(
-                                "Weight not saved."
-                            );
+            const weight = this.$refs.newWeight as any;
+            if(weight.value) {
+                const alert = await alertController.create({
+                    header: "Entering a new weight",
+                    message:
+                        "Are you sure you want to enter your new weight with today's date?",
+                    buttons: [
+                        {
+                            text: "Cancel",
+                            role: "cancel",
+                            cssClass: "secondary",
+                            handler: () => {
+                                return AppVue.methods?.openToast(
+                                    "Weight not saved."
+                                );
+                            },
                         },
-                    },
-                    {
-                        text: "Insert",
-                        handler: () => {
-                            this.saveWeight();
+                        {
+                            text: "Insert",
+                            handler: () => {
+                                this.saveWeight();
+                            },
                         },
-                    },
-                ],
-            });
-            return alert.present();
+                    ],
+                });
+                return alert.present();
+            } else {
+                return AppVue.methods?.openToast("It's can't be empty!");
+            }
         },
     },
 
