@@ -14,7 +14,7 @@
                     START DATE:
                     <ion-datetime
                         :picker-options="customPickerOptions"
-                        display-format="YYYY/MM/DD"
+                        display-format="DD/MM/YYYY"
                         min="2000-01-01"
                         value="2021-04-20"
                     ></ion-datetime>
@@ -25,7 +25,7 @@
                         :picker-options="customPickerOptions"
                         display-format="DD/MM/YYYY"
                         min="2000-01-01"
-                        value="2021-04-20"
+                        value="2021-07-14"
                     ></ion-datetime>
                 </ion-item>
                 <ion-fab vertical="center" horizontal="end">
