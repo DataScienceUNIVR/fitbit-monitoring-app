@@ -426,6 +426,10 @@ ion-title {
 .sleep-legend-table {
     margin-left: 18%;
 }
+.sleep-margin-chart {
+    margin-top: -7%;
+    margin-bottom: -20%;
+}
 /* ################################################################ */
 
 /* Pagina statistiche */

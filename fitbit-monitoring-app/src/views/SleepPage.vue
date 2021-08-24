@@ -19,7 +19,7 @@
                     <ion-badge color="medium" class="sleep-score"> {{sleepScore}} </ion-badge>
                     <div id="chart">
                         <hr />
-                        <div ref="confidenceChart" class="margin-chart"></div>
+                        <div ref="confidenceChart" class="sleep-margin-chart"></div>
                     </div>
                     <br>
                     Support:
