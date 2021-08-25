@@ -98,6 +98,7 @@ export default function () {
                                 })
                                 .then(() => {
                                     state.error = null;
+                                    localStorage.setItem("uid", uid);
                                     return user;
                                 })
                                 .catch((error) => {
@@ -121,6 +122,16 @@ export default function () {
      * Logout with firebase auth
      */
     const logout = () => {
+        localStorage.removeItem("uid");
+        localStorage.removeItem("imageURL");
+        localStorage.removeItem("OAuth2Code");
+        localStorage.removeItem("name");
+        localStorage.removeItem("surname");
+        localStorage.removeItem("height");
+        localStorage.removeItem("weight");
+        localStorage.removeItem("email");
+        localStorage.removeItem("fiscalCode");
+
         return firebase
             .auth()
             .signOut()

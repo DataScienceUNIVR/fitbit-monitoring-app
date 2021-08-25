@@ -153,3 +153,20 @@ export const deleteAccountInfo = async () => {
     });
 
 };
+
+
+/**
+ * Save user code returned by oauth2 call
+ */
+ export const saveOAuth2UserCode = async (code: string) => {
+    const uid = localStorage.getItem("uid");
+    console.log(uid);
+    if (code && uid) {
+        const snapshot = await (await usersCollection.where("uid", "==", uid).get());
+        snapshot.forEach(element => {
+            element.ref.update({'fiscalCode': code});
+        });
+        localStorage.setItem("OAuth2Code", code);
+        throw AppVue.methods?.openToast("Registrazione avvenuta correttamente");
+    }
+};

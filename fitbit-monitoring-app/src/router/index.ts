@@ -53,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "SleepPage",
 		component: () => import("@/views/SleepPage.vue"),
 	},
+	{
+		path: "/oauth",
+		name: "OAuthPage",
+		component: () => import("@/views/OAuthPage.vue"),
+	},
 ];
 
 const router = createRouter({

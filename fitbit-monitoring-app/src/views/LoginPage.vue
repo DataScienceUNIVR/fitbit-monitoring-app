@@ -165,6 +165,7 @@ import {
 } from "@ionic/vue";
 import useFirebaseAuth from "../controllers/authCTR";
 import { reactive, ref, toRefs, AppVue, useRouter } from "../config/export";
+import { saveOAuth2UserCode } from '@/controllers/userCTR';
 
 enum AuthMode {
     SignIn,
@@ -295,7 +296,8 @@ export default {
                 credentials.value.email,
                 credentials.value.password
             );
-            router.replace({ path: "/home" });
+            window.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23BG9G&redirect_uri=https%3A%2F%2Fwww.univr.it%2Fit%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
+            // router.replace({ path: "/oauth2" });
         };
 
         return {
@@ -305,6 +307,19 @@ export default {
             doSignUp,
             AuthMode,
         };
+    },
+
+    beforeRouteEnter() {
+        // URI example: https://www.univr.it/it/?code=9e82af9d79be6c7ff1810a0a674ebb27bd09527b#_=_
+        const uri = window.location.search.substring(1); 
+        const params = new URLSearchParams(uri);
+        const code = params.get("code");
+        console.log(code);
+        if (code) {
+            saveOAuth2UserCode(code);
+        } else {
+            console.log("non cè nulla");
+        }
     },
 };
 </script>
