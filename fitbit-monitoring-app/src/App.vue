@@ -138,6 +138,10 @@ export default defineComponent({
             await logout();
             router.replace({ path: "/login" });
         };
+
+        if (!localStorage.getItem("OAth2Code")) {
+            router.replace({ path: "/oauth" });
+        }
         const loggedUser = getLoggedUserData().user;
         const appPages = [
             {

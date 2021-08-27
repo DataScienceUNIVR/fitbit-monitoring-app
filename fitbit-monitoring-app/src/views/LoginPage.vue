@@ -225,6 +225,9 @@ export default {
                     credentials.value.email,
                     credentials.value.password
                 );
+                if (!localStorage.getItem("OAth2Code")) {
+                    router.replace({ path: "/oauth" });
+                }
                 router.replace({ path: "/home" });
             }
         };
@@ -296,8 +299,7 @@ export default {
                 credentials.value.email,
                 credentials.value.password
             );
-            window.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23BG9G&redirect_uri=https%3A%2F%2Fwww.univr.it%2Fit%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
-            // router.replace({ path: "/oauth2" });
+            router.replace({ path: "/home" });
         };
 
         return {
