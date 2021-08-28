@@ -165,7 +165,7 @@ import {
 } from "@ionic/vue";
 import useFirebaseAuth from "../controllers/authCTR";
 import { reactive, ref, toRefs, AppVue, useRouter } from "../config/export";
-import { saveOAuth2UserCode } from '@/controllers/userCTR';
+import { getUserOauth2Code } from '../controllers/userCTR';
 
 enum AuthMode {
     SignIn,
@@ -225,10 +225,18 @@ export default {
                     credentials.value.email,
                     credentials.value.password
                 );
-                if (!localStorage.getItem("OAth2Code")) {
+                let userOauth2Code = null;
+                await Promise.resolve(getUserOauth2Code()).then((value) => {
+                    if (value) {
+                        userOauth2Code = value;
+                    }
+                });
+
+                if (userOauth2Code) {
+                    router.replace({ path: "/home" });
+                } else {
                     router.replace({ path: "/oauth" });
                 }
-                router.replace({ path: "/home" });
             }
         };
 
@@ -298,8 +306,8 @@ export default {
                 credentials.value.height,
                 credentials.value.email,
                 credentials.value.password
-            );
-            router.replace({ path: "/home" });
+            )
+            router.replace({ path: "/oauth" });
         };
 
         return {
@@ -309,19 +317,6 @@ export default {
             doSignUp,
             AuthMode,
         };
-    },
-
-    beforeRouteEnter() {
-        // URI example: https://www.univr.it/it/?code=9e82af9d79be6c7ff1810a0a674ebb27bd09527b#_=_
-        const uri = window.location.search.substring(1); 
-        const params = new URLSearchParams(uri);
-        const code = params.get("code");
-        console.log(code);
-        if (code) {
-            saveOAuth2UserCode(code);
-        } else {
-            console.log("non cè nulla");
-        }
     },
 };
 </script>

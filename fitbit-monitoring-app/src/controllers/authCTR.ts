@@ -98,7 +98,6 @@ export default function () {
                                 })
                                 .then(() => {
                                     state.error = null;
-                                    localStorage.setItem("uid", uid);
                                     return user;
                                 })
                                 .catch((error) => {

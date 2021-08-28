@@ -73,7 +73,7 @@ import {
     IonChip,
     toastController,
 } from "@ionic/vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
 import {
     fitnessOutline,
@@ -101,6 +101,7 @@ import {
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
 import getLoggedUserData from "./controllers/authCTR";
+import { getAllUserInfo, getUserOauth2Code } from "./controllers/userCTR";
 export default defineComponent({
     name: "App",
     components: {
@@ -134,15 +135,26 @@ export default defineComponent({
         const selectedIndex = ref(0);
         const { logout, user } = useFirebaseAuth();
         const router = useRouter();
+        const loggedUser = getLoggedUserData().user;
+
         const doLogout = async () => {
             await logout();
             router.replace({ path: "/login" });
         };
+        
+        let oauth2Code = "";
+        onBeforeMount(async () => {
+            await Promise.resolve(getUserOauth2Code()).then((value) => {
+                if (value) {
+                    oauth2Code = value;
+                }
 
-        if (!localStorage.getItem("OAth2Code")) {
-            router.replace({ path: "/oauth" });
-        }
-        const loggedUser = getLoggedUserData().user;
+                if (!oauth2Code) {
+                    router.replace({ path: "/oauth" });
+                }
+            });
+        });
+
         const appPages = [
             {
                 title: "HOME",

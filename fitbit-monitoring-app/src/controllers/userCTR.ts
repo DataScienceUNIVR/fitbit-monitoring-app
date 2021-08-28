@@ -48,6 +48,7 @@ export const getAllUserInfo = async () => {
         imageURL: any;
         height: any;
         weight: any;
+        oauth2Code: any;
         uid: any;
     }>({
         name: null,
@@ -57,6 +58,7 @@ export const getAllUserInfo = async () => {
         imageURL: null,
         height: null,
         weight: null,
+        oauth2Code: null,
         uid: null,
     });
 
@@ -75,6 +77,7 @@ export const getAllUserInfo = async () => {
         user.fiscalCode = doc.get("fiscalCode");
         user.email = doc.get("email");
         user.height = doc.get("height");
+        user.oauth2Code = doc.get("oauth2code");
     });
 
     await Promise.resolve(getProfileImage()).then(function (value) {
@@ -154,19 +157,32 @@ export const deleteAccountInfo = async () => {
 
 };
 
-
 /**
  * Save user code returned by oauth2 call
  */
- export const saveOAuth2UserCode = async (code: string) => {
-    const uid = localStorage.getItem("uid");
-    console.log(uid);
+export const saveOAuth2UserCode = async (code: string) => {
+    const uid = getBaseUserInfo()?.uid;
     if (code && uid) {
-        const snapshot = await (await usersCollection.where("uid", "==", uid).get());
+        const snapshot = await usersCollection.where("uid", "==", uid).get();
         snapshot.forEach(element => {
-            element.ref.update({'fiscalCode': code});
+            element.ref.update({'oauth2code': code});
         });
         localStorage.setItem("OAuth2Code", code);
-        throw AppVue.methods?.openToast("Registrazione avvenuta correttamente");
+        throw AppVue.methods?.openToast("Salvataggio OAuth2Code avvenuta correttamente");
     }
+};
+
+/**
+ * Get user oath2 fitbit code
+ * @return oauth2code
+ */
+ export const getUserOauth2Code = async () => {
+    let oauth2Code: any = null;
+    const snapshot = await usersCollection
+        .where("uid", "==", getBaseUserInfo()?.uid)
+        .get();
+    snapshot.forEach((element) => {
+        oauth2Code = element.get("oauth2code");
+    });
+    return oauth2Code;
 };
