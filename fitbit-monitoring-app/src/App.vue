@@ -101,7 +101,7 @@ import {
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
 import getLoggedUserData from "./controllers/authCTR";
-import { getAllUserInfo, getUserOauth2Code } from "./controllers/userCTR";
+import { getAllUserInfo, getUserAccessToken, getUserOauth2Code } from "./controllers/userCTR";
 export default defineComponent({
     name: "App",
     components: {
@@ -153,6 +153,11 @@ export default defineComponent({
                     router.replace({ path: "/oauth" });
                 }
             });
+            await Promise.resolve(getUserAccessToken()).then((value) => {
+                // if (value) {
+                    // console.log(value);
+                // }
+            }); 
         });
 
         const appPages = [

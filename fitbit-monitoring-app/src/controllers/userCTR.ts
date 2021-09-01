@@ -1,5 +1,5 @@
 import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection, activityGoalsCollection, reactive, AppVue } from "../config/export";
+    intenseActivityCollection, activityGoalsCollection, reactive, AppVue, axios } from "../config/export";
 import { getLastWeight } from "./weightCTR";
 
 /**
@@ -186,3 +186,54 @@ export const saveOAuth2UserCode = async (code: string) => {
     });
     return oauth2Code;
 };
+
+/**
+ * Get user fitbit access token
+ * @return accessToken
+ */
+ export const getUserAccessToken = async () => {
+    const request = await require('request');
+    // const baseEncode = btoa("23BG9G:323bcf9d46a073c68db989b6cec3070d");
+    const CLIENT_ID = "23BG9G";
+    const CLIENT_SECRET = "323bcf9d46a073c68db989b6cec3070d";
+    // console.log(baseEncode);
+    const headers = {
+        'Authorization': 'Basic ' + btoa(CLIENT_ID + ":" + CLIENT_SECRET),
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+
+    const dataString = 'clientId=23BG9G&grant_type=authorization_code&redirect_uri=https://www.univr.it/it&code=59295927c1c44375e81d0137644e7845db7b73e6';
+
+    const options = {
+        url: 'https://api.fitbit.com/oauth2/token',
+        method: 'POST',
+        headers: headers,
+        body: dataString
+    };
+    
+    function callback(error: any, response: any, body: any) {
+        if (!error && response.statusCode == 200) {
+            console.log(response);
+        }
+    }
+    
+    request(options, callback);
+
+    // const response = await axios({
+    //     url: 'https://api.fitbit.com/oauth2/token',
+    //     method: 'POST',
+    //     headers: {
+    //       'Authorization': 'Basic ' + btoa("23BG9G:323bcf9d46a073c68db989b6cec3070d"),
+    //       'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    //     data: new URLSearchParams({
+    //         'clientId': '23BG9G',
+    //         'grant_type': 'authorization_code',
+    //         'redirect_uri': 'https://www.univr.it/it',
+    //         'code': '530069bb4b9077ff7bad57a1d4920615371313b2',
+    //     })
+    //   });
+      
+};
+
+
