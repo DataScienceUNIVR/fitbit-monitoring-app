@@ -13,6 +13,9 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
+.env.firebase.ts
+.env.fitbit.ts
+
 *.log
 log.txt
 npm-debug.log*
