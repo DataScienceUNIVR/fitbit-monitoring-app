@@ -82,6 +82,7 @@ import {
 import { defineComponent, ApexCharts } from "../config/export";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
+import { getUserAccessToken } from "@/controllers/userCTR";
 
 const totalMinutesSedentaryActivity = 0;
 const totalMinutesLightActivity = 0;
@@ -195,6 +196,10 @@ export default defineComponent({
             const chart = new ApexCharts(this.$refs.dailyReportChart, dailyReportChartOptions);
             chart.render();
         }
+    },
+
+    beforeCreate() {
+        getUserAccessToken();
     },
     setup() {
         return {

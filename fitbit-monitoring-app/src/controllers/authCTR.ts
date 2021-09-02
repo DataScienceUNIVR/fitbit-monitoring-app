@@ -1,5 +1,3 @@
-// import { storageRef, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-//     intenseActivityCollection, activityGoalsCollection} from "../config/export";
 import FIREBASE_CONFIG from "../config/.env.firebase";    
 
 import { toRefs, reactive } from "vue";
@@ -130,6 +128,8 @@ export default function () {
         localStorage.removeItem("weight");
         localStorage.removeItem("email");
         localStorage.removeItem("fiscalCode");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
 
         return firebase
             .auth()

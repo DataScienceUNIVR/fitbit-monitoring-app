@@ -41,7 +41,7 @@ import {
     IonButton
 } from "@ionic/vue";
 import { defineComponent, useRouter } from "../config/export";
-import { getUserOauth2Code, saveOAuth2UserCode } from "../controllers/userCTR";
+import { getAccessToken, getUserOauth2Code, saveUserOAuth2Code } from "../controllers/userCTR";
 
 const userOauth2Code = null;
 
@@ -74,7 +74,8 @@ export default defineComponent({
         const params = new URLSearchParams(uri);
         const code = params.get("code") as string;
         if (code) {
-            saveOAuth2UserCode(code);
+            saveUserOAuth2Code(code);
+            getAccessToken();
             router.replace({ path: "/home" });
         } else {
             // TODO: else
