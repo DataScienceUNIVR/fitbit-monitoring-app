@@ -275,7 +275,6 @@ export const saveUserOAuth2Code = async (code: string) => {
 
 /**
  * Get user access token from Fitbit
- * @return accessToken
  */
  export const getAccessToken = async () => {
     const request = await require('request');
@@ -309,5 +308,40 @@ export const saveUserOAuth2Code = async (code: string) => {
     
     request(options, callback);
 };
+
+/**
+ * Get user access token from Fitbit
+ * @return accessToken
+ */
+ export const getFitbitProfile = async () => {
+    const request = await require('request');
+
+    const headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+    };
+
+    let oauth2Code = null;
+    await Promise.resolve(getUserOauth2Code()).then(function (value) {
+        if (value != null) {
+            oauth2Code = value;
+        }
+    });
+
+    const options = {
+        url: 'https://api.fitbit.com/1/user/-/profile.json',
+        headers: headers
+    };
+    
+    function callback(error: any, response: any, body: any) {
+        if (!error && response.statusCode == 200) {
+            response = JSON.parse(response['body']);
+            console.log(response)
+        }
+    }
+    
+    request(options, callback);
+};
+
+
 
 

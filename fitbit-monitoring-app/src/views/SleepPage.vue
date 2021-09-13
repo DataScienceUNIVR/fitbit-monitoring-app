@@ -10,18 +10,15 @@
         </ion-header>
         <ion-content :fullscreen="true" class="main">
             <ion-card v-if="confidence">
-                <ion-card-header>
-                    <ion-card-subtitle class="input-ion-card-subtitle">CONFIDENCE:</ion-card-subtitle>
-                </ion-card-header>
                 <ion-card-content class="sleep-ion-card-content">
                     Sleep value expected for tonight:
                     <br>
                     <ion-badge color="medium" class="sleep-score"> {{sleepScore}} </ion-badge>
+                    <br><br><br>CONFIDENCE: 
                     <div id="chart">
-                        <hr />
                         <div ref="confidenceChart" class="sleep-margin-chart"></div>
                     </div>
-                    <br>
+                    <br><br><br>
                     Support:
                     <br>
                     <ion-badge color="medium" class="sleep-score"> {{support}} </ion-badge>
@@ -216,9 +213,10 @@ export default defineComponent({
     async mounted() {
         await Promise.resolve(getSleepAssociationRules()).then((result) => {
             if (result) {
-                this.confidence = (result!['confidenza'] * 100).toFixed(0);
-                this.sleepScore = (result!['sonno']);
-                this.support = (result!['supporto'] * 1).toFixed(6);
+                console.log(result);
+                this.confidence = (result!['confidence'] * 100).toFixed(0);
+                this.sleepScore = (result!['consequents']);
+                this.support = (result!['support'] * 1).toFixed(6);
             }
         });
 
