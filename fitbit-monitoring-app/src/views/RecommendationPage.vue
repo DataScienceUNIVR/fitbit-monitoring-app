@@ -13,7 +13,7 @@
                 <ion-card-content class="sleep-ion-card-content">
                     <b>GOAL:</b>
                     <br>
-                    <ion-badge color="primary" class="recommendation-sleep-goal">SLEEP >= 11</ion-badge>
+                    <ion-badge color="primary" class="recommendation-sleep-goal">SLEEP >= {{sleepScoreGoal}}</ion-badge>
                     <br><br>
                     <b>NEXT STEP:</b>
                     <ion-card class="recommendation-next-step">
@@ -51,7 +51,6 @@ import {
     IonToolbar,
     IonBadge,
     IonCard,
-    alertController
 } from "@ionic/vue";
 import { defineComponent } from "../config/export";
 import { alertCircleOutline, add } from "ionicons/icons";
@@ -62,7 +61,7 @@ const sleepDateChart: string[] = [];
 const support: any = null;
 const sleepScore: any = null;
 const confidence: any = null;
-const sleepScoreGoal = 0;
+const sleepScoreGoal = "...";
 
 export default defineComponent({
     name: "Sleep Report",
@@ -88,14 +87,15 @@ export default defineComponent({
         };
     },
     methods: {
-        async getDailyReport() {
+        async getSleepScoreGoal() {
             const goals = await Promise.resolve(getDailyActivitiesGoals());
             this.sleepScoreGoal = goals[4] ? goals[4] : 0;
-
-            (document.getElementById("sleepScore") as HTMLInputElement).value = this.sleepScoreGoal.toString();
         },
     },
 
+    async beforeMount() {
+        await this.getSleepScoreGoal();
+    },
     setup() {
         return { alertCircleOutline, add };
     },
