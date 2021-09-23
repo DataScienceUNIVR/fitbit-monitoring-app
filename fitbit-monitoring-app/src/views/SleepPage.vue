@@ -213,7 +213,6 @@ export default defineComponent({
     async mounted() {
         await Promise.resolve(getSleepAssociationRules()).then((result) => {
             if (result) {
-                console.log(result);
                 this.confidence = (result!['confidence'] * 100).toFixed(0);
                 this.sleepScore = (result!['consequents']);
                 this.support = (result!['support'] * 1).toFixed(6);
