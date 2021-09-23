@@ -96,12 +96,14 @@ import {
     optionsOutline,
     options,
     moonOutline,
-    moonSharp
+    moonSharp,
+    shieldCheckmarkOutline,
+    shieldCheckmarkSharp
 } from "ionicons/icons";
 import { useRouter } from "vue-router";
 import useFirebaseAuth from "./controllers/authCTR";
 import getLoggedUserData from "./controllers/authCTR";
-import { getAllUserInfo, getAccessToken, getUserOauth2Code } from "./controllers/userCTR";
+import { getAccessToken, getUserOauth2Code } from "./controllers/userCTR";
 export default defineComponent({
     name: "App",
     components: {
@@ -184,6 +186,12 @@ export default defineComponent({
                 url: "/sleep",
                 iosIcon: moonOutline,
                 mdIcon: moonSharp,
+            },
+            {
+                title: "ACT. RECOMMENDATION",
+                url: "/recommendation",
+                iosIcon: shieldCheckmarkOutline,
+                mdIcon: shieldCheckmarkSharp,
             },
             {
                 title: "STATISTICS",

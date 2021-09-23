@@ -335,7 +335,6 @@ export const saveUserOAuth2Code = async (code: string) => {
     function callback(error: any, response: any, body: any) {
         if (!error && response.statusCode == 200) {
             response = JSON.parse(response['body']);
-            console.log(response)
         }
     }
     
