@@ -82,7 +82,7 @@ import {
 import { defineComponent, ApexCharts } from "../config/export";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
-import { getFitbitProfile, getRefreshToken, getUserAccessToken } from "@/controllers/userCTR";
+import { getRefreshToken, getFitbitProfile } from "@/controllers/userCTR";
 
 const totalMinutesSedentaryActivity = 0;
 const totalMinutesLightActivity = 0;

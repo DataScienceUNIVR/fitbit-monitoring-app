@@ -327,14 +327,22 @@ export const saveUserOAuth2Code = async (code: string) => {
         }
     });
 
+    // const activities = [
+    //     'minutesSedentary',
+    //     'minutesLightlyActive',
+    //     'minutesFairlyActive',
+    //     'minutesVeryActive',
+    // ];
+
     const options = {
-        url: 'https://api.fitbit.com/1/user/-/profile.json',
+        url: 'https://api.fitbit.com/1/user/-/activities/recent.json',
         headers: headers
     };
     
     function callback(error: any, response: any, body: any) {
         if (!error && response.statusCode == 200) {
             response = JSON.parse(response['body']);
+            console.log(response);
         }
     }
     

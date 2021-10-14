@@ -11,17 +11,30 @@
         <ion-content :fullscreen="true" class="main">
             <ion-card v-if="confidence">
                 <ion-card-content class="sleep-ion-card-content">
-                    Sleep value expected for tonight:
+                    Tonight your sleep quality will be:
                     <br>
                     <ion-badge color="medium" class="sleep-score"> {{sleepScore}} </ion-badge>
                     <br><br><br>CONFIDENCE: 
                     <div id="chart">
                         <div ref="confidenceChart" class="sleep-margin-chart"></div>
                     </div>
-                    <br><br><br>
-                    Support:
                     <br>
-                    <ion-badge color="medium" class="sleep-score"> {{support}} </ion-badge>
+                    <p style="font-size:16px;">Because you have been doing:</p> 
+                    <ion-card class="sleep-daily-acivities">
+                        <ion-card-content class="sleep-ion-card-content" style="text-align: left;font-size: 15px;">
+                            <i>Yesterday:</i>
+                            <br><br>
+                            ✓ MODERATE INTENSE ACTIVITY LEVEL 3
+                            <br><br>
+                            ✓ LOW SEDENTARY ACTIVITY LEVEL 3
+                            <br>
+                            <hr style="height:1px;color:gray;background-color:#575757">
+                            <i>2 days ago:</i>
+                            <br><br>
+                            ✓ MODERATE LOW ACTIVITY LEVEL 2
+                            <br>
+                        </ion-card-content>
+                    </ion-card>
                 </ion-card-content>
             </ion-card>
 
@@ -38,7 +51,7 @@
                 <ion-card class="sleep-input-ion-card">
                     <ion-card-header>
                         <ion-card-subtitle class="input-ion-card-subtitle"
-                            >HOW DID YOU SLEEP TONIGHT?</ion-card-subtitle
+                            >HOW DID YOU SLEEP LAST NIGHT?</ion-card-subtitle
                         >
                     </ion-card-header>
                     <ion-card-title class="input-on-card-title">
@@ -213,12 +226,16 @@ export default defineComponent({
     async mounted() {
         await Promise.resolve(getSleepAssociationRules()).then((result) => {
             if (result) {
-                this.confidence = (result!['confidence'] * 100).toFixed(0);
-                this.sleepScore = (result!['consequents']);
-                this.support = (result!['support'] * 1).toFixed(6);
+                // this.confidence = (result!['confidence'] * 100).toFixed(0);
+                // this.sleepScore = (result!['consequents']);
+                // this.support = (result!['support'] * 1).toFixed(6);
             }
         });
 
+        // Tonight your avarage sleep time will be __ because you have been doing: 
+        this.confidence = (0.85 * 100).toFixed(0);
+        this.sleepScore = "MEDIUM";
+        this.support = (0.8514089 * 1).toFixed(6);
         await Promise.resolve(getSleepQuality())
             .then((element) => {
                 if (element) {
