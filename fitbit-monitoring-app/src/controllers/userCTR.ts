@@ -310,10 +310,10 @@ export const saveUserOAuth2Code = async (code: string) => {
 };
 
 /**
- * Get user access token from Fitbit
- * @return accessToken
+ * Get user weekly logs of sleep and activities from Fitbit
+ * @return logs
  */
- export const getFitbitProfile = async () => {
+ export const getWeekFitbitLogs = async () => {
     const request = await require('request');
 
     const headers = {
@@ -327,26 +327,53 @@ export const saveUserOAuth2Code = async (code: string) => {
         }
     });
 
-    // const activities = [
-    //     'minutesSedentary',
-    //     'minutesLightlyActive',
-    //     'minutesFairlyActive',
-    //     'minutesVeryActive',
-    // ];
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const endDate = date.toISOString().split('T')[0];
 
+    date.setDate(date.getDate() - 100);
+    const startDate = date.toISOString().split('T')[0];
+
+    const result: any[] = [];
+    const activities = [
+        'minutesSedentary',
+        'minutesLightlyActive',
+        'minutesFairlyActive',
+        'minutesVeryActive',
+    ];
+
+    // All activities log of the last 7 days
+    activities.forEach(activity => {
+        const options = {
+            url: 'https://api.fitbit.com/1/user/-/activities/'+activity+'/date/'+startDate+'/'+endDate+'.json',
+            headers: headers
+        };
+        
+        function callback(error: any, response: any, body: any) {
+            if (!error && response.statusCode == 200) {
+                response = JSON.parse(response['body']);
+                result.push(response);
+            }
+        }
+        request(options, callback);
+    });
+
+    // All sleep log of the last 7 days
     const options = {
-        url: 'https://api.fitbit.com/1/user/-/activities/recent.json',
+        // url: 'https://api.fitbit.com/1.2/user/-/sleep/list.json?afterDate='+startDate+'&sort=desc&offset=0&limit=7',
+        url: 'https://api.fitbit.com/1/user/-/sleep/date/'+startDate+'/'+endDate+'.json',
         headers: headers
     };
     
     function callback(error: any, response: any, body: any) {
         if (!error && response.statusCode == 200) {
             response = JSON.parse(response['body']);
-            console.log(response);
+            result.push(response);
         }
     }
-    
     request(options, callback);
+    
+    console.log(result);
 };
 
 

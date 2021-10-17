@@ -232,7 +232,6 @@ export default defineComponent({
             }
         });
 
-        // Tonight your avarage sleep time will be __ because you have been doing: 
         this.confidence = (0.85 * 100).toFixed(0);
         this.sleepScore = "MEDIUM";
         this.support = (0.8514089 * 1).toFixed(6);
