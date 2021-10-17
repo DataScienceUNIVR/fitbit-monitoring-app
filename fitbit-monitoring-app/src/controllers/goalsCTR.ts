@@ -46,6 +46,7 @@ export const getDailyActivitiesData = async () => {
  */
 export const getDailyActivitiesGoals = async () => {
     const result: any = [];
+    
     for (const collection of collections) {
         const snapshot = await activityGoalsCollection
             .where("uid", "==", getBaseUserInfo()?.uid)
@@ -58,6 +59,16 @@ export const getDailyActivitiesGoals = async () => {
             result.push(0);
         }
     }
+    const snapshot = await activityGoalsCollection
+            .where("uid", "==", getBaseUserInfo()?.uid)
+            .where("activityType", "==", "sleepScore")
+            .get();
+        snapshot.forEach((row) => {
+            result.push(row.get("minutes"));
+        });
+        if (snapshot.empty) {
+            result.push(0);
+        }
     return result;
 };
 
@@ -68,7 +79,7 @@ export const getDailyActivitiesGoals = async () => {
  */
 export const updateDailyActivityGoal = async (
     activityType: string,
-    minutes: number
+    value: number
 ) => {
     // First delete previous goal
     const snapshot = await activityGoalsCollection
@@ -82,15 +93,15 @@ export const updateDailyActivityGoal = async (
     activityGoalsCollection
         .add({
             uid: getBaseUserInfo()?.uid,
-            minutes: minutes,
+            minutes: value,
             activityType: activityType,
         })
         .then(() => {
-            location.reload(true);
+            location.reload();
         })
         .catch((error) => {
             throw AppVue.methods?.openToast("Error in saving: " + error);
         });
 
-    return AppVue.methods?.openToast("Updated goals");
+    return AppVue.methods?.openToast("Ggoals Updated");
 };

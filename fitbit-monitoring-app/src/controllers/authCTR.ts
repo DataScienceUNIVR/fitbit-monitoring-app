@@ -1,5 +1,3 @@
-// import { storageRef, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-//     intenseActivityCollection, activityGoalsCollection} from "../config/export";
 import FIREBASE_CONFIG from "../config/.env.firebase";    
 
 import { toRefs, reactive } from "vue";
@@ -121,6 +119,18 @@ export default function () {
      * Logout with firebase auth
      */
     const logout = () => {
+        localStorage.removeItem("uid");
+        localStorage.removeItem("imageURL");
+        localStorage.removeItem("OAuth2Code");
+        localStorage.removeItem("name");
+        localStorage.removeItem("surname");
+        localStorage.removeItem("height");
+        localStorage.removeItem("weight");
+        localStorage.removeItem("email");
+        localStorage.removeItem("fiscalCode");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
         return firebase
             .auth()
             .signOut()

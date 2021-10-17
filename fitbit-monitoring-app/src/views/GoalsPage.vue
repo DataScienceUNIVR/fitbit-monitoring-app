@@ -136,6 +136,36 @@
                         </ion-fab-button>
                     </ion-fab>
                 </ion-card>
+                <ion-card class="input-ion-card orange-gradient">
+                    <ion-card-header>
+                        <ion-card-subtitle class="input-ion-card-subtitle"
+                            >SLEEP SCORE GOAL:</ion-card-subtitle
+                        >
+                    </ion-card-header>
+                    <ion-card-title class="input-on-card-title">
+                        <ion-item class="text-input">
+                            <ion-label>Value: </ion-label>
+                            <ion-input
+                                ref="sleepScore"
+                                id="sleepScore"
+                                v-model="sleepScore"
+                                class="goal-input"
+                                inputmode="decimal"
+                                type="number"
+                                min="0"
+                                :readonly="false"
+                            ></ion-input>
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-card-content class="input-ion-card-content">
+                        <br />
+                    </ion-card-content>
+                    <ion-fab horizontal="center" vertical="bottom">
+                        <ion-fab-button @click="updateGoal('sleepScore')" color="light">
+                            <ion-icon :icon="add"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-card>
             </ion-row>
         </ion-content>
     </ion-page>
@@ -170,6 +200,7 @@ const sedentaryActivityGoal = 0;
 const lightActivityGoal = 0;
 const moderateActivityGoal = 0;
 const intenseActivityGoal = 0;
+const sleepScoreGoal = 0;
 
 export default defineComponent({
     name: "Goals",
@@ -199,6 +230,7 @@ export default defineComponent({
             lightActivityGoal,
             moderateActivityGoal,
             intenseActivityGoal,
+            sleepScoreGoal,
         };
     },
     methods: {
@@ -208,32 +240,37 @@ export default defineComponent({
             this.lightActivityGoal = goals[1] ? goals[1] : 0;
             this.moderateActivityGoal = goals[2] ? goals[2] : 0;
             this.intenseActivityGoal = goals[3] ? goals[3] : 0;
-            
+            this.sleepScoreGoal = goals[4] ? goals[4] : 0;
+
             (document.getElementById("sedentaryActivity") as HTMLInputElement).value = this.sedentaryActivityGoal.toString();
             (document.getElementById("lightActivity") as HTMLInputElement).value = this.lightActivityGoal.toString();
             (document.getElementById("moderateActivity") as HTMLInputElement).value = this.moderateActivityGoal.toString();
             (document.getElementById("intenseActivity") as HTMLInputElement).value = this.intenseActivityGoal.toString();
+            (document.getElementById("sleepScore") as HTMLInputElement).value = this.sleepScoreGoal.toString();
         },
 
         updateGoal(activityType: any) {
-            let minutes = null;
+            let value = null;
             switch (activityType) {
                 case "sedentaryActivity":
-                    minutes = this.$refs.sedentaryActivity as any;
+                    value = this.$refs.sedentaryActivity as any;
                     break;
                 case "lightActivity":
-                    minutes = this.$refs.lightActivity as any;
+                    value = this.$refs.lightActivity as any;
                     break;
                 case "moderateActivity":
-                    minutes = this.$refs.moderateActivity as any;
+                    value = this.$refs.moderateActivity as any;
                     break;
                 case "intenseActivity":
-                    minutes = this.$refs.intenseActivity as any;
+                    value = this.$refs.intenseActivity as any;
+                    break;
+                case "sleepScore":
+                    value = this.$refs.sleepScore as any;
                     break;
                 default:
                     break;
             }    
-            updateDailyActivityGoal(activityType, parseInt(minutes.value));
+            updateDailyActivityGoal(activityType, parseInt(value.value));
         }
         
     },

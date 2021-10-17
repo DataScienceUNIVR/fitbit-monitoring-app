@@ -246,6 +246,9 @@ ion-content.main{
 .purple-gradient {
     background:linear-gradient(135deg, #a55ccd 0%,#3425AF 100%);
 }
+.orange-gradient {
+    background:linear-gradient(135deg, #af6825 0%,#c2cd5c 100%);
+}
 
 .apexcharts-legend-text {
     position: relative;
@@ -429,6 +432,39 @@ ion-title {
 .sleep-margin-chart {
     margin-top: -7%;
     margin-bottom: -20%;
+}
+.sleep-daily-acivities {
+    background: #383838;
+    border-style: solid;
+    border-color: #575757;
+}
+g > g > g > g > g > text {
+    fill: #c6721d;
+}
+/* ################################################################ */
+
+/* Pagina Activity Recommendation */
+.recommendation-title {
+    font-size: 13px;
+}
+.recommendation-sleep-goal {
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 13px;
+}
+.recommendation-next-step {
+    background: #1e721e;
+    border-style: solid;
+    border-color: #3cb23c;
+}
+.recommendation-avoid-step {
+    background: #5f1010;
+    border-style: solid;
+    border-color: #b23c3c;
+}
+.recommendation-confidence {
+    font-size: 15px;
+    padding: 7px;
 }
 /* ################################################################ */
 

@@ -165,6 +165,7 @@ import {
 } from "@ionic/vue";
 import useFirebaseAuth from "../controllers/authCTR";
 import { reactive, ref, toRefs, AppVue, useRouter } from "../config/export";
+import { getUserOauth2Code } from '../controllers/userCTR';
 
 enum AuthMode {
     SignIn,
@@ -224,7 +225,18 @@ export default {
                     credentials.value.email,
                     credentials.value.password
                 );
-                router.replace({ path: "/home" });
+                let userOauth2Code = null;
+                await Promise.resolve(getUserOauth2Code()).then((value) => {
+                    if (value) {
+                        userOauth2Code = value;
+                    }
+                });
+
+                if (userOauth2Code) {
+                    router.replace({ path: "/home" });
+                } else {
+                    router.replace({ path: "/oauth" });
+                }
             }
         };
 
@@ -294,8 +306,8 @@ export default {
                 credentials.value.height,
                 credentials.value.email,
                 credentials.value.password
-            );
-            router.replace({ path: "/home" });
+            )
+            router.replace({ path: "/oauth" });
         };
 
         return {
