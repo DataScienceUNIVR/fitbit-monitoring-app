@@ -1,6 +1,6 @@
 import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
     intenseActivityCollection, activityGoalsCollection, reactive, AppVue } from "../config/export";
-import { getLastWeight } from "./weightCTR";
+import { getWeights } from "./weightCTR";
 import CLIENT from "../config/.env.fitbit";    
 
 /**
@@ -87,9 +87,9 @@ export const getAllUserInfo = async () => {
         }
     });
 
-    await Promise.resolve(getLastWeight()).then(function (value) {
+    await Promise.resolve(getWeights()).then(function (value) {
         if (value != null) {
-            user.weight = value["weight"];
+            user.weight = value[value.length - 1].value;
         }
     });
 

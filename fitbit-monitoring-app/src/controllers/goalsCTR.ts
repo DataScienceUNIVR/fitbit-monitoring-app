@@ -1,5 +1,5 @@
 import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection, activityGoalsCollection, AppVue, getBaseUserInfo } from "../config/export";
+    intenseActivityCollection, activityGoalsCollection, AppVue, getBaseUserInfo, getUserOauth2Code } from "../config/export";
 
 const collections = [
     sedentaryActivityCollection,
@@ -8,36 +8,64 @@ const collections = [
     intenseActivityCollection,
 ];
 
+const activities = [
+    'minutesSedentary',
+    'minutesLightlyActive',
+    'minutesFairlyActive',
+    'minutesVeryActive',
+];
+
 /**
  * Get daily activities data
  * @return activities data
  */
 export const getDailyActivitiesData = async () => {
-    const result: any = [];
+    const request = await require('request');
 
-    // Previus day at 23:59:59
+    const headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+    };
+
+    let oauth2Code = null;
+    await Promise.resolve(getUserOauth2Code()).then(function (value) {
+        if (value != null) {
+            oauth2Code = value;
+        }
+    });
+    
+    // const result: any = [];
+    const result: any = {
+        minutesSedentary: 0,
+        minutesLightlyActive: 0,
+        minutesFairlyActive: 0,
+        minutesVeryActive: 0
+    };
+
     const date = new Date();
-    date.setHours(0, 0, -1);
-    const startDate = firebase.firestore.Timestamp.fromDate(date);
-    // Today at 23:59:59
-    date.setHours(48, 0, -1);
+    const currentDate = date.toISOString().split('T')[0];
 
-    const endDate = firebase.firestore.Timestamp.fromDate(date);
-
-    for (const collection of collections) {
-        const snapshot = await collection
-            .orderBy("dateTime")
-            .startAfter(startDate)
-            .endAt(endDate)
-            .where("uid", "==", getBaseUserInfo()?.uid)
-            .get();
-        let count = 0;
-        snapshot.forEach((row) => {
-            count += row.get("minutes");
-        });
-        result.push(count);
-    }
-    return result;
+    activities.forEach(activity => {
+        // const options = {
+        //     url: 'https://api.fitbit.com/1/user/-/activities/'+activity+'/date/today/'+currentDate+'.json',
+        //     headers: headers
+        // };
+        
+        // function callback(error: any, response: any, body: any) {
+        //     if (!error && response.statusCode == 200) {
+        //         response = JSON.parse(response['body']);
+        //         result[activity] = response['activities-'+activity]['0']['value'];
+        //     }
+        // }
+        // request(options, callback);
+        
+    });
+    // console.log(result);
+    return {
+        "minutesSedentary": 566,
+        "minutesLightlyActive": 48,
+        "minutesFairlyActive": 17,
+        "minutesVeryActive": 1
+    };
 };
 
 /**
@@ -103,5 +131,5 @@ export const updateDailyActivityGoal = async (
             throw AppVue.methods?.openToast("Error in saving: " + error);
         });
 
-    return AppVue.methods?.openToast("Ggoals Updated");
+    return AppVue.methods?.openToast("Goals Updated");
 };

@@ -94,7 +94,7 @@ import {
     alertController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { getLastWeight, addWeight, getWeights } from "../controllers/weightCTR";
+import { addWeight, getWeights } from "../controllers/weightCTR";
 import { add } from "ionicons/icons";
 import moment from "moment";
 import ApexCharts from "apexcharts";
@@ -178,27 +178,15 @@ export default defineComponent({
     },
 
     async mounted() {
-        await Promise.resolve(getLastWeight())
-            .then((value) => {
-                if (value) {
-                    this.valueLastWeight = value.weight;
-                    this.dateLastWeight = moment(value.dateTime.toDate()).format(
-                        "DD/MM/YYYY HH:mm"
-                    );
-                }
-            })
-            .catch((e) => {
-                this.valueLastWeight = null;
-                this.dateLastWeight = "";
-            });
-
-        await Promise.resolve(getWeights())
+        await getWeights()
             .then((element) => {
                 if (element) {
                     element.forEach((item) => {
-                        weightValuesChart.unshift(item.value);
-                        weightDateChart.unshift(item.date);
+                        weightValuesChart.push(item.value); 
+                        weightDateChart.push(item.date);
                     });
+                    this.valueLastWeight = element[element.length - 1].value;
+                    this.dateLastWeight = element[element.length - 1].date;
                 }
             })
             .catch((e) => {
@@ -230,7 +218,7 @@ export default defineComponent({
             },
             tooltip: {
                 x: {
-                    format: "dd/MM/yy",
+                    format: "yy-MM-dd",
                 },
             },
         };

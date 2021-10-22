@@ -82,7 +82,7 @@ import {
 import { defineComponent, ApexCharts } from "../config/export";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
-import { getRefreshToken, getWeekFitbitLogs } from "@/controllers/userCTR";
+import { getRefreshToken, getWeekFitbitLogs } from "../controllers/userCTR";
 
 const totalMinutesSedentaryActivity = 0;
 const totalMinutesLightActivity = 0;
@@ -141,10 +141,10 @@ export default defineComponent({
             this.intenseActivityGoal = goals[3] ? goals[3] : 1;
 
             const result = await Promise.resolve(getDailyActivitiesData());
-            this.totalMinutesSedentaryActivity = result[0] ? result[0] : 0;
-            this.totalMinutesLightActivity = result[1] ? result[1] : 0;
-            this.totalMinutesModerateActivity = result[2] ? result[2] : 0;
-            this.totalMinutesIntenseActivity = result[3] ? result[3] : 0;
+            this.totalMinutesSedentaryActivity = result['minutesSedentary'] ? result['minutesSedentary'] : 0;
+            this.totalMinutesLightActivity = result['minutesLightlyActive'] ? result['minutesLightlyActive'] : 0;
+            this.totalMinutesModerateActivity = result['minutesFairlyActive'] ? result['minutesFairlyActive'] : 0;
+            this.totalMinutesIntenseActivity = result['minutesVeryActive'] ? result['minutesVeryActive'] : 0;
 
             this.sedentaryActivityPercentual = parseInt(((this.totalMinutesSedentaryActivity / this.sedentaryActivityGoal) * 100).toFixed(2));
             this.lightActivityPercentual =  parseInt(((this.totalMinutesLightActivity / this.lightActivityGoal) * 100).toFixed(2));
@@ -200,7 +200,6 @@ export default defineComponent({
 
     async beforeCreate() {
         getRefreshToken();
-        getWeekFitbitLogs();
     },
     setup() {
         return {
