@@ -140,7 +140,7 @@ export default defineComponent({
             this.moderateActivityGoal = goals[2] ? goals[2] : 1;
             this.intenseActivityGoal = goals[3] ? goals[3] : 1;
 
-            const result = await Promise.resolve(getDailyActivitiesData());
+            const result = await getDailyActivitiesData();
             this.totalMinutesSedentaryActivity = result['minutesSedentary'] ? result['minutesSedentary'] : 0;
             this.totalMinutesLightActivity = result['minutesLightlyActive'] ? result['minutesLightlyActive'] : 0;
             this.totalMinutesModerateActivity = result['minutesFairlyActive'] ? result['minutesFairlyActive'] : 0;

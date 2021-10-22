@@ -1,5 +1,5 @@
-import { firebase, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection, activityGoalsCollection, AppVue, getBaseUserInfo, getUserOauth2Code } from "../config/export";
+import { sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
+    intenseActivityCollection, activityGoalsCollection, AppVue, getBaseUserInfo, getOauth2Code, notifyAPIError, axios } from "../config/export";
 
 const collections = [
     sedentaryActivityCollection,
@@ -20,52 +20,28 @@ const activities = [
  * @return activities data
  */
 export const getDailyActivitiesData = async () => {
-    const request = await require('request');
-
+    await getOauth2Code();
     const headers = {
         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
     };
 
-    let oauth2Code = null;
-    await Promise.resolve(getUserOauth2Code()).then(function (value) {
-        if (value != null) {
-            oauth2Code = value;
-        }
-    });
-    
-    // const result: any = [];
-    const result: any = {
-        minutesSedentary: 0,
-        minutesLightlyActive: 0,
-        minutesFairlyActive: 0,
-        minutesVeryActive: 0
-    };
-
+    const result: any = {}; 
     const date = new Date();
     const currentDate = date.toISOString().split('T')[0];
 
-    activities.forEach(activity => {
-        // const options = {
-        //     url: 'https://api.fitbit.com/1/user/-/activities/'+activity+'/date/today/'+currentDate+'.json',
-        //     headers: headers
-        // };
-        
-        // function callback(error: any, response: any, body: any) {
-        //     if (!error && response.statusCode == 200) {
-        //         response = JSON.parse(response['body']);
-        //         result[activity] = response['activities-'+activity]['0']['value'];
-        //     }
-        // }
-        // request(options, callback);
-        
-    });
-    // console.log(result);
-    return {
-        "minutesSedentary": 566,
-        "minutesLightlyActive": 48,
-        "minutesFairlyActive": 17,
-        "minutesVeryActive": 1
-    };
+    for (let i = 0; i < activities.length; i++) {
+        await axios.get(
+            'https://api.fitbit.com/1/user/-/activities/'+activities[i]+'/date/today/'+currentDate+'.json',
+            { 
+                headers: headers
+            }
+        ).then(function (response) {
+            result[activities[i]] = (response.data['activities-'+activities[i]]['0']['value']);
+        }).catch(function (error: any) {
+            notifyAPIError(error);
+        });
+    }
+    return result;
 };
 
 /**
