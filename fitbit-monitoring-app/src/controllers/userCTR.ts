@@ -1,5 +1,5 @@
 import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
-    intenseActivityCollection, activityGoalsCollection, reactive, AppVue } from "../config/export";
+    intenseActivityCollection, activityGoalsCollection, reactive, AppVue, getOauth2Code, axios, notifyAPIError } from "../config/export";
 import { getWeights } from "./weightCTR";
 import CLIENT from "../config/.env.fitbit";    
 
@@ -37,48 +37,69 @@ export const getProfileImage = async () => {
 };
 
 /**
- * Get all information of the logged user (name, surname, email, fiscalCode, pwd, uid, img)
+ * Get all information of the logged user (name, email, dateOfBirth, pwd, uid, img...)
  * @returns currentUser
  */
 export const getAllUserInfo = async () => {
     const user = reactive<{
         name: any;
-        surname: any;
-        fiscalCode: any;
+        dateOfBirth: any;
         email: any;
         imageURL: any;
         height: any;
         weight: any;
+        averageDailySteps: any;
         oauth2Code: any;
         uid: any;
     }>({
         name: null,
-        surname: null,
-        fiscalCode: null,
+        dateOfBirth: null,
         email: null,
         imageURL: null,
         height: null,
         weight: null,
+        averageDailySteps: null,
         oauth2Code: null,
         uid: null,
     });
 
     user.uid = getBaseUserInfo()?.uid;
 
-    const snapshot = await usersCollection.where("uid", "==", user.uid).get();
-    if (snapshot.empty) {
-        return AppVue.methods?.openToast(
-            "Error: Please log out and re-authenticate"
-        );
-    }
+    // const snapshot = await usersCollection.where("uid", "==", user.uid).get();
+    // if (snapshot.empty) {
+    //     return AppVue.methods?.openToast(
+    //         "Error: Please log out and re-authenticate"
+    //     );
+    // }
 
-    snapshot.forEach((doc: any) => {
-        user.name = doc.get("name");
-        user.surname = doc.get("surname");
-        user.fiscalCode = doc.get("fiscalCode");
-        user.email = doc.get("email");
-        user.height = doc.get("height");
-        user.oauth2Code = doc.get("oauth2code");
+    // snapshot.forEach((doc: any) => {
+    //     user.name = doc.get("name");
+    //     user.dateOfBirth = doc.get("dateOfBirth");
+    //     user.email = doc.get("email");
+    //     user.height = doc.get("height");
+    //     user.oauth2Code = doc.get("oauth2code");
+    // });
+
+    await getOauth2Code();
+    const headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+    };
+    
+    await axios.get(
+        'https://api.fitbit.com/1/user/-/profile.json', 
+        { 
+            headers: headers
+        }
+    ).then(function (response) {
+        user.name = response.data.user.displayName;
+        user.dateOfBirth = response.data.user.dateOfBirth;
+        user.email = "da_cambiare@gmail.com";
+        user.weight = response.data.user.weight;
+        user.height = response.data.user.height;
+        user.averageDailySteps = response.data.user.averageDailySteps;
+        // user.oauth2Code = response.data.;
+    }).catch(function (error) {
+        notifyAPIError(error);
     });
 
     await Promise.resolve(getProfileImage()).then(function (value) {
@@ -86,13 +107,6 @@ export const getAllUserInfo = async () => {
             user.imageURL = value;
         }
     });
-
-    await Promise.resolve(getWeights()).then(function (value) {
-        if (value != null) {
-            user.weight = value[value.length - 1].value;
-        }
-    });
-
     return user;
 };
 
@@ -112,7 +126,7 @@ export const setProfileImage = async (file: File) => {
                     localStorage.setItem("imageURL", value);
                 }
             });
-            location.reload(true);
+            location.reload();
         });
     } catch (error) {
         throw AppVue.methods?.openToast(error);

@@ -42,11 +42,10 @@
                 </ion-card-header>
                 <ion-card-content class="profile-ion-card-content">
                     <b>NAME</b>: {{ user.name }} <br />
-                    <b>SURNAME</b>: {{ user.surname }} <br />
-                    <b>F.C</b>: {{ user.fiscalCode }} <br />
-                    <b>EMAIL</b>: {{ user.email }} <br />
+                    <b>DATE OF BIRTH</b>: {{ user.dateOfBirth }} <br />
                     <b>WEIGHT</b>: {{ user.weight }} Kg <br />
-                    <b>HEIGHT</b>: {{ user.height }} cm
+                    <b>HEIGHT</b>: {{ user.height }} cm <br />
+                    <b>AVG DAILY STEPS</b>: {{ user.averageDailySteps }}
                 </ion-card-content>
 
                 <ion-button
@@ -93,12 +92,13 @@ import {
 
 interface User {
     name?: any;
-    surname?: any;
-    fiscalCode?: any;
+    dateOfBirth?: any;
     email?: any;
     imageURL?: any;
     height?: any;
     weight?: any;
+    averageDailySteps?: any;
+    oauth2Code?: any;
     uid?: any;
 }
 const user: User = {};
@@ -143,27 +143,29 @@ export default defineComponent({
             ) {
                 return AppVue.methods?.openToast("Formato file non corretto");
             }
+            
             await setProfileImage(image);
         },
 
         async getUser() {
             this.user.name = localStorage.getItem("name");
-            this.user.surname = localStorage.getItem("surname");
-            this.user.fiscalCode = localStorage.getItem("fiscalCode");
+            this.user.dateOfBirth = localStorage.getItem("dateOfBirth");
+            this.user.email = localStorage.getItem("email");
             this.user.imageURL = localStorage.getItem("imageURL");
             this.user.height = localStorage.getItem("height");
             this.user.weight = localStorage.getItem("weight");
-            this.user.email = localStorage.getItem("email");
+            this.user.averageDailySteps = localStorage.getItem("averageDailySteps");
+            this.user.uid = localStorage.getItem("uid");
 
             await Promise.resolve(getAllUserInfo()).then((user) => {
                 if (user) {
-                    localStorage.setItem("name", user.name);
-                    localStorage.setItem("surname", user.surname);
-                    localStorage.setItem("fiscalCode", user.fiscalCode);
-                    localStorage.setItem("imageURL", user.imageURL);
+                    localStorage.setItem("name", user.name ? user.name : '---');
+                    localStorage.setItem("dateOfBirth", user.dateOfBirth ? user.dateOfBirth : '---');
+                    localStorage.setItem("email", user.email ? user.email : '---');
+                    localStorage.setItem("imageURL", user.imageURL ? user.imageURL : '');
                     localStorage.setItem("height", user.height ? user.height : "---");
                     localStorage.setItem("weight", user.weight ? user.weight : "---");
-                    localStorage.setItem("email", user.email);
+                    localStorage.setItem("averageDailySteps", user.averageDailySteps ? user.averageDailySteps : '---');
                     localStorage.setItem("uid", user.uid);
                 }
             });
