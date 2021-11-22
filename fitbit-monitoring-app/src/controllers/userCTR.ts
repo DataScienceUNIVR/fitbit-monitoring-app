@@ -327,7 +327,7 @@ export const saveUserOAuth2Code = async (code: string) => {
  * Get user logs of sleep and activities from Fitbit
  * @return logs
  */
- export const getWeekFitbitLogs = async (range: number) => {
+ export const getLastFitbitLogs = async (range: number) => {
     const request = await require('request');
 
     const headers = {
