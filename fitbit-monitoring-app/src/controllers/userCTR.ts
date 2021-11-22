@@ -324,10 +324,10 @@ export const saveUserOAuth2Code = async (code: string) => {
 };
 
 /**
- * Get user weekly logs of sleep and activities from Fitbit
+ * Get user logs of sleep and activities from Fitbit
  * @return logs
  */
- export const getWeekFitbitLogs = async () => {
+ export const getWeekFitbitLogs = async (range: number) => {
     const request = await require('request');
 
     const headers = {
@@ -345,7 +345,7 @@ export const saveUserOAuth2Code = async (code: string) => {
     date.setDate(date.getDate() - 1);
     const endDate = date.toISOString().split('T')[0];
 
-    date.setDate(date.getDate() - 100);
+    date.setDate(date.getDate() - range);
     const startDate = date.toISOString().split('T')[0];
 
     const result: any[] = [];
@@ -356,7 +356,7 @@ export const saveUserOAuth2Code = async (code: string) => {
         'minutesVeryActive',
     ];
 
-    // All activities log of the last 7 days
+    // All activities log of the last x days
     activities.forEach(activity => {
         const options = {
             url: 'https://api.fitbit.com/1/user/-/activities/'+activity+'/date/'+startDate+'/'+endDate+'.json',
@@ -374,7 +374,6 @@ export const saveUserOAuth2Code = async (code: string) => {
 
     // All sleep log of the last 7 days
     const options = {
-        // url: 'https://api.fitbit.com/1.2/user/-/sleep/list.json?afterDate='+startDate+'&sort=desc&offset=0&limit=7',
         url: 'https://api.fitbit.com/1/user/-/sleep/date/'+startDate+'/'+endDate+'.json',
         headers: headers
     };

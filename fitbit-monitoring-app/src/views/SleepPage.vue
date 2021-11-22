@@ -151,6 +151,8 @@ import {
 import { defineComponent, ApexCharts, AppVue } from "../config/export";
 import { addSleepQuality, getSleepAssociationRules, getSleepQuality } from "../controllers/sleepCTR";
 import { alertCircleOutline, add } from "ionicons/icons";
+import moment from "moment";
+import { getWeekFitbitLogs } from "@/controllers/userCTR";
 
 const sleepValuesChart: string[] = [];
 const sleepDateChart: string[] = [];
@@ -224,6 +226,17 @@ export default defineComponent({
     },
 
     async mounted() {
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        const nextSyncTimestamp  = Number(localStorage.getItem("nextSyncServer"));
+        if( nextSyncTimestamp != null
+            &&
+            currentTimestamp >= nextSyncTimestamp
+        ){
+            await getWeekFitbitLogs(4);
+            AppVue.methods?.openToast("Sync with server...");
+            localStorage.setItem("nextSyncServer", String(Math.floor((Date.now() / 1000) + 345600)));
+        }
+
         await Promise.resolve(getSleepAssociationRules()).then((result) => {
             if (result) {
                 // this.confidence = (result!['confidence'] * 100).toFixed(0);

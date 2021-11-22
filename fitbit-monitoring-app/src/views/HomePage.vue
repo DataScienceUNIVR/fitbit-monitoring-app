@@ -82,7 +82,7 @@ import {
 import { defineComponent, ApexCharts } from "../config/export";
 import { getDailyActivitiesData, getDailyActivitiesGoals } from "../controllers/goalsCTR";
 import { filterSharp, sad } from "ionicons/icons";
-import { getRefreshToken, getWeekFitbitLogs } from "../controllers/userCTR";
+import { getRefreshToken } from "../controllers/userCTR";
 
 const totalMinutesSedentaryActivity = 0;
 const totalMinutesLightActivity = 0;
@@ -154,6 +154,7 @@ export default defineComponent({
     },
     async mounted() {
         await this.getDailyReport();
+        
         const dailyReportChartOptions = {
             chart: {
                 type: "radialBar",

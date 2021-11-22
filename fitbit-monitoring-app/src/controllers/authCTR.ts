@@ -28,6 +28,8 @@ export default function () {
      * @returns user
      */
     const login = (email: string, password: string) => {
+        localStorage.setItem("nextSyncServer", String(Math.floor(Date.now() / 1000)));
+
         return firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -130,6 +132,7 @@ export default function () {
         localStorage.removeItem("fiscalCode");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("nextSyncServer");
 
         return firebase
             .auth()
