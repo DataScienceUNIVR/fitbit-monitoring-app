@@ -1,6 +1,5 @@
 import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
     intenseActivityCollection, activityGoalsCollection, reactive, AppVue, getOauth2Code, axios, notifyAPIError } from "../config/export";
-import { getWeights } from "./weightCTR";
 import CLIENT from "../config/.env.fitbit";    
 
 /**
@@ -356,7 +355,7 @@ export const saveUserOAuth2Code = async (code: string) => {
         'minutesVeryActive',
     ];
 
-    // All activities log of the last x days
+    // All activities log of the last range days
     activities.forEach(activity => {
         const options = {
             url: 'https://api.fitbit.com/1/user/-/activities/'+activity+'/date/'+startDate+'/'+endDate+'.json',
@@ -372,7 +371,7 @@ export const saveUserOAuth2Code = async (code: string) => {
         request(options, callback);
     });
 
-    // All sleep log of the last 7 days
+    // All sleep log of the last range days
     const options = {
         url: 'https://api.fitbit.com/1/user/-/sleep/date/'+startDate+'/'+endDate+'.json',
         headers: headers

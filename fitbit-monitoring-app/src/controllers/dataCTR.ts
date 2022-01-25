@@ -99,19 +99,4 @@ export const getUserActivity = async (type: string) => {
     result = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
     
     return result;
-    // if (!doc) {
-    // console.log('No such document!');
-    // } else {
-    // console.log('Document data:', doc);
-    // }
-    // usersCollection
-    //     .add({ nome: "dd", email: "d@exit.it" })
-    //     .then(() => {
-    //         console.log("Document successfully written!");
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error writing document: ", error);
-    //     });
-    // console.log(firebase);
-    // return usersCollection.add(user);
 };
