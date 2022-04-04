@@ -1,6 +1,8 @@
 import { firebase, storageRef, usersCollection, weightCollection, sedentaryActivityCollection, lightActivityCollection, moderateActivityCollection, 
     intenseActivityCollection, activityGoalsCollection, reactive, AppVue, getOauth2Code, axios, notifyAPIError } from "../config/export";
-import CLIENT from "../config/.env.fitbit";    
+import FITBIT from "../config/.env.fitbit";
+import FIREBASE from "../config/.env.firebase";
+
 
 /**
  * Get the base information of the logged user (uid, email)
@@ -240,7 +242,7 @@ export const saveUserOAuth2Code = async (code: string) => {
     const request = await require('request');
 
     const headers = {
-        'Authorization': 'Basic ' + btoa(CLIENT['CLIENT_ID'] + ":" + CLIENT['CLIENT_SECRET']),
+        'Authorization': 'Basic ' + btoa(FITBIT['CLIENT_ID'] + ":" + FITBIT['CLIENT_SECRET']),
         'Content-Type': 'application/x-www-form-urlencoded'
     };
 
@@ -293,7 +295,7 @@ export const saveUserOAuth2Code = async (code: string) => {
     const request = await require('request');
 
     const headers = {
-        'Authorization': 'Basic ' + btoa(CLIENT['CLIENT_ID'] + ":" + CLIENT['CLIENT_SECRET']),
+        'Authorization': 'Basic ' + btoa(FITBIT['CLIENT_ID'] + ":" + FITBIT['CLIENT_SECRET']),
         'Content-Type': 'application/x-www-form-urlencoded'
     };
 
@@ -304,7 +306,7 @@ export const saveUserOAuth2Code = async (code: string) => {
         }
     });
 
-    const dataString = 'clientId='+CLIENT['CLIENT_ID']+'&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fwww.univr.it%2Fit%2F&code='+oauth2Code+'&expires_in=604800';
+    const dataString = 'clientId='+FITBIT['CLIENT_ID']+'&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fwww.univr.it%2Fit%2F&code='+oauth2Code+'&expires_in=604800';
     const options = {
         url: 'https://api.fitbit.com/oauth2/token',
         method: 'POST',
