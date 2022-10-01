@@ -334,11 +334,16 @@ export default {
                 }
             })
             .catch((e) => {
-                console.log("Error");
+                console.log(e);
+                return AppVue.methods?.openToast(
+                    "Impossibile caricare le statistiche"
+                );
             });
 
         for (let i = 1; i <= 4; i++) {
+            // eslint-disable-next-line
             document.getElementById("flipCard"+i)!.click();
+            // eslint-disable-next-line
             document.getElementById("flipCard"+i)!.click();
             
         }
