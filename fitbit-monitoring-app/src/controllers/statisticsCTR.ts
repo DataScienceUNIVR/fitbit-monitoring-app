@@ -80,6 +80,7 @@ export const getStatistics = async (period: any) => {
         minutes: intenseActivityMinutes,
         distance: ((intenseActivityMinutes/60)*13).toFixed(1),
     });
+    console.log(listaStatistiche);
     return listaStatistiche;
 };
 
