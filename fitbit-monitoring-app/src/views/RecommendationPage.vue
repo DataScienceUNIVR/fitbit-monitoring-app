@@ -11,30 +11,26 @@
         <ion-content :fullscreen="true" class="main">
             <ion-card>
                 <ion-card-content class="sleep-ion-card-content">
+                    <!-- Sleep Recommendation
                     <b>GOAL:</b>
                     <br>
                     <ion-badge color="primary" class="recommendation-sleep-goal">SLEEP >= {{sleepScoreGoal}}</ion-badge>
                     <br><br>
+                    -->
                     <b>NEXT STEP:</b>
                     <ion-card class="recommendation-next-step">
                         <ion-card-content class="sleep-ion-card-content" style="text-align: left;font-size: 16px;">
-                            ✓ MODERATE LOW ACTIVITY
-                            <br><hr style="height:1px;color:gray;background-color:#3bae3b">
-                            ✓ LOW SEDENTARY ACTIVITY 
+                            {{ suggestionToDisplay }}
                         </ion-card-content>
                     </ion-card>
                     <b>AVOID:</b>
                     <ion-card class="recommendation-avoid-step">
                         <ion-card-content class="sleep-ion-card-content" style="text-align: left;font-size: 16px;">
-                            ✗ SERIOUS HIGH ACTIVITY
-                            <br><hr style="height:1px;color:gray;background-color:#b23c3c">
-                            ✗ NO PHYSICAL ACTIVITY
-                            <br><hr style="height:1px;color:gray;background-color:#b23c3c">
-                            ✗ TOO MUCH SEDENTARY ACTIVITY
+                            {{ avoidToDisplay }}
                         </ion-card-content>
                     </ion-card>
                         <!--<ion-badge color="medium" class="recommendation-confidence">CONFIDENCE = 0.968</ion-badge>-->
-                        <ion-badge color="medium" class="suggestion">Fitbit suggestion: {{res}}</ion-badge>
+                        <ion-badge color="medium" class="suggestion">Result: {{ result }}</ion-badge>
                 </ion-card-content>
             </ion-card>
         </ion-content>
@@ -63,7 +59,7 @@ const support: any = null;
 const sleepScore: any = null;
 const confidence: any = null;
 const sleepScoreGoal = "...";
-const res = "";
+
 
 export default defineComponent({
     name: "Sleep Report",
@@ -86,7 +82,9 @@ export default defineComponent({
             sleepValuesChart,
             sleepDateChart,
             sleepScoreGoal,
-            res
+            suggestionToDisplay: "",
+            avoidToDisplay: "",
+            result: "",
         };
     },
     methods: {
@@ -95,24 +93,50 @@ export default defineComponent({
             this.sleepScoreGoal = goals[4] ? goals[4] : 4
             console.log(goals);
             console.log(this.sleepScoreGoal);
-            //temporary query until we find a way to creaty them automatically
-            const query = "HA_1_t2";
+            //temporary consts until we find a way to creaty them automatically
+            const query = "HA_3_t2 + MA_3_t1 + R_1_t1";
+            //const temp = "HA_2_t2 + MA_3_t1 + R_1_t1 + LA_3_t0 -> ZL_3_t0";
+            //const tempAvoid = "HA_3_t2 + R_1_t1 + HA_2_t0 -> ZL_1_t0";
             let suggestion = {
                 description : "",
                 typeMatch : "",
                 ruleMatch : ""
             };
-            const rawData = {
+            let avoid = {
+                description : "",
+                typeMatch : "",
+                ruleMatch : ""
+            };
+            const rawDataSuggerimento = {
                 data: "pm1",
-                sleep_value: "1",
-                temporal_window:"3",
-                min_confidence: "0.1",
-                min_support: "0.1",
+                // eslint-disable-next-line
+                sleep_value: "3",
+                // eslint-disable-next-line
+                temporal_window:"2",
+                // eslint-disable-next-line
+                min_confidence: "1.0",
+                // eslint-disable-next-line
+                min_support: "0.03",
+                // eslint-disable-next-line
                 my_query: query,
-                filterT0:"off"
+                filterT0:"on"
+            };
+            const rawDataAvoid = {
+                data: "pm1",
+                // eslint-disable-next-line
+                sleep_value: "1",
+                // eslint-disable-next-line
+                temporal_window:"2",
+                // eslint-disable-next-line
+                min_confidence: "0.0001",
+                // eslint-disable-next-line
+                min_support: "0.03",
+                // eslint-disable-next-line
+                my_query: query,
+                filterT0:"on"
             };
                                             /*http://127.0.0.1:5000/*/
-            suggestion = await axios.post('https://lookbackapriorialgorithm.herokuapp.com/',rawData,{
+            suggestion = await axios.post('http://127.0.0.1:5000/',rawDataSuggerimento,{
                 headers: {
                     'Content-Type': 'text/plain',
                 }
@@ -125,20 +149,90 @@ export default defineComponent({
             console.log(suggestion);
             const l = suggestion.ruleMatch.indexOf(">");
             console.log(l);
-            if(suggestion.ruleMatch[l+2]=="Z"){
-                this.res = "Sleep at least " + Number(suggestion.ruleMatch[l+5])*4 + " more hours";
-            }else if(suggestion.ruleMatch[l+2]=="R"){
-                this.res = "You need to rest at least " + Number(suggestion.ruleMatch[l+5])*3 + " more hours";
-            }else if(suggestion.ruleMatch[l+2]=="M"){
-                this.res = "Maybe try some activity for " + Number(suggestion.ruleMatch[l+5])*2 + " hours";
-            }else if(suggestion.ruleMatch[l+2]=="L"){                
-                this.res = "Maybe try some activity for " + Number(suggestion.ruleMatch[l+5]) + " hours";
-            }else if(suggestion.ruleMatch[l+2]=="H"){
-                this.res = "Maybe try some intensive activity for " + Number(suggestion.ruleMatch[l+5])*2 + " hours";
-            }else {
-                this.res = "No suggestions found";
+            let quantity = "";
+            if(suggestion.ruleMatch[l-6] == "1"){
+                quantity = " little time.";
             }
-            console.log(this.res);
+            else if(suggestion.ruleMatch[l-6] == "2"){
+                quantity = " some time.";
+            }
+            else if(suggestion.ruleMatch[l-6] == "3"){
+                quantity = " a lot of time.";
+            }else {
+                quantity = "";
+            }
+            if(suggestion.ruleMatch[l-8]=="Z"){
+                this.suggestionToDisplay = "Sleep at least " + quantity;
+            }else if(suggestion.ruleMatch[l-9]=="R"){
+                this.suggestionToDisplay = "You need to rest at least " + quantity;
+            }else if(suggestion.ruleMatch[l-9]=="M"){
+                this.suggestionToDisplay = "Try doing some moderate activity for " + quantity;
+            }else if(suggestion.ruleMatch[l-9]=="L"){                
+                this.suggestionToDisplay = "Try doing some light activity for " + quantity
+            }else if(suggestion.ruleMatch[l-9]=="H"){
+                this.suggestionToDisplay = "Try doing some intensive activity for " + quantity;
+            }else {
+                this.suggestionToDisplay = "No suggestions found";
+            }
+            console.log(this.suggestionToDisplay);
+
+            let sleepQuantity = "";
+            if(suggestion.ruleMatch[l+5] == "1"){
+                sleepQuantity = " little time.";
+            }
+            else if(suggestion.ruleMatch[l+5] == "2"){
+                sleepQuantity = " some time.";
+            }
+            else if(suggestion.ruleMatch[l+5] == "3"){
+                sleepQuantity = " a lot of time.";
+            }else {
+                sleepQuantity = "";
+            }
+            this.result = "You will be able to sleep good for" + sleepQuantity;
+            console.log(this.result);
+            
+
+
+
+            avoid = await axios.post('http://127.0.0.1:5000/',rawDataAvoid,{
+                headers: {
+                    'Content-Type': 'text/plain',
+                }
+            }).then((response) => {
+                console.log(response.data);
+                return response.data;
+            }).catch((error) => {
+                console.log(error);
+            });
+            console.log(avoid);
+            const l2 = avoid.ruleMatch.indexOf(">");
+            console.log(l2);
+            let quantity2 = "";
+            if(avoid.ruleMatch[l2-6] == "1"){
+                quantity2 = " little time.";
+            }
+            else if(avoid.ruleMatch[l2-6] == "2"){
+                quantity2 = " some time.";
+            }
+            else if(avoid.ruleMatch[l2-6] == "3"){
+                quantity2 = " a lot of time.";
+            }else {
+                quantity2 = "";
+            }
+
+            if(avoid.ruleMatch[l2-8]=="Z"){
+                this.avoidToDisplay = "Sleep for" + quantity2;
+            }else if(avoid.ruleMatch[l2-9]=="R"){
+                this.avoidToDisplay = "You need to rest for" + quantity2;
+            }else if(avoid.ruleMatch[l2-9]=="M"){
+                this.avoidToDisplay = "Doing some moderate activity for" + quantity2;
+            }else if(avoid.ruleMatch[l2-9]=="L"){
+                this.avoidToDisplay = "Doing some light activity for" + quantity2;
+            }else if(avoid.ruleMatch[l2-9]=="H"){
+                this.avoidToDisplay = "Doing some intensive activity for" + quantity2;
+            }else {
+                this.avoidToDisplay = "No suggestions found";
+            }
 
         },
     },
