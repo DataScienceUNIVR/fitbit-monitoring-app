@@ -138,7 +138,8 @@ export default defineComponent({
                                             /*http://127.0.0.1:5000/*/
             suggestion = await axios.post('http://127.0.0.1:5000/',rawDataSuggerimento,{
                 headers: {
-                    'Content-Type': 'text/plain',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*', // Required for CORS support to work
                 }
             }).then((response) => {
                 console.log(response.data);
@@ -197,6 +198,7 @@ export default defineComponent({
             avoid = await axios.post('http://127.0.0.1:5000/',rawDataAvoid,{
                 headers: {
                     'Content-Type': 'text/plain',
+                    'Access-Control-Allow-Origin': '*', // Required for CORS support to works
                 }
             }).then((response) => {
                 console.log(response.data);
